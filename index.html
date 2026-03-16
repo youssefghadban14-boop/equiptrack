@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_31.html -->
+<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_34.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -232,6 +232,21 @@
   @keyframes pulse { 0%,100% { transform: scale(0.8); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 0.2; } }
 
   /* ── READING TYPE TOGGLE ── */
+  .status-btn {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; padding: 12px 8px;
+    background: var(--surface2); border: 2px solid var(--border);
+    border-radius: 12px; cursor: pointer; transition: all 0.2s;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+    font-weight: 700; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .status-btn span:first-child { font-size: 20px; }
+  .status-btn:hover { border-color: var(--orange); color: var(--text); }
+  .status-btn.active#statusWorking { background: var(--green-glow); border-color: var(--green); color: var(--green); }
+  .status-btn.active#statusBreakdown { background: var(--red-glow); border-color: var(--red); color: var(--red); }
+  .status-btn.active#statusIdle { background: var(--yellow-glow); border-color: var(--yellow); color: var(--yellow); }
+
   .type-toggle {
     display: grid; grid-template-columns: 1fr 1fr;
     background: var(--surface2);
@@ -490,7 +505,7 @@
   <div class="counter-bar">
     <div>
       <div class="counter-label">Today's Entries</div>
-      <div class="counter-num" id="todayCount">12</div>
+      <div class="counter-num" id="todayCount">13</div>
     </div>
     <div class="counter-divider"></div>
     <div style="text-align:right">
@@ -549,8 +564,9 @@
     </div>
 
     <div class="field">
-      <label>Project / Site</label>
-      <input type="text" id="projectSite" placeholder="Auto-filled or type manually">
+      <label>Project / Site *</label>
+      <select id="projectSite"><option value="">-- Select Project / Site --</option><option value="QE EPIC">QE EPIC</option><option value="GTC 899">GTC 899</option><option value="GTC 611">GTC 611</option><option value="Area Office">Area Office</option><option value="Camp">Camp</option><option value="Al Karaana Store">Al Karaana Store</option><option value="Workshop">Workshop</option><option value="PMV IDLE">PMV IDLE</option></select>
+      <div id="projectLoadingMsg" style="font-size: 12px; color: var(--muted); padding: 4px 0px; display: none;">⏳ Loading projects...</div>
     </div>
 
     <!-- LOADING STATE -->
@@ -575,7 +591,7 @@
 
     <!-- Google Maps link — shown after GPS capture -->
     <div id="mapsLinkBox" style="display:none; margin-top:10px;">
-      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_31.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
+      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_34.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
         🗺️ <span>View on Google Maps</span>
         <span style="margin-left:auto; font-size:11px; opacity:0.7">↗ opens in map</span>
       </a>
@@ -638,6 +654,22 @@
         <option>Low (&lt;10%)</option>
         <option>Empty</option>
       </select>
+    </div>
+
+    <div class="field" id="f-status">
+      <label>Machine Status *</label>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px">
+        <button type="button" class="status-btn active" id="statusWorking" onclick="setStatus(&#39;Working&#39;)">
+          <span>✅</span><span>Working</span>
+        </button>
+        <button type="button" class="status-btn" id="statusBreakdown" onclick="setStatus(&#39;Breakdown&#39;)">
+          <span>🔴</span><span>Breakdown</span>
+        </button>
+        <button type="button" class="status-btn" id="statusIdle" onclick="setStatus(&#39;Idle&#39;)">
+          <span>🟡</span><span>Idle</span>
+        </button>
+      </div>
+      <input type="hidden" id="machineStatus" value="Working">
     </div>
 
     <div class="field">
@@ -773,7 +805,6 @@
     document.getElementById('machineId').value = m.id;
     document.getElementById('machineSearch').value = m.id;
     document.getElementById('equipType').value = m.type || '';
-    document.getElementById('projectSite').value = m.site || '';
     document.getElementById('f-machine').classList.remove('invalid');
 
     // Lock reading type from Fleet List
@@ -864,8 +895,40 @@
     updateSteps();
   }
 
-  // Load fleet on startup
+  // ── PROJECTS LIST ─────────────────────────────────────
+  async function loadProjects() {
+    try {
+      const res = await fetch(SHEETS_API_URL + '?action=getProjects', { method: 'GET', redirect: 'follow' });
+      const text = await res.text();
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error('No JSON');
+      const data = JSON.parse(jsonMatch[0]);
+      const projects = data.projects || [];
+      const sel = document.getElementById('projectSite');
+      sel.innerHTML = '<option value="">-- Select Project / Site --</option>';
+      projects.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = p;
+        sel.appendChild(opt);
+      });
+      document.getElementById('projectLoadingMsg').style.display = 'none';
+    } catch (err) {
+      document.getElementById('projectLoadingMsg').textContent = '⚠ Could not load projects.';
+    }
+  }
+
+  // ── MACHINE STATUS ────────────────────────────────────
+  function setStatus(status) {
+    document.getElementById('machineStatus').value = status;
+    document.getElementById('statusWorking').classList.toggle('active', status === 'Working');
+    document.getElementById('statusBreakdown').classList.toggle('active', status === 'Breakdown');
+    document.getElementById('statusIdle').classList.toggle('active', status === 'Idle');
+  }
+
+  // Load fleet and projects on startup
   loadFleetList();
+  loadProjects();
   function updateOnlineStatus() {
     const online = navigator.onLine;
     const pill = document.getElementById('syncPill');
@@ -1028,6 +1091,7 @@
       reading_type: readingType === 'hour' ? 'Hourmeter' : 'Odometer',
       meter_reading: document.getElementById('meterReading').value,
       fuel_level: document.getElementById('fuelLevel').value,
+      machine_status: document.getElementById('machineStatus').value,
       remarks: document.getElementById('remarks').value.trim()
     };
 
@@ -1082,6 +1146,7 @@
     document.getElementById('meterReading').value = '';
     document.getElementById('fuelLevel').value = '';
     document.getElementById('remarks').value = '';
+    setStatus('Working');
     document.getElementById('locationDesc').value = '';
     document.getElementById('latVal').value = '';
     document.getElementById('lngVal').value = '';
