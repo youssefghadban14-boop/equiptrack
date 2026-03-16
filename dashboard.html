@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Youssef.Ghadban/Downloads/dashboard_7.html -->
+<!-- saved from url=(0060)file:///C:/Users/Youssef.Ghadban/Downloads/dashboard_11.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EquipTrack — Manager Dashboard</title>
-<link href="./Dashboard_files/css2" rel="stylesheet">
+<link href="./dashboard_files/css2" rel="stylesheet">
 <style>
   :root {
     --orange: #EA6C00;
@@ -240,7 +240,7 @@
 <header>
   <div class="logo">Equip<span>Track</span> <sub>Manager Dashboard</sub></div>
   <div class="header-right">
-    <div class="last-refresh">Last refresh: <span id="lastRefreshTime">10:48:54</span></div>
+    <div class="last-refresh">Last refresh: <span id="lastRefreshTime">11:37:33</span></div>
     <button class="refresh-btn" onclick="loadDashboard()">
       <span class="spin-icon">↻</span> Refresh
     </button>
@@ -250,37 +250,83 @@
 
 <main>
 
-  <!-- KPI CARDS -->
-  <div class="kpi-grid" style="grid-template-columns:repeat(5,1fr)">
+  <!-- FILTER BAR -->
+  <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted)">🔍 Filter:</span>
+
+    <div style="display:flex;align-items:center;gap:6px">
+      <label style="font-size:12px;color:var(--muted);font-weight:600">From</label>
+      <input type="date" id="filterDateFrom" onchange="applyFilters()" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
+    </div>
+
+    <div style="display:flex;align-items:center;gap:6px">
+      <label style="font-size:12px;color:var(--muted);font-weight:600">To</label>
+      <input type="date" id="filterDateTo" onchange="applyFilters()" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
+    </div>
+
+    <select id="filterSite" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;"><option value="">All Projects / Sites</option><option value="65/021">65/021</option><option value="Area Office">Area Office</option><option value="Camp">Camp</option><option value="GTC 899">GTC 899</option><option value="PMV IDLE">PMV IDLE</option><option value="QE">QE</option><option value="QE EPIC">QE EPIC</option></select>
+
+    <select id="filterType" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;"><option value="">All Equipment Types</option><option value="AIR COMPRESSOR">AIR COMPRESSOR</option><option value="BUS">BUS</option><option value="PICK-UP D/CABIN">PICK-UP D/CABIN</option></select>
+
+    <select id="filterStatus" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
+      <option value="">All Statuses</option>
+      <option value="Working">✅ Working</option>
+      <option value="Breakdown">🔴 Breakdown</option>
+      <option value="Idle">🟡 Idle</option>
+    </select>
+
+    <button onclick="clearFilters()" style="padding:8px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);cursor:pointer;">✕ Clear</button>
+
+    <span id="filterResultCount" style="font-size:12px;color:var(--muted);font-weight:600;margin-left:auto"></span>
+  </div>
+
+  <!-- KPI CARDS ROW 1 -->
+  <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px">
     <div class="kpi-card orange">
       <div class="kpi-icon">📋</div>
       <div class="kpi-label">Total Entries Today</div>
-      <div class="kpi-value" id="kpiTotal">5</div>
+      <div class="kpi-value" id="kpiTotal">10</div>
       <div class="kpi-sub">submissions received</div>
     </div>
     <div class="kpi-card green">
       <div class="kpi-icon">✅</div>
       <div class="kpi-label">Machines Reported</div>
-      <div class="kpi-value" id="kpiReported">3</div>
+      <div class="kpi-value" id="kpiReported">7</div>
       <div class="kpi-sub" id="kpiReportedSub">out of 102 in fleet</div>
     </div>
     <div class="kpi-card red">
       <div class="kpi-icon">⚠️</div>
       <div class="kpi-label">Missing Entries</div>
-      <div class="kpi-value" id="kpiMissing">99</div>
+      <div class="kpi-value" id="kpiMissing">95</div>
       <div class="kpi-sub">not submitted yet</div>
     </div>
-    <div class="kpi-card yellow">
-      <div class="kpi-icon">⛽</div>
-      <div class="kpi-label">Low Fuel Alerts</div>
-      <div class="kpi-value" id="kpiFuel">4</div>
-      <div class="kpi-sub">need refueling</div>
+  </div>
+
+  <!-- KPI CARDS ROW 2 -->
+  <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px">
+    <div class="kpi-card green">
+      <div class="kpi-icon">✅</div>
+      <div class="kpi-label">Working</div>
+      <div class="kpi-value" id="kpiWorking">8</div>
+      <div class="kpi-sub">machines active</div>
     </div>
     <div class="kpi-card red">
       <div class="kpi-icon">🔴</div>
-      <div class="kpi-label">Breakdowns</div>
-      <div class="kpi-value" id="kpiBreakdown">0</div>
-      <div class="kpi-sub">machines down today</div>
+      <div class="kpi-label">Breakdown</div>
+      <div class="kpi-value" id="kpiBreakdown">1</div>
+      <div class="kpi-sub">machines down</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-icon">🟡</div>
+      <div class="kpi-label">Idle</div>
+      <div class="kpi-value" id="kpiIdle">1</div>
+      <div class="kpi-sub">machines idle</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-icon">⛽</div>
+      <div class="kpi-label">Low Fuel</div>
+      <div class="kpi-value" id="kpiFuel">7</div>
+      <div class="kpi-sub">need refueling</div>
     </div>
   </div>
 
@@ -291,7 +337,7 @@
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">📋 Recent Entries</div>
-        <div class="panel-count" id="recentCount">5</div>
+        <div class="panel-count" id="recentCount">10</div>
       </div>
       <div class="panel-body">
         <table class="data-table">
@@ -306,6 +352,51 @@
             </tr>
           </thead>
           <tbody id="recentTableBody">
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">144204</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">BUS</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">125,000</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T08:09:27.000Z</span></td>
+          <td><a href="https://www.google.com/maps?q=25.275009,51.541942" target="_blank" class="map-link">🗺️ Map</a></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">155792</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">AIR COMPRESSOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">125,000</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge red">🔴 Breakdown</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T08:06:34.000Z</span></td>
+          <td><a href="https://www.google.com/maps?q=25.275263,51.542162" target="_blank" class="map-link">🗺️ Map</a></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">142195</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">BUS</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">125,201</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T07:56:41.000Z</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">142203</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">BUS</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">1,300</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T07:55:14.000Z</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">142203</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">BUS</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">1,250</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T07:52:37.000Z</span></td>
+          <td><a href="https://www.google.com/maps?q=25.275248,51.542111" target="_blank" class="map-link">🗺️ Map</a></td>
+        </tr>
+      
         <tr>
           <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">144196</strong></td>
           <td><span style="font-size:12px;color:var(--muted)">BUS</span></td>
@@ -359,50 +450,14 @@
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">🚨 Missing Entries</div>
-        <div class="panel-count" id="missingCount">99</div>
+        <div class="panel-count" id="missingCount">95</div>
       </div>
       <div class="panel-body" id="missingList">
       <div class="missing-item">
         <div class="missing-dot"></div>
         <div>
-          <div class="missing-id">155792</div>
-          <div class="missing-detail">AIR COMPRESSOR · 65/021 · Ali</div>
-        </div>
-        <span class="badge red" style="margin-left:auto">Missing</span>
-      </div>
-    
-      <div class="missing-item">
-        <div class="missing-dot"></div>
-        <div>
-          <div class="missing-id">142195</div>
-          <div class="missing-detail">BUS · 65/021 · Hassan</div>
-        </div>
-        <span class="badge red" style="margin-left:auto">Missing</span>
-      </div>
-    
-      <div class="missing-item">
-        <div class="missing-dot"></div>
-        <div>
-          <div class="missing-id">142203</div>
-          <div class="missing-detail">BUS · 65/021 · JES</div>
-        </div>
-        <span class="badge red" style="margin-left:auto">Missing</span>
-      </div>
-    
-      <div class="missing-item">
-        <div class="missing-dot"></div>
-        <div>
           <div class="missing-id">144183</div>
           <div class="missing-detail">BUS · 57/001 · Ali</div>
-        </div>
-        <span class="badge red" style="margin-left:auto">Missing</span>
-      </div>
-    
-      <div class="missing-item">
-        <div class="missing-dot"></div>
-        <div>
-          <div class="missing-id">144204</div>
-          <div class="missing-detail">BUS · 65/021 · JES</div>
         </div>
         <span class="badge red" style="margin-left:auto">Missing</span>
       </div>
@@ -1267,20 +1322,20 @@
       </div>
       <div class="panel-body" id="pivotList">
       <div class="pivot-row">
-        <div class="pivot-type">AIR COMPRESSOR</div>
+        <div class="pivot-type">BUS</div>
         <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:100%"></div></div>
-        <div class="pivot-count">3</div>
+        <div class="pivot-count">5</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">AIR COMPRESSOR</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:80%"></div></div>
+        <div class="pivot-count">4</div>
       </div>
     
       <div class="pivot-row">
         <div class="pivot-type">PICK-UP D/CABIN</div>
-        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:33%"></div></div>
-        <div class="pivot-count">1</div>
-      </div>
-    
-      <div class="pivot-row">
-        <div class="pivot-type">BUS</div>
-        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:33%"></div></div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:20%"></div></div>
         <div class="pivot-count">1</div>
       </div>
     </div>
@@ -1290,13 +1345,26 @@
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">⛽ Fuel Alerts</div>
-        <div class="panel-count" id="fuelCount">4</div>
+        <div class="panel-count" id="fuelCount">7</div>
       </div>
       <div class="panel-body" id="fuelList">
         <div class="fuel-item">
           <div>
             <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">155776</div>
             <div style="font-size:11px;color:var(--muted)">AIR COMPRESSOR · Youssef</div>
+            <div style="font-size:11px;color:var(--blue);font-weight:600">65/021</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="fuel-bar-wrap"><div class="fuel-bar low" style="width:0%"></div></div>
+            <span class="badge red">Empty</span>
+          </div>
+        </div>
+      
+        <div class="fuel-item">
+          <div>
+            <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">142203</div>
+            <div style="font-size:11px;color:var(--muted)">BUS · Naji</div>
+            <div style="font-size:11px;color:var(--blue);font-weight:600">QE EPIC</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px">
             <div class="fuel-bar-wrap"><div class="fuel-bar low" style="width:0%"></div></div>
@@ -1308,6 +1376,7 @@
           <div>
             <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">155776</div>
             <div style="font-size:11px;color:var(--muted)">AIR COMPRESSOR · Habibi</div>
+            <div style="font-size:11px;color:var(--blue);font-weight:600">65/021</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px">
             <div class="fuel-bar-wrap"><div class="fuel-bar low" style="width:10%"></div></div>
@@ -1319,6 +1388,19 @@
           <div>
             <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">155776</div>
             <div style="font-size:11px;color:var(--muted)">AIR COMPRESSOR · Abdalla</div>
+            <div style="font-size:11px;color:var(--blue);font-weight:600">QE</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="fuel-bar-wrap"><div class="fuel-bar low" style="width:10%"></div></div>
+            <span class="badge red">Low (&lt;10%)</span>
+          </div>
+        </div>
+      
+        <div class="fuel-item">
+          <div>
+            <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">142195</div>
+            <div style="font-size:11px;color:var(--muted)">BUS · Abdalla</div>
+            <div style="font-size:11px;color:var(--blue);font-weight:600">65/021</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px">
             <div class="fuel-bar-wrap"><div class="fuel-bar low" style="width:10%"></div></div>
@@ -1330,6 +1412,19 @@
           <div>
             <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">155807</div>
             <div style="font-size:11px;color:var(--muted)">PICK-UP D/CABIN · Naji</div>
+            <div style="font-size:11px;color:var(--blue);font-weight:600">65/021</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="fuel-bar-wrap"><div class="fuel-bar medium" style="width:25%"></div></div>
+            <span class="badge yellow">1/4 (25%)</span>
+          </div>
+        </div>
+      
+        <div class="fuel-item">
+          <div>
+            <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">142203</div>
+            <div style="font-size:11px;color:var(--muted)">BUS · Naji</div>
+            <div style="font-size:11px;color:var(--blue);font-weight:600">Camp</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px">
             <div class="fuel-bar-wrap"><div class="fuel-bar medium" style="width:25%"></div></div>
@@ -1341,7 +1436,242 @@
 
   </div>
 
-  <!-- ROW 4: WORKING HOURS -->
+  <!-- ROW 4: FLEET PER PROJECT/SITE -->
+  <div class="panel panel-full" style="margin-bottom:24px">
+    <div class="panel-header">
+      <div class="panel-title">📍 Fleet Status per Project / Site</div>
+      <div class="panel-count" id="projectCount">7</div>
+    </div>
+    <div class="panel-body" style="max-height:400px">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Project / Site</th>
+            <th>✅ Working</th>
+            <th>🔴 Breakdown</th>
+            <th>🟡 Idle</th>
+            <th>Total Reported</th>
+          </tr>
+        </thead>
+        <tbody id="projectTableBody">
+        <tr style="background:var(--surface2)">
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px">📍 65/021</strong></td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--green)">4</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--red)">0</span>
+            
+          </td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">0</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--orange)">4</span>
+            <span style="font-size:11px;color:var(--muted)"> machines</span>
+          </td>
+        </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ AIR COMPRESSOR</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">2</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">0</span>
+              
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">2</span></td>
+          </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ PICK-UP D/CABIN</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">1</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">0</span>
+              
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">1</span></td>
+          </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ BUS</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">1</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">0</span>
+              
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">1</span></td>
+          </tr>
+        
+      
+        <tr style="background:var(--surface2)">
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px">📍 QE</strong></td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--green)">1</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--red)">0</span>
+            
+          </td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">0</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--orange)">1</span>
+            <span style="font-size:11px;color:var(--muted)"> machines</span>
+          </td>
+        </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ AIR COMPRESSOR</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">1</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">0</span>
+              
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">1</span></td>
+          </tr>
+        
+      
+        <tr style="background:var(--surface2)">
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px">📍 PMV IDLE</strong></td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--green)">1</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--red)">0</span>
+            
+          </td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">0</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--orange)">1</span>
+            <span style="font-size:11px;color:var(--muted)"> machines</span>
+          </td>
+        </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ BUS</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">1</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">0</span>
+              
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">1</span></td>
+          </tr>
+        
+      
+        <tr style="background:var(--surface2)">
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px">📍 QE EPIC</strong></td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--green)">1</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--red)">0</span>
+            
+          </td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">0</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--orange)">1</span>
+            <span style="font-size:11px;color:var(--muted)"> machines</span>
+          </td>
+        </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ BUS</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">1</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">0</span>
+              
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">1</span></td>
+          </tr>
+        
+      
+        <tr style="background:var(--surface2)">
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px">📍 Camp</strong></td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--green)">1</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--red)">0</span>
+            
+          </td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">0</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--orange)">1</span>
+            <span style="font-size:11px;color:var(--muted)"> machines</span>
+          </td>
+        </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ BUS</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">1</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">0</span>
+              
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">1</span></td>
+          </tr>
+        
+      
+        <tr style="background:var(--surface2)">
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px">📍 Area Office</strong></td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--green)">0</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--red)">1</span>
+            <span class="badge red" style="margin-left:6px">Alert</span>
+          </td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">0</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--orange)">1</span>
+            <span style="font-size:11px;color:var(--muted)"> machines</span>
+          </td>
+        </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ AIR COMPRESSOR</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">1</span>
+              <span class="badge red" style="margin-left:4px;font-size:9px">!</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">1</span></td>
+          </tr>
+        
+      
+        <tr style="background:var(--surface2)">
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px">📍 GTC 899</strong></td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--green)">0</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--red)">0</span>
+            
+          </td>
+          <td><span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">1</span></td>
+          <td>
+            <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:20px;font-weight:800;color:var(--orange)">1</span>
+            <span style="font-size:11px;color:var(--muted)"> machines</span>
+          </td>
+        </tr>
+        
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ BUS</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">0</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">0</span>
+              
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">1</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">1</span></td>
+          </tr>
+        
+      </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ROW 5: WORKING HOURS -->
   <div class="panel panel-full" style="margin-bottom:24px">
     <div class="panel-header">
       <div class="panel-title">⏱️ Working Hours per Fleet</div>
@@ -1377,6 +1707,13 @@
         </tr>
       
         <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">142195</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">1 KM</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
           <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">123107</strong></td>
           <td><span style="font-size:12px;color:var(--muted)">⏱ Hourmeter</span></td>
           <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
@@ -1398,7 +1735,7 @@
         </tr>
       
         <tr>
-          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">142195</strong></td>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">142203</strong></td>
           <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
           <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
           <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
@@ -1412,8 +1749,22 @@
         </tr>
       
         <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">144204</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
           <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155763</strong></td>
           <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155792</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">⏱ Hourmeter</span></td>
           <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
           <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
         </tr>
@@ -1458,23 +1809,59 @@
     return JSON.parse(match[0]);
   }
 
+  async function fetchEntriesForRange(fromDate, toDate) {
+    // Determine which monthly sheets we need
+    const from = fromDate ? new Date(fromDate) : new Date();
+    const to   = toDate   ? new Date(toDate)   : new Date();
+    const sheets = new Set();
+    const cur = new Date(from.getFullYear(), from.getMonth(), 1);
+    while (cur <= to) {
+      const y = cur.getFullYear();
+      const m = String(cur.getMonth() + 1).padStart(2, '0');
+      sheets.add(`Log-${y}-${m}`);
+      cur.setMonth(cur.getMonth() + 1);
+    }
+    // Fetch all needed sheets
+    const results = await Promise.all([...sheets].map(sheet =>
+      fetchData('getEntriesBySheet', `&sheet=${encodeURIComponent(sheet)}`)
+        .catch(() => ({ entries: [] }))
+    ));
+    // Merge all entries
+    let entries = results.flatMap(r => r.entries || []);
+    // Filter by date range
+    if (fromDate || toDate) {
+      entries = entries.filter(e => {
+        if (!e.date) return true;
+        const parts = String(e.date).split('/');
+        if (parts.length !== 3) return true;
+        const entryDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+        if (fromDate && entryDate < new Date(fromDate)) return false;
+        if (toDate   && entryDate > new Date(toDate))   return false;
+        return true;
+      });
+    }
+    return entries;
+  }
+
   // ── LOAD DASHBOARD — handled below with working hours ──
 
   // ── KPIs ──────────────────────────────────────────────
   function renderKPIs(entries, fleet) {
     const uniqueMachines = new Set(entries.map(e => e.machine_id));
-    const lowFuel = entries.filter(e =>
-      e.fuel_level && (e.fuel_level.includes('Low') || e.fuel_level.includes('Empty') || e.fuel_level.includes('1/4'))
-    );
+    const lowFuel    = entries.filter(e => e.fuel_level && (e.fuel_level.includes('Low') || e.fuel_level.includes('Empty') || e.fuel_level.includes('1/4')));
     const missing    = fleet.filter(f => !uniqueMachines.has(String(f.id)));
-    const breakdowns = entries.filter(e => e.machine_status === 'Breakdown');
+    const working    = entries.filter(e => (e.machine_status || 'Working') === 'Working');
+    const breakdown  = entries.filter(e => e.machine_status === 'Breakdown');
+    const idle       = entries.filter(e => e.machine_status === 'Idle');
 
     document.getElementById('kpiTotal').textContent      = entries.length;
     document.getElementById('kpiReported').textContent   = uniqueMachines.size;
     document.getElementById('kpiReportedSub').textContent= `out of ${fleet.length} in fleet`;
     document.getElementById('kpiMissing').textContent    = missing.length;
+    document.getElementById('kpiWorking').textContent    = working.length;
+    document.getElementById('kpiBreakdown').textContent  = breakdown.length;
+    document.getElementById('kpiIdle').textContent       = idle.length;
     document.getElementById('kpiFuel').textContent       = lowFuel.length;
-    document.getElementById('kpiBreakdown').textContent  = breakdowns.length;
   }
 
   // ── RECENT ENTRIES ────────────────────────────────────
@@ -1588,6 +1975,7 @@
           <div>
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800">${e.machine_id || '—'}</div>
             <div style="font-size:11px;color:var(--muted)">${e.equipment_type || ''} · ${e.operator_id || ''}</div>
+            <div style="font-size:11px;color:var(--blue);font-weight:600">${e.project__site || e.project_site || '—'}</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px">
             <div class="fuel-bar-wrap"><div class="fuel-bar ${cls}" style="width:${pct}%"></div></div>
@@ -1617,11 +2005,17 @@
       const fleet   = fleetData.machines || [];
       hoursData     = hoursResult.hours || [];
 
+      // Store globally for filtering
+      allEntries = entries;
+      allFleet   = fleet;
+
+      populateFilters(entries);
       renderKPIs(entries, fleet);
       renderRecentEntries(entries);
       renderMissingMachines(entries, fleet);
       renderPivot(entries);
       renderFuelAlerts(entries);
+      renderProjectFleet(entries);
       renderWorkingHours(fleet);
 
       document.getElementById('lastRefreshTime').textContent =
@@ -1633,6 +2027,151 @@
 
     btn.classList.remove('spinning');
     document.getElementById('loadingOverlay').classList.add('hide');
+  }
+
+  // ── FILTERS ───────────────────────────────────────────
+  let allEntries = [];
+  let allFleet   = [];
+
+  function populateFilters(entries) {
+    // Sites
+    const sites = [...new Set(entries.map(e => e.project__site || e.project_site || '').filter(Boolean))].sort();
+    const siteEl = document.getElementById('filterSite');
+    const curSite = siteEl.value;
+    siteEl.innerHTML = '<option value="">All Projects / Sites</option>';
+    sites.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s; opt.textContent = s;
+      if (s === curSite) opt.selected = true;
+      siteEl.appendChild(opt);
+    });
+
+    // Equipment types
+    const types = [...new Set(entries.map(e => e.equipment_type || '').filter(Boolean))].sort();
+    const typeEl = document.getElementById('filterType');
+    const curType = typeEl.value;
+    typeEl.innerHTML = '<option value="">All Equipment Types</option>';
+    types.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t; opt.textContent = t;
+      if (t === curType) opt.selected = true;
+      typeEl.appendChild(opt);
+    });
+  }
+
+  async function applyFilters() {
+    const site      = document.getElementById('filterSite').value;
+    const type      = document.getElementById('filterType').value;
+    const status    = document.getElementById('filterStatus').value;
+    const dateFrom  = document.getElementById('filterDateFrom').value;
+    const dateTo    = document.getElementById('filterDateTo').value;
+
+    let filtered = [...allEntries];
+
+    // If date range selected fetch from multiple sheets
+    if (dateFrom || dateTo) {
+      document.getElementById('filterResultCount').textContent = '⏳ Loading date range...';
+      filtered = await fetchEntriesForRange(dateFrom, dateTo);
+      populateFilters(filtered);
+    }
+
+    if (site)   filtered = filtered.filter(e => (e.project__site || e.project_site || '') === site);
+    if (type)   filtered = filtered.filter(e => (e.equipment_type || '') === type);
+    if (status) filtered = filtered.filter(e => (e.machine_status || 'Working') === status);
+
+    const isFiltered = site || type || status || dateFrom || dateTo;
+    document.getElementById('filterResultCount').textContent = isFiltered
+      ? `Showing ${filtered.length} of ${allEntries.length} entries` : '';
+
+    renderKPIs(filtered, allFleet);
+    renderRecentEntries(filtered);
+    renderMissingMachines(filtered, allFleet);
+    renderPivot(filtered);
+    renderFuelAlerts(filtered);
+    renderProjectFleet(filtered);
+  }
+
+  function clearFilters() {
+    document.getElementById('filterSite').value     = '';
+    document.getElementById('filterType').value     = '';
+    document.getElementById('filterStatus').value   = '';
+    document.getElementById('filterDateFrom').value = '';
+    document.getElementById('filterDateTo').value   = '';
+    document.getElementById('filterResultCount').textContent = '';
+    renderKPIs(allEntries, allFleet);
+    renderRecentEntries(allEntries);
+    renderMissingMachines(allEntries, allFleet);
+    renderPivot(allEntries);
+    renderFuelAlerts(allEntries);
+    renderProjectFleet(allEntries);
+  }
+
+  // ── FLEET PER PROJECT/SITE ────────────────────────────
+  function renderProjectFleet(entries) {
+    const tbody = document.getElementById('projectTableBody');
+    if (entries.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📍</div>No entries yet today</div></td></tr>`;
+      document.getElementById('projectCount').textContent = 0;
+      return;
+    }
+
+    // Group by site then by equipment type
+    const projects = {};
+    entries.forEach(e => {
+      const site   = e.project__site || e.project_site || 'Not Specified';
+      const type   = e.equipment_type || 'Unknown';
+      const status = e.machine_status || 'Working';
+      if (!projects[site]) projects[site] = { working: 0, breakdown: 0, idle: 0, total: 0, types: {} };
+      projects[site].total++;
+      if (status === 'Working')        projects[site].working++;
+      else if (status === 'Breakdown') projects[site].breakdown++;
+      else if (status === 'Idle')      projects[site].idle++;
+      // Group by type
+      if (!projects[site].types[type]) projects[site].types[type] = { working: 0, breakdown: 0, idle: 0, total: 0 };
+      projects[site].types[type].total++;
+      if (status === 'Working')        projects[site].types[type].working++;
+      else if (status === 'Breakdown') projects[site].types[type].breakdown++;
+      else if (status === 'Idle')      projects[site].types[type].idle++;
+    });
+
+    const sorted = Object.entries(projects).sort((a, b) => b[1].total - a[1].total);
+    document.getElementById('projectCount').textContent = sorted.length;
+
+    tbody.innerHTML = sorted.map(([site, c]) => {
+      // Build type rows
+      const typeRows = Object.entries(c.types)
+        .sort((a, b) => b[1].total - a[1].total)
+        .map(([type, t]) => `
+          <tr style="background:rgba(0,0,0,0.02)">
+            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
+              <span style="font-weight:600">↳ ${type}</span>
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--green)">${t.working}</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--red)">${t.breakdown}</span>
+              ${t.breakdown > 0 ? `<span class="badge red" style="margin-left:4px;font-size:9px">!</span>` : ''}
+            </td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">${t.idle}</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">${t.total}</span></td>
+          </tr>
+        `).join('');
+
+      return `
+        <tr style="background:var(--surface2)">
+          <td><strong style="font-family:'Barlow Condensed',sans-serif;font-size:16px">📍 ${site}</strong></td>
+          <td><span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--green)">${c.working}</span></td>
+          <td>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--red)">${c.breakdown}</span>
+            ${c.breakdown > 0 ? `<span class="badge red" style="margin-left:6px">Alert</span>` : ''}
+          </td>
+          <td><span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">${c.idle}</span></td>
+          <td>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--orange)">${c.total}</span>
+            <span style="font-size:11px;color:var(--muted)"> machines</span>
+          </td>
+        </tr>
+        ${typeRows}
+      `;
+    }).join('');
   }
 
   function switchPeriod(period) {
