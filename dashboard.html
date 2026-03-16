@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Youssef.Ghadban/Downloads/dashboard_6.html -->
+<!-- saved from url=(0059)file:///C:/Users/Youssef.Ghadban/Downloads/dashboard_7.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -240,7 +240,7 @@
 <header>
   <div class="logo">Equip<span>Track</span> <sub>Manager Dashboard</sub></div>
   <div class="header-right">
-    <div class="last-refresh">Last refresh: <span id="lastRefreshTime">—</span></div>
+    <div class="last-refresh">Last refresh: <span id="lastRefreshTime">10:48:54</span></div>
     <button class="refresh-btn" onclick="loadDashboard()">
       <span class="spin-icon">↻</span> Refresh
     </button>
@@ -251,30 +251,36 @@
 <main>
 
   <!-- KPI CARDS -->
-  <div class="kpi-grid">
+  <div class="kpi-grid" style="grid-template-columns:repeat(5,1fr)">
     <div class="kpi-card orange">
       <div class="kpi-icon">📋</div>
       <div class="kpi-label">Total Entries Today</div>
-      <div class="kpi-value" id="kpiTotal">—</div>
+      <div class="kpi-value" id="kpiTotal">5</div>
       <div class="kpi-sub">submissions received</div>
     </div>
     <div class="kpi-card green">
       <div class="kpi-icon">✅</div>
       <div class="kpi-label">Machines Reported</div>
-      <div class="kpi-value" id="kpiReported">—</div>
-      <div class="kpi-sub" id="kpiReportedSub">out of fleet</div>
+      <div class="kpi-value" id="kpiReported">3</div>
+      <div class="kpi-sub" id="kpiReportedSub">out of 102 in fleet</div>
     </div>
     <div class="kpi-card red">
       <div class="kpi-icon">⚠️</div>
       <div class="kpi-label">Missing Entries</div>
-      <div class="kpi-value" id="kpiMissing">—</div>
+      <div class="kpi-value" id="kpiMissing">99</div>
       <div class="kpi-sub">not submitted yet</div>
     </div>
     <div class="kpi-card yellow">
       <div class="kpi-icon">⛽</div>
       <div class="kpi-label">Low Fuel Alerts</div>
-      <div class="kpi-value" id="kpiFuel">—</div>
+      <div class="kpi-value" id="kpiFuel">4</div>
       <div class="kpi-sub">need refueling</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-icon">🔴</div>
+      <div class="kpi-label">Breakdowns</div>
+      <div class="kpi-value" id="kpiBreakdown">0</div>
+      <div class="kpi-sub">machines down today</div>
     </div>
   </div>
 
@@ -285,7 +291,7 @@
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">📋 Recent Entries</div>
-        <div class="panel-count" id="recentCount">0</div>
+        <div class="panel-count" id="recentCount">5</div>
       </div>
       <div class="panel-body">
         <table class="data-table">
@@ -294,13 +300,57 @@
               <th>Machine</th>
               <th>Type</th>
               <th>Reading</th>
+              <th>Status</th>
               <th>Time</th>
               <th>Location</th>
             </tr>
           </thead>
           <tbody id="recentTableBody">
-            <tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📋</div>Loading...</div></td></tr>
-          </tbody>
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">144196</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">BUS</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">200,000</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T07:35:30.000Z</span></td>
+          <td><a href="https://www.google.com/maps?q=25.275256,51.542164" target="_blank" class="map-link">🗺️ Map</a></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">155776</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">AIR COMPRESSOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">15,300</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T07:08:11.000Z</span></td>
+          <td><a href="https://www.google.com/maps?q=25.275051,51.541975" target="_blank" class="map-link">🗺️ Map</a></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">155807</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">PICK-UP D/CABIN</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">1,500</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T06:57:00.000Z</span></td>
+          <td><a href="https://www.google.com/maps?q=25.275039,51.541974" target="_blank" class="map-link">🗺️ Map</a></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">155776</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">AIR COMPRESSOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">15,255</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T06:34:51.000Z</span></td>
+          <td><a href="https://www.google.com/maps?q=25.275032,51.541989" target="_blank" class="map-link">🗺️ Map</a></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">155776</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">AIR COMPRESSOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">15,255</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">1899-12-30T06:07:18.000Z</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      </tbody>
         </table>
       </div>
     </div>
@@ -309,11 +359,900 @@
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">🚨 Missing Entries</div>
-        <div class="panel-count" id="missingCount">0</div>
+        <div class="panel-count" id="missingCount">99</div>
       </div>
       <div class="panel-body" id="missingList">
-        <div class="empty-state"><div class="empty-icon">⏳</div>Loading...</div>
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155792</div>
+          <div class="missing-detail">AIR COMPRESSOR · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
       </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">142195</div>
+          <div class="missing-detail">BUS · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">142203</div>
+          <div class="missing-detail">BUS · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">144183</div>
+          <div class="missing-detail">BUS · 57/001 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">144204</div>
+          <div class="missing-detail">BUS · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">144212</div>
+          <div class="missing-detail">BUS · P065.01 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155912</div>
+          <div class="missing-detail">BUS · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">123107</div>
+          <div class="missing-detail">CRANE ROUGH TERRAIN · 65.426 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">140904</div>
+          <div class="missing-detail">CRANE ROUGH TERRAIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">140912</div>
+          <div class="missing-detail">CRANE ROUGH TERRAIN · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139495</div>
+          <div class="missing-detail">EXCAVATOR CRAWLER HYDRAULIC · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157276</div>
+          <div class="missing-detail">FLOOD LIGHT · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157315</div>
+          <div class="missing-detail">FLOOD LIGHT · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">125327</div>
+          <div class="missing-detail">FORKLIFT · P065.01 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155927</div>
+          <div class="missing-detail">FORKLIFT · 57/001 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">119664</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120295</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120595</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">123647</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">130036</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · P065.01 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">130652</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">131883</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">131904</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 57/001 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">150436</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">158223</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">119763</div>
+          <div class="missing-detail">PICK-UP D/CABIN · P065.01 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120115</div>
+          <div class="missing-detail">PICK-UP D/CABIN · P065.01 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">121576</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">123947</div>
+          <div class="missing-detail">PICK-UP D/CABIN · P065 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155815</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155823</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155836</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155844</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155852</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 57/001 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155867</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155875</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155883</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155896</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157636</div>
+          <div class="missing-detail">PICK-UP D/CABIN · P065.01 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157644</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157652</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157667</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157323</div>
+          <div class="missing-detail">PUMP DEWATERING · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157336</div>
+          <div class="missing-detail">PUMP DEWATERING · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159976</div>
+          <div class="missing-detail">PUMP TEST · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">160696</div>
+          <div class="missing-detail">PUMP TEST · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">148367</div>
+          <div class="missing-detail">ROCK BREAKER - HYDRAULIC · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">148375</div>
+          <div class="missing-detail">ROCK BREAKER - HYDRAULIC · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141744</div>
+          <div class="missing-detail">ROLLER VIBRATING - STEEL · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157143</div>
+          <div class="missing-detail">ROLLER WALK BEHIND D/DRUM · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157156</div>
+          <div class="missing-detail">ROLLER WALK BEHIND D/DRUM · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157164</div>
+          <div class="missing-detail">ROLLER WALK BEHIND D/DRUM · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">123243</div>
+          <div class="missing-detail">SALOON CAR · P065.01 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">125567</div>
+          <div class="missing-detail">SALOON CAR · P065 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">125776</div>
+          <div class="missing-detail">SALOON CAR · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157615</div>
+          <div class="missing-detail">SALOON CAR · P065 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157623</div>
+          <div class="missing-detail">SALOON CAR · P065 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">156204</div>
+          <div class="missing-detail">SKID STEER LOADER · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120144</div>
+          <div class="missing-detail">STATION WAGON LWB · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155732</div>
+          <div class="missing-detail">STATION WAGON LWB · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155763</div>
+          <div class="missing-detail">STATION WAGON LWB · P065 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">156587</div>
+          <div class="missing-detail">STATION WAGON LWB · P065 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">121735</div>
+          <div class="missing-detail">TELEHANDLER · 65.426 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139983</div>
+          <div class="missing-detail">TELEHANDLER · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">126535</div>
+          <div class="missing-detail">TRACTIVE UNIT · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">126543</div>
+          <div class="missing-detail">TRACTIVE UNIT · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">127892</div>
+          <div class="missing-detail">TRACTIVE UNIT · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">131103</div>
+          <div class="missing-detail">TRACTIVE UNIT · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141835</div>
+          <div class="missing-detail">TRACTIVE UNIT · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141856</div>
+          <div class="missing-detail">TRACTIVE UNIT · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141864</div>
+          <div class="missing-detail">TRACTIVE UNIT · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139555</div>
+          <div class="missing-detail">TRACTOR BACKHOE/LOADER · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141175</div>
+          <div class="missing-detail">TRACTOR SHOVEL WHEELED · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">127863</div>
+          <div class="missing-detail">TRAILER - SEWAGE TANK · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120556</div>
+          <div class="missing-detail">TRAILER FLAT BED · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120564</div>
+          <div class="missing-detail">TRAILER FLAT BED · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120572</div>
+          <div class="missing-detail">TRAILER FLAT BED · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120587</div>
+          <div class="missing-detail">TRAILER FLAT BED · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">127855</div>
+          <div class="missing-detail">TRAILER LOW BED · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">121172</div>
+          <div class="missing-detail">TRUCK - LOAD CARRYING · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">158192</div>
+          <div class="missing-detail">TRUCK - LOAD CARRYING · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">158207</div>
+          <div class="missing-detail">TRUCK - LOAD CARRYING · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120363</div>
+          <div class="missing-detail">TRUCK LOAD W/CRANE · P065.01 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">125012</div>
+          <div class="missing-detail">TRUCK LOAD W/CRANE · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">156767</div>
+          <div class="missing-detail">TRUCK LOAD W/CRANE · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">127712</div>
+          <div class="missing-detail">TRUCK TANKER - SEWAGE · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139255</div>
+          <div class="missing-detail">TRUCK TANKER - WATER · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139263</div>
+          <div class="missing-detail">TRUCK TANKER - WATER · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139276</div>
+          <div class="missing-detail">TRUCK TANKER - WATER · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139156</div>
+          <div class="missing-detail">TRUCK TIPPER · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139172</div>
+          <div class="missing-detail">TRUCK TIPPER · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139187</div>
+          <div class="missing-detail">TRUCK TIPPER · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139195</div>
+          <div class="missing-detail">TRUCK TIPPER · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139216</div>
+          <div class="missing-detail">TRUCK TIPPER · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">130967</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159932</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159947</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159955</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159963</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    </div>
     </div>
 
   </div>
@@ -327,18 +1266,76 @@
         <div class="panel-title">📊 Entries by Equipment Type</div>
       </div>
       <div class="panel-body" id="pivotList">
-        <div class="empty-state"><div class="empty-icon">📊</div>Loading...</div>
+      <div class="pivot-row">
+        <div class="pivot-type">AIR COMPRESSOR</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:100%"></div></div>
+        <div class="pivot-count">3</div>
       </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">PICK-UP D/CABIN</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:33%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">BUS</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:33%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    </div>
     </div>
 
     <!-- FUEL ALERTS -->
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">⛽ Fuel Alerts</div>
-        <div class="panel-count" id="fuelCount">0</div>
+        <div class="panel-count" id="fuelCount">4</div>
       </div>
       <div class="panel-body" id="fuelList">
-        <div class="empty-state"><div class="empty-icon">⛽</div>Loading...</div>
+        <div class="fuel-item">
+          <div>
+            <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">155776</div>
+            <div style="font-size:11px;color:var(--muted)">AIR COMPRESSOR · Youssef</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="fuel-bar-wrap"><div class="fuel-bar low" style="width:0%"></div></div>
+            <span class="badge red">Empty</span>
+          </div>
+        </div>
+      
+        <div class="fuel-item">
+          <div>
+            <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">155776</div>
+            <div style="font-size:11px;color:var(--muted)">AIR COMPRESSOR · Habibi</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="fuel-bar-wrap"><div class="fuel-bar low" style="width:10%"></div></div>
+            <span class="badge red">Low (&lt;10%)</span>
+          </div>
+        </div>
+      
+        <div class="fuel-item">
+          <div>
+            <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">155776</div>
+            <div style="font-size:11px;color:var(--muted)">AIR COMPRESSOR · Abdalla</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="fuel-bar-wrap"><div class="fuel-bar low" style="width:10%"></div></div>
+            <span class="badge red">Low (&lt;10%)</span>
+          </div>
+        </div>
+      
+        <div class="fuel-item">
+          <div>
+            <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px;font-weight:800">155807</div>
+            <div style="font-size:11px;color:var(--muted)">PICK-UP D/CABIN · Naji</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="fuel-bar-wrap"><div class="fuel-bar medium" style="width:25%"></div></div>
+            <span class="badge yellow">1/4 (25%)</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -365,8 +1362,76 @@
           </tr>
         </thead>
         <tbody id="hoursTableBody">
-          <tr><td colspan="4"><div class="empty-state"><div class="empty-icon">⏳</div>Loading...</div></td></tr>
-        </tbody>
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155807</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">500 KM</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155776</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">76 KM</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">123107</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">⏱ Hourmeter</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">123243</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">123647</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">142195</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">144196</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155763</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155815</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">🛣 Odometer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155927</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">⏱ Hourmeter</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      </tbody>
       </table>
     </div>
   </div>
@@ -384,8 +1449,9 @@
     now.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
 
   // ── FETCH DATA ────────────────────────────────────────
-  async function fetchData(action) {
-    const res = await fetch(`${API_URL}?action=${action}`, { method: 'GET', redirect: 'follow' });
+  async function fetchData(action, extra = '') {
+    const url = `${API_URL}?action=${action}${extra}`;
+    const res = await fetch(url, { method: 'GET', redirect: 'follow', mode: 'cors' });
     const text = await res.text();
     const match = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
     if (!match) throw new Error('No JSON');
@@ -400,13 +1466,15 @@
     const lowFuel = entries.filter(e =>
       e.fuel_level && (e.fuel_level.includes('Low') || e.fuel_level.includes('Empty') || e.fuel_level.includes('1/4'))
     );
-    const missing = fleet.filter(f => !uniqueMachines.has(String(f.id)));
+    const missing    = fleet.filter(f => !uniqueMachines.has(String(f.id)));
+    const breakdowns = entries.filter(e => e.machine_status === 'Breakdown');
 
-    document.getElementById('kpiTotal').textContent     = entries.length;
-    document.getElementById('kpiReported').textContent  = uniqueMachines.size;
-    document.getElementById('kpiReportedSub').textContent = `out of ${fleet.length} in fleet`;
-    document.getElementById('kpiMissing').textContent   = missing.length;
-    document.getElementById('kpiFuel').textContent      = lowFuel.length;
+    document.getElementById('kpiTotal').textContent      = entries.length;
+    document.getElementById('kpiReported').textContent   = uniqueMachines.size;
+    document.getElementById('kpiReportedSub').textContent= `out of ${fleet.length} in fleet`;
+    document.getElementById('kpiMissing').textContent    = missing.length;
+    document.getElementById('kpiFuel').textContent       = lowFuel.length;
+    document.getElementById('kpiBreakdown').textContent  = breakdowns.length;
   }
 
   // ── RECENT ENTRIES ────────────────────────────────────
@@ -415,21 +1483,28 @@
     document.getElementById('recentCount').textContent = entries.length;
 
     if (entries.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📋</div>No entries yet today</div></td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📋</div>No entries yet today</div></td></tr>`;
       return;
     }
 
-    // Show last 20 entries, newest first
     const recent = [...entries].reverse().slice(0, 20);
-    tbody.innerHTML = recent.map(e => `
-      <tr>
-        <td><strong style="font-family:'Barlow Condensed',sans-serif;font-size:14px">${e.machine_id || '—'}</strong></td>
-        <td><span style="font-size:12px;color:var(--muted)">${e.equipment_type || '—'}</span></td>
-        <td><strong style="color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-size:15px">${Number(e.meter_reading || 0).toLocaleString()}</strong> <span style="font-size:10px;color:var(--muted)">${e.reading_type === 'Hourmeter' ? 'HRS' : 'KM'}</span></td>
-        <td><span style="font-size:12px;color:var(--muted)">${e.time || '—'}</span></td>
-        <td>${e.maps_link && e.maps_link !== 'N/A' ? `<a href="${e.maps_link}" target="_blank" class="map-link">🗺️ Map</a>` : `<span style="color:var(--muted);font-size:12px">N/A</span>`}</td>
-      </tr>
-    `).join('');
+    tbody.innerHTML = recent.map(e => {
+      const status = e.machine_status || 'Working';
+      const statusBadge =
+        status === 'Breakdown' ? `<span class="badge red">🔴 Breakdown</span>` :
+        status === 'Idle'      ? `<span class="badge yellow">🟡 Idle</span>` :
+                                 `<span class="badge green">✅ Working</span>`;
+      return `
+        <tr>
+          <td><strong style="font-family:'Barlow Condensed',sans-serif;font-size:14px">${e.machine_id || '—'}</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">${e.equipment_type || '—'}</span></td>
+          <td><strong style="color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-size:15px">${Number(e.meter_reading || 0).toLocaleString()}</strong> <span style="font-size:10px;color:var(--muted)">${e.reading_type === 'Hourmeter' ? 'HRS' : 'KM'}</span></td>
+          <td>${statusBadge}</td>
+          <td><span style="font-size:12px;color:var(--muted)">${e.time || '—'}</span></td>
+          <td>${e.maps_link && e.maps_link !== 'N/A' ? `<a href="${e.maps_link}" target="_blank" class="map-link">🗺️ Map</a>` : `<span style="color:var(--muted);font-size:12px">N/A</span>`}</td>
+        </tr>
+      `;
+    }).join('');
   }
 
   // ── MISSING MACHINES ──────────────────────────────────
