@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_31.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>EquipTrack — Daily Log v2</title>
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F97316;
+    --orange-dark: #C2530A;
+    --orange-glow: rgba(249,115,22,0.25);
+    --bg: #0D0F14;
+    --surface: #161921;
+    --surface2: #1E2230;
+    --border: #2A2F3F;
+    --text: #F0F2F7;
+    --muted: #7A8099;
+    --green: #22C55E;
+    --red: #EF4444;
+    --blue: #3B82F6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(ellipse 80% 40% at 50% -10%, rgba(249,115,22,0.12) 0%, transparent 60%);
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 18px 20px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(13,15,20,0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+  .logo span { color: var(--text); }
+
+  .date-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── MAIN ── */
+  main { padding: 20px 16px 100px; max-width: 480px; margin: 0 auto; }
+
+  /* ── STEP INDICATOR ── */
+  .steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 24px;
+  }
+  .step {
+    display: flex; align-items: center; gap: 8px;
+    flex: 1;
+  }
+  .step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 13px;
+    border: 2px solid var(--border);
+    color: var(--muted);
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .step-label {
+    font-size: 11px; color: var(--muted); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .step-line {
+    flex: 1; height: 2px;
+    background: var(--border);
+    margin: 0 6px;
+    transition: background 0.3s;
+  }
+  .step.active .step-num { border-color: var(--orange); color: var(--orange); background: var(--orange-glow); }
+  .step.active .step-label { color: var(--orange); }
+  .step.done .step-num { border-color: var(--green); background: var(--green); color: #000; }
+  .step.done .step-label { color: var(--green); }
+  .step-line.done { background: var(--green); }
+
+  /* ── SECTION CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+    overflow: visible;
+  }
+  .card.active { border-color: rgba(249,115,22,0.4); }
+
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title .icon {
+    width: 28px; height: 28px;
+    background: var(--surface2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* ── FORM FIELDS ── */
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+
+  input, select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 13px 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px var(--orange-glow);
+  }
+  input::placeholder { color: var(--muted); font-weight: 400; }
+  select option { background: var(--surface2); }
+
+  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* ── GPS BUTTON ── */
+  .gps-box {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .gps-box:hover { border-color: var(--orange); }
+  .gps-box.loading { border-color: var(--orange); }
+  .gps-box.captured { border-color: var(--green); background: rgba(34,197,94,0.06); }
+
+  .gps-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .gps-box.captured .gps-icon { background: rgba(34,197,94,0.15); }
+
+  .gps-info { flex: 1; }
+  .gps-title {
+    font-size: 14px; font-weight: 600; color: var(--text);
+    margin-bottom: 2px;
+  }
+  .gps-sub {
+    font-size: 12px; color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.03em;
+  }
+  .gps-sub.captured { color: var(--green); }
+
+  .gps-spinner {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-top-color: var(--orange);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  .gps-box.loading .gps-spinner { display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .pulse-ring {
+    position: absolute; right: -10px; top: -10px;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: rgba(34,197,94,0.15);
+    animation: pulse 2s ease-in-out infinite;
+    display: none;
+  }
+  .gps-box.captured .pulse-ring { display: block; }
+  @keyframes pulse { 0%,100% { transform: scale(0.8); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 0.2; } }
+
+  /* ── READING TYPE TOGGLE ── */
+  .type-toggle {
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+  .type-btn {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .type-btn.active {
+    background: var(--orange);
+    color: #fff;
+  }
+
+  /* ── READING INPUT ── */
+  .reading-wrap { position: relative; }
+  .reading-unit {
+    position: absolute; right: 14px; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 14px;
+    color: var(--orange);
+    letter-spacing: 0.05em;
+    pointer-events: none;
+  }
+  .reading-wrap input { padding-right: 60px; font-size: 22px; font-weight: 600; }
+
+  /* ── PHOTO UPLOAD ── */
+  .photo-zone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .photo-zone:hover { border-color: var(--orange); }
+  .photo-zone.has-photo { border-color: var(--green); border-style: solid; }
+  .photo-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .photo-icon { font-size: 28px; margin-bottom: 6px; }
+  .photo-text { font-size: 13px; color: var(--muted); }
+  .photo-text strong { color: var(--text); }
+  .photo-preview {
+    display: none;
+    width: 100%; border-radius: 8px; margin-top: 10px;
+    max-height: 120px; object-fit: cover;
+  }
+  .photo-zone.has-photo .photo-preview { display: block; }
+
+  /* ── SUBMIT BUTTON ── */
+  .submit-btn {
+    width: 100%;
+    padding: 18px;
+    background: var(--orange);
+    border: none;
+    border-radius: 14px;
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: var(--orange-dark); transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .submit-btn::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(13,15,20,0.97);
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 32px;
+  }
+  .success-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
+  .success-icon {
+    width: 80px; height: 80px;
+    background: rgba(34,197,94,0.15);
+    border: 2px solid var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    margin-bottom: 24px;
+    animation: popIn 0.4s 0.1s both cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  .success-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 36px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .success-sub { color: var(--muted); font-size: 15px; margin-bottom: 32px; line-height: 1.5; }
+  .success-ref {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 32px; letter-spacing: 0.04em;
+  }
+  .success-ref strong { color: var(--text); font-size: 16px; display: block; }
+
+  .new-entry-btn {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .new-entry-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+  /* ── COUNTER BAR ── */
+  .counter-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .counter-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+  .counter-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 800;
+    color: var(--orange);
+  }
+  .counter-divider { width: 1px; height: 24px; background: var(--border); }
+
+  /* ── VALIDATION ── */
+  .field-error { display: none; font-size: 11px; color: var(--red); margin-top: 5px; font-weight: 600; }
+  .field.invalid input, .field.invalid select { border-color: var(--red); }
+  .field.invalid .field-error { display: block; }
+
+  /* ── NOTE FIELD ── */
+  textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    padding: 13px 14px;
+    resize: vertical;
+    min-height: 70px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  textarea:focus { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-glow); }
+  textarea::placeholder { color: var(--muted); }
+  .setup-banner { background:linear-gradient(135deg,#1a1f35,#1e2230); border:1.5px solid var(--orange); border-radius:14px; padding:16px; margin-bottom:20px; display:flex; gap:12px; align-items:flex-start; }
+  .setup-banner .sb-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
+  .setup-banner .sb-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange); margin-bottom:5px; }
+  .setup-banner p { font-size:12px; color:var(--muted); line-height:1.5; }
+  .setup-banner input { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:monospace; font-size:11px; padding:9px 10px; outline:none; margin-top:8px; }
+  .setup-banner input:focus { border-color:var(--orange); }
+  .sb-saved { display:none; margin-top:6px; font-size:11px; color:var(--green); font-weight:600; }
+  .sync-pill { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; font-family:'Barlow Condensed',sans-serif; letter-spacing:0.04em; }
+  .sync-pill.online  { background:rgba(34,197,94,0.15); color:var(--green); }
+  .sync-pill.offline { background:rgba(239,68,68,0.15); color:var(--red); }
+  .sync-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+
+  /* ── MACHINE SEARCH DROPDOWN ── */
+  .machine-search-wrap { position: relative; }
+  .machine-dropdown {
+    display: none;
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 9999;
+    background: #1E2230;
+    border: 2px solid var(--orange);
+    border-radius: 10px;
+    margin-top: 4px;
+    max-height: 260px;
+    overflow-y: auto;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+  }
+  .machine-dropdown.open { display: block; }
+  .machine-option {
+    padding: 12px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .machine-option:last-child { border-bottom: none; }
+  .machine-option:hover, .machine-option.highlighted { background: var(--orange-glow); }
+  .machine-option .opt-id { font-weight: 700; font-size: 15px; color: var(--text); }
+  .machine-option .opt-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .machine-option .opt-detail span { margin-right: 10px; }
+  .machine-no-results { padding: 14px; text-align: center; color: var(--red); font-size: 13px; font-weight: 600; }
+  .machine-selected {
+    background: rgba(34,197,94,0.08) !important;
+    border-color: var(--green) !important;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Equip<span>Track</span></div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button onclick="showSettings()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;padding:5px 10px;cursor:pointer;">⚙️</button>
+    <div class="sync-pill online" id="syncPill"><div class="sync-dot"></div><span id="syncLabel">Online</span></div>
+    <div class="date-badge" id="dateDisplay">Mon, 16 Mar 2026</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ⚙️ SETUP BANNER — Admin pastes Google Sheets URL here once -->
+  <div class="setup-banner" id="setupBanner" style="display: none;">
+    <div class="sb-icon">⚙️</div>
+    <div style="flex:1">
+      <div class="sb-title">Admin Setup — Connect to Google Sheets</div>
+      <p>Paste your <strong style="color:var(--text)">Google Apps Script Web App URL</strong> below. This only needs to be done once per device.</p>
+      <input type="text" id="apiUrlInput" placeholder="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" oninput="saveApiUrl(this.value)">
+      <div class="sb-saved" id="sbSaved">✓ URL saved — banner will hide after reload</div>
+    </div>
+  </div>
+
+  <!-- COUNTER -->
+  <div class="counter-bar">
+    <div>
+      <div class="counter-label">Today's Entries</div>
+      <div class="counter-num" id="todayCount">12</div>
+    </div>
+    <div class="counter-divider"></div>
+    <div style="text-align:right">
+      <div class="counter-label">Last Submit</div>
+      <div style="font-size:13px;color:var(--muted);font-weight:600" id="lastSubmit">—</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step active" id="s1">
+      <div class="step-num">1</div>
+      <div class="step-label">Machine</div>
+    </div>
+    <div class="step-line" id="l1"></div>
+    <div class="step" id="s2">
+      <div class="step-num">2</div>
+      <div class="step-label">Location</div>
+    </div>
+    <div class="step-line" id="l2"></div>
+    <div class="step" id="s3">
+      <div class="step-num">3</div>
+      <div class="step-label">Reading</div>
+    </div>
+  </div>
+
+  <!-- CARD 1: MACHINE IDENTITY -->
+  <div class="card active" id="card1">
+    <div class="card-title"><span class="icon">🏗️</span> Machine / Vehicle Info</div>
+
+    <!-- MACHINE SEARCH DROPDOWN -->
+    <div class="field" id="f-machine">
+      <label>Machine / Vehicle ID *</label>
+
+      <!-- Search box -->
+      <input type="text" id="machineSearch" placeholder="Type to filter machines..." autocomplete="off" oninput="filterMachines(this.value)" style="margin-bottom:8px;">
+
+      <!-- Native select for reliable selection on all devices -->
+      <select id="machineSelect" onchange="selectMachineFromSelect(this.value)" size="1"><option value="">-- Select machine --</option><option value="155776">155776 | AIR COMPRESSOR | 65/021</option><option value="155792">155792 | AIR COMPRESSOR | 65/021</option><option value="142195">142195 | BUS | 65/021</option><option value="142203">142203 | BUS | 65/021</option><option value="144183">144183 | BUS | 57/001</option><option value="144196">144196 | BUS | 65/021</option><option value="144204">144204 | BUS | 65/021</option><option value="144212">144212 | BUS | P065.01</option><option value="155912">155912 | BUS | 65/021</option><option value="123107">123107 | CRANE ROUGH TERRAIN | 65.426</option><option value="140904">140904 | CRANE ROUGH TERRAIN | 65/021</option><option value="140912">140912 | CRANE ROUGH TERRAIN | 65/021</option><option value="139495">139495 | EXCAVATOR CRAWLER HYDRAULIC | 65/021</option><option value="157276">157276 | FLOOD LIGHT | 65/021</option><option value="157315">157315 | FLOOD LIGHT | 65/021</option><option value="125327">125327 | FORKLIFT | P065.01</option><option value="155927">155927 | FORKLIFT | 57/001</option><option value="119664">119664 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="120295">120295 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="120595">120595 | GENERATOR - DIESEL ENGINE | 56</option><option value="123647">123647 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="130036">130036 | GENERATOR - DIESEL ENGINE | P065.01</option><option value="130652">130652 | GENERATOR - DIESEL ENGINE | 56</option><option value="131883">131883 | GENERATOR - DIESEL ENGINE | 56</option><option value="131904">131904 | GENERATOR - DIESEL ENGINE | 57/001</option><option value="150436">150436 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="158223">158223 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="119763">119763 | PICK-UP D/CABIN | P065.01</option><option value="120115">120115 | PICK-UP D/CABIN | P065.01</option><option value="121576">121576 | PICK-UP D/CABIN | 56</option><option value="123947">123947 | PICK-UP D/CABIN | P065</option><option value="155807">155807 | PICK-UP D/CABIN | 65/021</option><option value="155815">155815 | PICK-UP D/CABIN | 65/021</option><option value="155823">155823 | PICK-UP D/CABIN | 65/021</option><option value="155836">155836 | PICK-UP D/CABIN | 65/021</option><option value="155844">155844 | PICK-UP D/CABIN | 65/021</option><option value="155852">155852 | PICK-UP D/CABIN | 57/001</option><option value="155867">155867 | PICK-UP D/CABIN | 65/021</option><option value="155875">155875 | PICK-UP D/CABIN | 65/021</option><option value="155883">155883 | PICK-UP D/CABIN | 65/021</option><option value="155896">155896 | PICK-UP D/CABIN | 65/021</option><option value="157636">157636 | PICK-UP D/CABIN | P065.01</option><option value="157644">157644 | PICK-UP D/CABIN | 65/021</option><option value="157652">157652 | PICK-UP D/CABIN | 65/021</option><option value="157667">157667 | PICK-UP D/CABIN | 65/021</option><option value="157323">157323 | PUMP DEWATERING | 56</option><option value="157336">157336 | PUMP DEWATERING | 56</option><option value="159976">159976 | PUMP TEST | 65/021</option><option value="160696">160696 | PUMP TEST | 65/021</option><option value="148367">148367 | ROCK BREAKER - HYDRAULIC | 56</option><option value="148375">148375 | ROCK BREAKER - HYDRAULIC | 56</option><option value="141744">141744 | ROLLER VIBRATING - STEEL | 56</option><option value="157143">157143 | ROLLER WALK BEHIND D/DRUM | 65/021</option><option value="157156">157156 | ROLLER WALK BEHIND D/DRUM | 65/021</option><option value="157164">157164 | ROLLER WALK BEHIND D/DRUM | 65/021</option><option value="123243">123243 | SALOON CAR | P065.01</option><option value="125567">125567 | SALOON CAR | P065</option><option value="125776">125776 | SALOON CAR | 56</option><option value="157615">157615 | SALOON CAR | P065</option><option value="157623">157623 | SALOON CAR | P065</option><option value="156204">156204 | SKID STEER LOADER | 65/021</option><option value="120144">120144 | STATION WAGON LWB | 65/021</option><option value="155732">155732 | STATION WAGON LWB | 65/021</option><option value="155763">155763 | STATION WAGON LWB | P065</option><option value="156587">156587 | STATION WAGON LWB | P065</option><option value="121735">121735 | TELEHANDLER | 65.426</option><option value="139983">139983 | TELEHANDLER | 65/021</option><option value="126535">126535 | TRACTIVE UNIT | 65/021</option><option value="126543">126543 | TRACTIVE UNIT | 65/021</option><option value="127892">127892 | TRACTIVE UNIT | 56</option><option value="131103">131103 | TRACTIVE UNIT | 65/021</option><option value="141835">141835 | TRACTIVE UNIT | 56</option><option value="141856">141856 | TRACTIVE UNIT | 65/021</option><option value="141864">141864 | TRACTIVE UNIT | 65/021</option><option value="139555">139555 | TRACTOR BACKHOE/LOADER | 65/021</option><option value="141175">141175 | TRACTOR SHOVEL WHEELED | 65/021</option><option value="127863">127863 | TRAILER - SEWAGE TANK | 56</option><option value="120556">120556 | TRAILER FLAT BED | 65/021</option><option value="120564">120564 | TRAILER FLAT BED | 65/021</option><option value="120572">120572 | TRAILER FLAT BED | 65/021</option><option value="120587">120587 | TRAILER FLAT BED | 65/021</option><option value="127855">127855 | TRAILER LOW BED | 65/021</option><option value="121172">121172 | TRUCK - LOAD CARRYING | 65/021</option><option value="158192">158192 | TRUCK - LOAD CARRYING | 65/021</option><option value="158207">158207 | TRUCK - LOAD CARRYING | 65/021</option><option value="120363">120363 | TRUCK LOAD W/CRANE | P065.01</option><option value="125012">125012 | TRUCK LOAD W/CRANE | 65/021</option><option value="156767">156767 | TRUCK LOAD W/CRANE | 65/021</option><option value="127712">127712 | TRUCK TANKER - SEWAGE | 65/021</option><option value="139255">139255 | TRUCK TANKER - WATER | 65/021</option><option value="139263">139263 | TRUCK TANKER - WATER | 65/021</option><option value="139276">139276 | TRUCK TANKER - WATER | 65/021</option><option value="139156">139156 | TRUCK TIPPER | 65/021</option><option value="139172">139172 | TRUCK TIPPER | 65/021</option><option value="139187">139187 | TRUCK TIPPER | 65/021</option><option value="139195">139195 | TRUCK TIPPER | 56</option><option value="139216">139216 | TRUCK TIPPER | 65/021</option><option value="130967">130967 | WELDING MACHINE - DIESEL | 56</option><option value="159932">159932 | WELDING MACHINE - DIESEL | 65/021</option><option value="159947">159947 | WELDING MACHINE - DIESEL | 56</option><option value="159955">159955 | WELDING MACHINE - DIESEL | 56</option><option value="159963">159963 | WELDING MACHINE - DIESEL | 56</option></select>
+
+      <input type="hidden" id="machineId">
+      <div class="field-error" id="machineError">Please select a machine from the list</div>
+    </div>
+
+    <!-- AUTO-FILLED FIELDS -->
+    <div class="input-row">
+      <div class="field">
+        <label>Equipment Type</label>
+        <input type="text" id="equipType" placeholder="Auto-filled" readonly="" style="background:var(--surface);color:var(--muted);cursor:not-allowed;">
+      </div>
+      <div class="field" id="f-operator">
+        <label>Operator ID *</label>
+        <input type="text" id="operatorId" placeholder="Your ID / Badge">
+        <div class="field-error">Required</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Project / Site</label>
+      <input type="text" id="projectSite" placeholder="Auto-filled or type manually">
+    </div>
+
+    <!-- LOADING STATE -->
+    <div id="fleetLoadingMsg" style="font-size: 12px; color: var(--muted); text-align: center; padding: 8px 0px; display: none;">
+      ⏳ Loading machine list...
+    </div>
+  </div>
+
+  <!-- CARD 2: LOCATION -->
+  <div class="card" id="card2">
+    <div class="card-title"><span class="icon">📍</span> Location</div>
+
+    <div class="gps-box" id="gpsBox" onclick="captureGPS()">
+      <div class="pulse-ring"></div>
+      <div class="gps-icon" id="gpsIconBox">📡</div>
+      <div class="gps-info">
+        <div class="gps-title" id="gpsTitle">Capture GPS Location</div>
+        <div class="gps-sub" id="gpsSub">Tap to get current coordinates</div>
+      </div>
+      <div class="gps-spinner" id="gpsSpinner"></div>
+    </div>
+
+    <!-- Google Maps link — shown after GPS capture -->
+    <div id="mapsLinkBox" style="display:none; margin-top:10px;">
+      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_31.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
+        🗺️ <span>View on Google Maps</span>
+        <span style="margin-left:auto; font-size:11px; opacity:0.7">↗ opens in map</span>
+      </a>
+    </div>
+
+    <input type="hidden" id="latVal">
+    <input type="hidden" id="lngVal">
+    <input type="hidden" id="mapsLinkVal">
+
+    <div class="field" style="margin-top:12px">
+      <label>Manual Location Description (Optional)</label>
+      <input type="text" id="locationDesc" placeholder="e.g. Near Gate 3, Block B">
+    </div>
+  </div>
+
+  <!-- CARD 3: METER READING -->
+  <div class="card" id="card3">
+    <div class="card-title"><span class="icon">⏱️</span> Meter Reading</div>
+
+    <div class="type-toggle" id="typeToggle">
+      <button class="type-btn active" id="btnHour" onclick="setReadingType(&#39;hour&#39;)">⏱ Hourmeter</button>
+      <button class="type-btn" id="btnKm" onclick="setReadingType(&#39;km&#39;)">🛣 Odometer</button>
+    </div>
+
+    <!-- Locked reading type indicator — shown when machine has previous entries -->
+    <div id="readingTypeLocked" style="display:none; background:rgba(249,115,22,0.08); border:1.5px solid var(--orange); border-radius:10px; padding:10px 14px; margin-bottom:12px; font-size:12px; display:none;">
+      <span style="color:var(--orange); font-weight:700; font-size:13px;">🔒 Reading type locked — </span>
+      <span id="lockedTypeName" style="color:var(--text); font-weight:600;"></span>
+      <div style="color:var(--muted); font-size:11px; margin-top:3px;">This machine was previously recorded as this type and cannot be changed</div>
+    </div>
+
+    <div class="field" id="f-reading">
+      <label id="readingLabel">Hourmeter Reading (HRS) *</label>
+
+      <!-- Last reading info box -->
+      <div id="lastReadingBox" style="display:none; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:8px; font-size:12px;">
+        <div style="color:var(--muted); margin-bottom:2px; text-transform:uppercase; letter-spacing:0.06em; font-size:10px; font-weight:700;">Last Recorded Reading</div>
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <span id="lastReadingValue" style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:22px; font-weight:800; color:var(--orange);">—</span>
+          <span id="lastReadingDate" style="color:var(--muted); font-size:11px;">—</span>
+        </div>
+        <div id="lastReadingNote" style="color:var(--muted); font-size:11px; margin-top:2px;">New reading must be equal or higher than this</div>
+      </div>
+
+      <div class="reading-wrap">
+        <input type="number" id="meterReading" placeholder="0" min="0" inputmode="decimal" oninput="validateReading()">
+        <div class="reading-unit" id="readingUnit">HRS</div>
+      </div>
+      <div class="field-error" id="readingError">Reading is required</div>
+    </div>
+
+    <div class="field">
+      <label>Fuel Level</label>
+      <select id="fuelLevel">
+        <option value="">Not reported</option>
+        <option>Full (100%)</option>
+        <option>3/4 (75%)</option>
+        <option>Half (50%)</option>
+        <option>1/4 (25%)</option>
+        <option>Low (&lt;10%)</option>
+        <option>Empty</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Remarks / Issues</label>
+      <textarea id="remarks" placeholder="Any faults, maintenance needs, or notes..."></textarea>
+    </div>
+
+  </div>
+
+  <button class="submit-btn" onclick="submitEntry()">
+    ✓ &nbsp; Submit Daily Log
+  </button>
+
+</main>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">✓</div>
+  <div class="success-title">Submitted!</div>
+  <div class="success-sub">Your daily equipment log has been<br>recorded successfully.</div>
+  <div class="success-ref">
+    <span>Reference ID</span>
+    <strong id="refId">—</strong>
+  </div>
+  <div id="syncResultMsg" style="margin-bottom:24px;min-height:20px;text-align:center"></div>
+  <button class="new-entry-btn" onclick="resetForm()">+ New Entry</button>
+</div>
+
+<script>
+  // ── GOOGLE SHEETS API URL ── (hardcoded — no setup needed)
+  let SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbwzEKSJNOSpM4jBd7tfZdBoa2H39dK99YD14dkCrAM31r1BYsg1jN3YQ0HB3GoNBRE/exec';
+  const banner = document.getElementById('setupBanner');
+  const apiInput = document.getElementById('apiUrlInput');
+  banner.style.display = 'none'; // Always hidden
+  function saveApiUrl(val) {
+    SHEETS_API_URL = val.trim();
+    localStorage.setItem('eqt_api_url', SHEETS_API_URL);
+    if (SHEETS_API_URL.startsWith('https://script.google.com')) {
+      document.getElementById('sbSaved').style.display = 'block';
+      setTimeout(() => { banner.style.display = 'none'; loadFleetList(); }, 1500);
+    }
+  }
+  function showSettings() {
+    banner.style.display = 'flex';
+    apiInput.value = SHEETS_API_URL;
+    apiInput.focus();
+    window.scrollTo(0, 0);
+  }
+
+  // ── FLEET LIST ────────────────────────────────────────
+  let fleetMachines = [];
+  let selectedMachine = null;
+
+  async function loadFleetList() {
+    if (!SHEETS_API_URL) {
+      document.getElementById('fleetLoadingMsg').textContent = '⚠ No API URL set — add it in setup box above.';
+      return;
+    }
+    try {
+      const res = await fetch(SHEETS_API_URL + '?action=getFleet', {
+        method: 'GET', redirect: 'follow'
+      });
+      const text = await res.text();
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error('No JSON found');
+      const data = JSON.parse(jsonMatch[0]);
+      // Convert all values to strings
+      fleetMachines = (data.machines || []).map(m => ({
+        id:           String(m.id || ''),
+        type:         String(m.type || ''),
+        operator:     String(m.operator || ''),
+        site:         String(m.site || ''),
+        reading_type: String(m.reading_type || '')
+      }));
+      document.getElementById('fleetLoadingMsg').style.display = 'none';
+      if (fleetMachines.length === 0) {
+        document.getElementById('fleetLoadingMsg').style.display = 'block';
+        document.getElementById('fleetLoadingMsg').textContent = '⚠ Fleet List is empty — add machines in Google Sheets.';
+      } else {
+        console.log('✅ Fleet loaded:', fleetMachines.length, 'machines');
+        populateSelect(fleetMachines);
+      }
+    } catch (err) {
+      console.error('Fleet load error:', err);
+      document.getElementById('fleetLoadingMsg').textContent = '⚠ Could not load machine list. Check your connection.';
+    }
+  }
+
+  function populateSelect(machines) {
+    const sel = document.getElementById('machineSelect');
+    sel.innerHTML = '<option value="">-- Select machine --</option>';
+    machines.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.id;
+      opt.textContent = `${m.id} | ${m.type} | ${m.site}`;
+      sel.appendChild(opt);
+    });
+  }
+
+  function filterMachines(query) {
+    // Reset selection
+    selectedMachine = null;
+    document.getElementById('machineId').value = '';
+    document.getElementById('equipType').value = '';
+    document.getElementById('projectSite').value = '';
+    unlockReadingType();
+
+    const q = query.trim();
+    if (!q) {
+      populateSelect(fleetMachines);
+      return;
+    }
+    const matches = fleetMachines.filter(m =>
+      m.id.includes(q) ||
+      String(m.type).toUpperCase().includes(q.toUpperCase()) ||
+      String(m.site).toUpperCase().includes(q.toUpperCase()) ||
+      String(m.operator).toUpperCase().includes(q.toUpperCase())
+    );
+    populateSelect(matches);
+    // Auto-select if exact match
+    if (matches.length === 1) {
+      document.getElementById('machineSelect').value = matches[0].id;
+      selectMachineFromSelect(matches[0].id);
+    }
+    updateSteps();
+  }
+
+  function selectMachineFromSelect(machineId) {
+    if (!machineId) return;
+    const m = fleetMachines.find(x => x.id === machineId);
+    if (!m) return;
+    selectedMachine = m;
+    document.getElementById('machineId').value = m.id;
+    document.getElementById('machineSearch').value = m.id;
+    document.getElementById('equipType').value = m.type || '';
+    document.getElementById('projectSite').value = m.site || '';
+    document.getElementById('f-machine').classList.remove('invalid');
+
+    // Lock reading type from Fleet List
+    if (m.reading_type && m.reading_type.trim() !== '') {
+      const rt = m.reading_type.trim();
+      if (rt === 'Hourmeter') setReadingType('hour');
+      else if (rt === 'Odometer') setReadingType('km');
+      lockReadingType(rt);
+    } else {
+      unlockReadingType();
+    }
+
+    updateSteps();
+    fetchLastReading(m.id);
+  }
+
+  let lastReadingValue = null;
+  async function fetchLastReading(machineId) {
+    document.getElementById('lastReadingBox').style.display = 'block';
+    document.getElementById('lastReadingValue').textContent = '⏳ Loading...';
+    document.getElementById('lastReadingDate').textContent = '';
+    try {
+      const res = await fetch(`${SHEETS_API_URL}?action=getLastReading&machineId=${encodeURIComponent(machineId)}`, {
+        method: 'GET', redirect: 'follow'
+      });
+      const text = await res.text();
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error('No JSON');
+      const data = JSON.parse(jsonMatch[0]);
+      if (data.last_reading !== null && data.last_reading !== '') {
+        lastReadingValue = parseFloat(data.last_reading);
+        const unit = data.reading_type === 'Hourmeter' ? 'HRS' : 'KM';
+        document.getElementById('lastReadingValue').textContent = `${Number(data.last_reading).toLocaleString()} ${unit}`;
+        document.getElementById('lastReadingDate').textContent = `on ${data.last_date}`;
+        document.getElementById('lastReadingNote').textContent = `⚠ New reading must be ≥ ${Number(data.last_reading).toLocaleString()}`;
+        // Only lock from history if Fleet List did not already lock it
+        if (!selectedMachine || !selectedMachine.reading_type) {
+          if (data.reading_type === 'Hourmeter') setReadingType('hour');
+          else if (data.reading_type === 'Odometer') setReadingType('km');
+          lockReadingType(data.reading_type);
+        }
+      } else {
+        lastReadingValue = null;
+        document.getElementById('lastReadingValue').textContent = 'No previous entry';
+        document.getElementById('lastReadingDate').textContent = 'First time';
+        document.getElementById('lastReadingNote').textContent = 'Enter the current reading';
+        // Only unlock if Fleet List did not already lock it
+        if (!selectedMachine || !selectedMachine.reading_type) {
+          unlockReadingType();
+        }
+      }
+    } catch (err) {
+      lastReadingValue = null;
+      document.getElementById('lastReadingValue').textContent = 'Could not load';
+      document.getElementById('lastReadingDate').textContent = '';
+    }
+  }
+
+  function lockReadingType(typeName) {
+    // Hide toggle, show locked indicator
+    document.getElementById('typeToggle').style.display = 'none';
+    const lockBox = document.getElementById('readingTypeLocked');
+    lockBox.style.display = 'block';
+    document.getElementById('lockedTypeName').textContent = typeName === 'Hourmeter' ? '⏱ Hourmeter (HRS)' : '🛣 Odometer (KM)';
+  }
+
+  function unlockReadingType() {
+    // Show toggle, hide locked indicator
+    document.getElementById('typeToggle').style.display = 'grid';
+    document.getElementById('readingTypeLocked').style.display = 'none';
+  }
+
+  function validateReading() {
+    const val = parseFloat(document.getElementById('meterReading').value);
+    const field = document.getElementById('f-reading');
+    const errorEl = document.getElementById('readingError');
+    if (!val && val !== 0) {
+      field.classList.remove('invalid');
+      return;
+    }
+    if (lastReadingValue !== null && val < lastReadingValue) {
+      field.classList.add('invalid');
+      errorEl.textContent = `❌ Reading must be ≥ ${lastReadingValue.toLocaleString()} (last recorded value)`;
+    } else {
+      field.classList.remove('invalid');
+      errorEl.textContent = 'Reading is required';
+    }
+    updateSteps();
+  }
+
+  // Load fleet on startup
+  loadFleetList();
+  function updateOnlineStatus() {
+    const online = navigator.onLine;
+    const pill = document.getElementById('syncPill');
+    pill.className = 'sync-pill ' + (online ? 'online' : 'offline');
+    document.getElementById('syncLabel').textContent = online ? 'Online' : 'Offline';
+  }
+  updateOnlineStatus();
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+
+  // ── DATE ──
+  const now = new Date();
+  document.getElementById('dateDisplay').textContent =
+    now.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+
+  // ── READING TYPE ──
+  let readingType = 'hour';
+  function setReadingType(t) {
+    readingType = t;
+    document.getElementById('btnHour').classList.toggle('active', t === 'hour');
+    document.getElementById('btnKm').classList.toggle('active', t === 'km');
+    document.getElementById('readingUnit').textContent = t === 'hour' ? 'HRS' : 'KM';
+    document.getElementById('readingLabel').textContent =
+      t === 'hour' ? 'Hourmeter Reading (HRS) *' : 'Odometer Reading (KM) *';
+    document.getElementById('meterReading').placeholder = '0';
+  }
+
+  // ── GPS ──
+  let gpsData = null;
+  function captureGPS() {
+    const box = document.getElementById('gpsBox');
+    if (box.classList.contains('captured')) return;
+    box.classList.add('loading');
+    document.getElementById('gpsTitle').textContent = 'Getting location...';
+    document.getElementById('gpsSub').textContent = 'Please allow location access';
+
+    if (!navigator.geolocation) {
+      box.classList.remove('loading');
+      document.getElementById('gpsSub').textContent = 'GPS not supported on this device';
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        gpsData = { lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6), acc: Math.round(pos.coords.accuracy) };
+        const mapsUrl = `https://www.google.com/maps?q=${gpsData.lat},${gpsData.lng}`;
+        document.getElementById('latVal').value = gpsData.lat;
+        document.getElementById('lngVal').value = gpsData.lng;
+        document.getElementById('mapsLinkVal').value = mapsUrl;
+        // Show Google Maps link
+        document.getElementById('mapsLink').href = mapsUrl;
+        document.getElementById('mapsLinkBox').style.display = 'block';
+        box.classList.remove('loading');
+        box.classList.add('captured');
+        document.getElementById('gpsIconBox').textContent = '✅';
+        document.getElementById('gpsTitle').textContent = 'Location Captured';
+        document.getElementById('gpsSub').textContent = `±${gpsData.acc}m accuracy`;
+        document.getElementById('gpsSub').classList.add('captured');
+        updateSteps();
+      },
+      err => {
+        box.classList.remove('loading');
+        document.getElementById('gpsTitle').textContent = 'Location unavailable';
+        document.getElementById('gpsSub').textContent = 'Check GPS/location permissions';
+      },
+      { enableHighAccuracy: true, timeout: 12000 }
+    );
+  }
+
+  // ── STEPS ──
+  function updateSteps() {
+    const mid = document.getElementById('machineId').value.trim();
+    const opr = document.getElementById('operatorId').value.trim();
+    const gps = gpsData !== null;
+    const rdg = document.getElementById('meterReading').value.trim();
+
+    const s1done = mid && opr;
+    const s2done = gps;
+    const s3done = rdg;
+
+    setStep('s1', s1done ? 'done' : 'active');
+    document.getElementById('l1').classList.toggle('done', s1done);
+    setStep('s2', s1done ? (s2done ? 'done' : 'active') : '');
+    document.getElementById('l2').classList.toggle('done', s2done);
+    setStep('s3', s2done ? (s3done ? 'done' : 'active') : '');
+
+    document.getElementById('card1').classList.toggle('active', !s1done);
+    document.getElementById('card2').classList.toggle('active', s1done && !s2done);
+    document.getElementById('card3').classList.toggle('active', s1done && s2done);
+  }
+
+  function setStep(id, state) {
+    const el = document.getElementById(id);
+    el.classList.remove('active', 'done');
+    if (state) el.classList.add(state);
+  }
+
+  ['operatorId','meterReading'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', updateSteps);
+    el.addEventListener('change', updateSteps);
+  });
+
+  // ── SUBMIT ──
+  let entryCount = parseInt(localStorage.getItem('eqt_count') || '0');
+  document.getElementById('todayCount').textContent = entryCount;
+
+  function validate() {
+    let ok = true;
+    // Machine ID
+    const machineVal = document.getElementById('machineId').value.trim();
+    const fMachine = document.getElementById('f-machine');
+    if (!machineVal) { fMachine.classList.add('invalid'); ok = false; }
+    else fMachine.classList.remove('invalid');
+    // Operator
+    const fOp = document.getElementById('f-operator');
+    const opVal = document.getElementById('operatorId').value.trim();
+    if (!opVal) { fOp.classList.add('invalid'); ok = false; }
+    else fOp.classList.remove('invalid');
+    // Reading
+    const fRead = document.getElementById('f-reading');
+    const errorEl = document.getElementById('readingError');
+    const readVal = parseFloat(document.getElementById('meterReading').value);
+    if (!document.getElementById('meterReading').value.trim()) {
+      fRead.classList.add('invalid');
+      errorEl.textContent = 'Reading is required';
+      ok = false;
+    } else if (lastReadingValue !== null && readVal < lastReadingValue) {
+      fRead.classList.add('invalid');
+      errorEl.textContent = `❌ Reading must be ≥ ${lastReadingValue.toLocaleString()} (last recorded value)`;
+      ok = false;
+    } else {
+      fRead.classList.remove('invalid');
+    }
+    return ok;
+  }
+
+  async function submitEntry() {
+    if (!validate()) return;
+
+    const btn = document.querySelector('.submit-btn');
+    btn.disabled = true;
+    btn.textContent = '⏳  Submitting...';
+
+    const submitTime = new Date().toLocaleTimeString('en-GB');
+    const entry = {
+      ref_id: 'EQT-' + Date.now(),
+      timestamp: new Date().toISOString(),
+      date: now.toLocaleDateString('en-GB'),
+      time: submitTime,
+      machine_id: document.getElementById('machineId').value.trim(),
+      equipment_type: document.getElementById('equipType').value,
+      operator_id: document.getElementById('operatorId').value.trim(),
+      project_site: document.getElementById('projectSite').value.trim(),
+      latitude: document.getElementById('latVal').value || 'N/A',
+      longitude: document.getElementById('lngVal').value || 'N/A',
+      gps_accuracy_m: gpsData ? gpsData.acc : 'N/A',
+      maps_link: document.getElementById('mapsLinkVal').value || 'N/A',
+      location_description: document.getElementById('locationDesc').value.trim(),
+      reading_type: readingType === 'hour' ? 'Hourmeter' : 'Odometer',
+      meter_reading: document.getElementById('meterReading').value,
+      fuel_level: document.getElementById('fuelLevel').value,
+      remarks: document.getElementById('remarks').value.trim()
+    };
+
+    let synced = false;
+    if (SHEETS_API_URL) {
+      try {
+        await fetch(SHEETS_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entry),
+          mode: 'no-cors' // required for Google Apps Script
+        });
+        synced = true;
+      } catch (err) {
+        console.warn('Could not reach Google Sheets — saved locally.');
+      }
+    }
+
+    // Always save locally as backup
+    const stored = JSON.parse(localStorage.getItem('eqt_entries') || '[]');
+    stored.push({ ...entry, synced });
+    localStorage.setItem('eqt_entries', JSON.stringify(stored));
+
+    entryCount++;
+    localStorage.setItem('eqt_count', entryCount);
+
+    btn.disabled = false;
+    btn.textContent = '✓   Submit Daily Log';
+
+    // Show result
+    document.getElementById('refId').textContent = entry.ref_id;
+    const syncMsg = document.getElementById('syncResultMsg');
+    if (syncMsg) {
+      syncMsg.innerHTML = synced
+        ? '<span style="color:#22C55E;font-size:13px">✓ Sent to Google Sheets</span>'
+        : (!SHEETS_API_URL
+          ? '<span style="color:#F97316;font-size:13px">⚠ No Sheets URL set — saved locally only</span>'
+          : '<span style="color:#F97316;font-size:13px">⚠ Offline — saved locally, will need manual sync</span>');
+    }
+    document.getElementById('successOverlay').classList.add('show');
+    document.getElementById('todayCount').textContent = entryCount;
+    document.getElementById('lastSubmit').textContent = submitTime;
+  }
+
+  function resetForm() {
+    document.getElementById('successOverlay').classList.remove('show');
+    document.getElementById('machineSearch').value = '';
+    document.getElementById('machineSelect').value = '';
+    document.getElementById('machineId').value = '';
+    document.getElementById('equipType').value = '';
+    document.getElementById('projectSite').value = '';
+    document.getElementById('meterReading').value = '';
+    document.getElementById('fuelLevel').value = '';
+    document.getElementById('remarks').value = '';
+    document.getElementById('locationDesc').value = '';
+    document.getElementById('latVal').value = '';
+    document.getElementById('lngVal').value = '';
+    document.getElementById('mapsLinkVal').value = '';
+    document.getElementById('mapsLinkBox').style.display = 'none';
+    document.getElementById('mapsLink').href = '#';
+    selectedMachine = null;
+    lastReadingValue = null;
+    document.getElementById('lastReadingBox').style.display = 'none';
+    unlockReadingType();
+    gpsData = null;
+    const box = document.getElementById('gpsBox');
+    box.classList.remove('captured', 'loading');
+    document.getElementById('gpsIconBox').textContent = '📡';
+    document.getElementById('gpsTitle').textContent = 'Capture GPS Location';
+    document.getElementById('gpsSub').textContent = 'Tap to get current coordinates';
+    document.getElementById('gpsSub').classList.remove('captured');
+    updateSteps();
+  }
+</script>
+
+
+</body></html>
