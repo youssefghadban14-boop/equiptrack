@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_34.html -->
+<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_41.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -484,9 +484,48 @@
   <div style="display:flex;align-items:center;gap:10px">
     <button onclick="showSettings()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;padding:5px 10px;cursor:pointer;">⚙️</button>
     <div class="sync-pill online" id="syncPill"><div class="sync-dot"></div><span id="syncLabel">Online</span></div>
-    <div class="date-badge" id="dateDisplay">Mon, 16 Mar 2026</div>
+    <div class="date-badge" id="dateDisplay">Tue, 17 Mar 2026</div>
+    <button id="logoutBtn" onclick="doLogout()" style="display:none; padding:6px 12px; background:rgba(239,68,68,0.15); border:1px solid var(--red); border-radius:8px; color:var(--red); font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:12px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:0.04em;">⎋ Logout</button>
   </div>
 </header>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" style="display:flex; position:fixed; inset:0; z-index:500; background:var(--bg); flex-direction:column; align-items:center; justify-content:center; padding:24px;">
+  <div style="width:100%; max-width:400px;">
+    <div style="text-align:center; margin-bottom:32px;">
+      <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:36px; font-weight:900; color:var(--orange);">EQUIP<span style="color:var(--text)">TRACK</span></div>
+      <div style="font-size:13px; color:var(--muted); margin-top:4px;">Daily Equipment Log</div>
+    </div>
+
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px;">
+      <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:18px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:20px; color:var(--text);">🔐 Operator Login</div>
+
+      <div style="margin-bottom:16px;">
+        <label style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); display:block; margin-bottom:6px;">Select Operator</label>
+        <select id="loginOperatorSelect" style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px;">
+          <option value="">⏳ Loading operators...</option>
+        </select>
+        <div id="operatorLoadError" style="display:none; margin-top:8px;">
+          <span style="font-size:12px; color:var(--red);">⚠️ Failed to load operators.</span>
+          <button onclick="loadOperators()" style="margin-left:8px; padding:4px 10px; background:var(--orange); border:none; border-radius:6px; color:#fff; font-size:12px; font-weight:700; cursor:pointer;">Retry</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:8px;">
+        <label style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); display:block; margin-bottom:6px;">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px; outline:none;" onkeydown="if(event.key===&#39;Enter&#39;) doLogin()">
+      </div>
+
+      <div id="loginError" style="display:none; color:var(--red); font-size:12px; font-weight:600; margin-bottom:12px; padding:8px 12px; background:rgba(239,68,68,0.1); border-radius:8px;">
+        ❌ Incorrect password. Please try again.
+      </div>
+
+      <button onclick="doLogin()" style="width:100%; padding:14px; background:var(--orange); border:none; border-radius:10px; color:#fff; font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:16px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; cursor:pointer; margin-top:8px;">
+        Login →
+      </button>
+    </div>
+  </div>
+</div>
 
 <main>
 
@@ -505,7 +544,7 @@
   <div class="counter-bar">
     <div>
       <div class="counter-label">Today's Entries</div>
-      <div class="counter-num" id="todayCount">13</div>
+      <div class="counter-num" id="todayCount">14</div>
     </div>
     <div class="counter-divider"></div>
     <div style="text-align:right">
@@ -544,7 +583,9 @@
       <input type="text" id="machineSearch" placeholder="Type to filter machines..." autocomplete="off" oninput="filterMachines(this.value)" style="margin-bottom:8px;">
 
       <!-- Native select for reliable selection on all devices -->
-      <select id="machineSelect" onchange="selectMachineFromSelect(this.value)" size="1"><option value="">-- Select machine --</option><option value="155776">155776 | AIR COMPRESSOR | 65/021</option><option value="155792">155792 | AIR COMPRESSOR | 65/021</option><option value="142195">142195 | BUS | 65/021</option><option value="142203">142203 | BUS | 65/021</option><option value="144183">144183 | BUS | 57/001</option><option value="144196">144196 | BUS | 65/021</option><option value="144204">144204 | BUS | 65/021</option><option value="144212">144212 | BUS | P065.01</option><option value="155912">155912 | BUS | 65/021</option><option value="123107">123107 | CRANE ROUGH TERRAIN | 65.426</option><option value="140904">140904 | CRANE ROUGH TERRAIN | 65/021</option><option value="140912">140912 | CRANE ROUGH TERRAIN | 65/021</option><option value="139495">139495 | EXCAVATOR CRAWLER HYDRAULIC | 65/021</option><option value="157276">157276 | FLOOD LIGHT | 65/021</option><option value="157315">157315 | FLOOD LIGHT | 65/021</option><option value="125327">125327 | FORKLIFT | P065.01</option><option value="155927">155927 | FORKLIFT | 57/001</option><option value="119664">119664 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="120295">120295 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="120595">120595 | GENERATOR - DIESEL ENGINE | 56</option><option value="123647">123647 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="130036">130036 | GENERATOR - DIESEL ENGINE | P065.01</option><option value="130652">130652 | GENERATOR - DIESEL ENGINE | 56</option><option value="131883">131883 | GENERATOR - DIESEL ENGINE | 56</option><option value="131904">131904 | GENERATOR - DIESEL ENGINE | 57/001</option><option value="150436">150436 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="158223">158223 | GENERATOR - DIESEL ENGINE | 65/021</option><option value="119763">119763 | PICK-UP D/CABIN | P065.01</option><option value="120115">120115 | PICK-UP D/CABIN | P065.01</option><option value="121576">121576 | PICK-UP D/CABIN | 56</option><option value="123947">123947 | PICK-UP D/CABIN | P065</option><option value="155807">155807 | PICK-UP D/CABIN | 65/021</option><option value="155815">155815 | PICK-UP D/CABIN | 65/021</option><option value="155823">155823 | PICK-UP D/CABIN | 65/021</option><option value="155836">155836 | PICK-UP D/CABIN | 65/021</option><option value="155844">155844 | PICK-UP D/CABIN | 65/021</option><option value="155852">155852 | PICK-UP D/CABIN | 57/001</option><option value="155867">155867 | PICK-UP D/CABIN | 65/021</option><option value="155875">155875 | PICK-UP D/CABIN | 65/021</option><option value="155883">155883 | PICK-UP D/CABIN | 65/021</option><option value="155896">155896 | PICK-UP D/CABIN | 65/021</option><option value="157636">157636 | PICK-UP D/CABIN | P065.01</option><option value="157644">157644 | PICK-UP D/CABIN | 65/021</option><option value="157652">157652 | PICK-UP D/CABIN | 65/021</option><option value="157667">157667 | PICK-UP D/CABIN | 65/021</option><option value="157323">157323 | PUMP DEWATERING | 56</option><option value="157336">157336 | PUMP DEWATERING | 56</option><option value="159976">159976 | PUMP TEST | 65/021</option><option value="160696">160696 | PUMP TEST | 65/021</option><option value="148367">148367 | ROCK BREAKER - HYDRAULIC | 56</option><option value="148375">148375 | ROCK BREAKER - HYDRAULIC | 56</option><option value="141744">141744 | ROLLER VIBRATING - STEEL | 56</option><option value="157143">157143 | ROLLER WALK BEHIND D/DRUM | 65/021</option><option value="157156">157156 | ROLLER WALK BEHIND D/DRUM | 65/021</option><option value="157164">157164 | ROLLER WALK BEHIND D/DRUM | 65/021</option><option value="123243">123243 | SALOON CAR | P065.01</option><option value="125567">125567 | SALOON CAR | P065</option><option value="125776">125776 | SALOON CAR | 56</option><option value="157615">157615 | SALOON CAR | P065</option><option value="157623">157623 | SALOON CAR | P065</option><option value="156204">156204 | SKID STEER LOADER | 65/021</option><option value="120144">120144 | STATION WAGON LWB | 65/021</option><option value="155732">155732 | STATION WAGON LWB | 65/021</option><option value="155763">155763 | STATION WAGON LWB | P065</option><option value="156587">156587 | STATION WAGON LWB | P065</option><option value="121735">121735 | TELEHANDLER | 65.426</option><option value="139983">139983 | TELEHANDLER | 65/021</option><option value="126535">126535 | TRACTIVE UNIT | 65/021</option><option value="126543">126543 | TRACTIVE UNIT | 65/021</option><option value="127892">127892 | TRACTIVE UNIT | 56</option><option value="131103">131103 | TRACTIVE UNIT | 65/021</option><option value="141835">141835 | TRACTIVE UNIT | 56</option><option value="141856">141856 | TRACTIVE UNIT | 65/021</option><option value="141864">141864 | TRACTIVE UNIT | 65/021</option><option value="139555">139555 | TRACTOR BACKHOE/LOADER | 65/021</option><option value="141175">141175 | TRACTOR SHOVEL WHEELED | 65/021</option><option value="127863">127863 | TRAILER - SEWAGE TANK | 56</option><option value="120556">120556 | TRAILER FLAT BED | 65/021</option><option value="120564">120564 | TRAILER FLAT BED | 65/021</option><option value="120572">120572 | TRAILER FLAT BED | 65/021</option><option value="120587">120587 | TRAILER FLAT BED | 65/021</option><option value="127855">127855 | TRAILER LOW BED | 65/021</option><option value="121172">121172 | TRUCK - LOAD CARRYING | 65/021</option><option value="158192">158192 | TRUCK - LOAD CARRYING | 65/021</option><option value="158207">158207 | TRUCK - LOAD CARRYING | 65/021</option><option value="120363">120363 | TRUCK LOAD W/CRANE | P065.01</option><option value="125012">125012 | TRUCK LOAD W/CRANE | 65/021</option><option value="156767">156767 | TRUCK LOAD W/CRANE | 65/021</option><option value="127712">127712 | TRUCK TANKER - SEWAGE | 65/021</option><option value="139255">139255 | TRUCK TANKER - WATER | 65/021</option><option value="139263">139263 | TRUCK TANKER - WATER | 65/021</option><option value="139276">139276 | TRUCK TANKER - WATER | 65/021</option><option value="139156">139156 | TRUCK TIPPER | 65/021</option><option value="139172">139172 | TRUCK TIPPER | 65/021</option><option value="139187">139187 | TRUCK TIPPER | 65/021</option><option value="139195">139195 | TRUCK TIPPER | 56</option><option value="139216">139216 | TRUCK TIPPER | 65/021</option><option value="130967">130967 | WELDING MACHINE - DIESEL | 56</option><option value="159932">159932 | WELDING MACHINE - DIESEL | 65/021</option><option value="159947">159947 | WELDING MACHINE - DIESEL | 56</option><option value="159955">159955 | WELDING MACHINE - DIESEL | 56</option><option value="159963">159963 | WELDING MACHINE - DIESEL | 56</option></select>
+      <select id="machineSelect" onchange="selectMachineFromSelect(this.value)" size="1">
+        <option value="">-- Tap to select machine --</option>
+      </select>
 
       <input type="hidden" id="machineId">
       <div class="field-error" id="machineError">Please select a machine from the list</div>
@@ -557,22 +598,23 @@
         <input type="text" id="equipType" placeholder="Auto-filled" readonly="" style="background:var(--surface);color:var(--muted);cursor:not-allowed;">
       </div>
       <div class="field" id="f-operator">
-        <label>Operator ID *</label>
-        <input type="text" id="operatorId" placeholder="Your ID / Badge">
+        <label>Operator *</label>
+        <input type="text" id="operatorId" placeholder="Auto-filled after login" readonly="" style="background:var(--surface);color:var(--muted);cursor:not-allowed;">
+        <input type="hidden" id="operatorTrade">
         <div class="field-error">Required</div>
       </div>
     </div>
 
     <div class="field">
       <label>Project / Site *</label>
-      <select id="projectSite"><option value="">-- Select Project / Site --</option><option value="QE EPIC">QE EPIC</option><option value="GTC 899">GTC 899</option><option value="GTC 611">GTC 611</option><option value="Area Office">Area Office</option><option value="Camp">Camp</option><option value="Al Karaana Store">Al Karaana Store</option><option value="Workshop">Workshop</option><option value="PMV IDLE">PMV IDLE</option></select>
-      <div id="projectLoadingMsg" style="font-size: 12px; color: var(--muted); padding: 4px 0px; display: none;">⏳ Loading projects...</div>
+      <select id="projectSite">
+        <option value="">-- Select Project / Site --</option>
+      </select>
+      <div id="projectLoadingMsg" style="font-size:12px;color:var(--muted);padding:4px 0;">⚠ Could not load projects.</div>
     </div>
 
     <!-- LOADING STATE -->
-    <div id="fleetLoadingMsg" style="font-size: 12px; color: var(--muted); text-align: center; padding: 8px 0px; display: none;">
-      ⏳ Loading machine list...
-    </div>
+    <div id="fleetLoadingMsg" style="font-size:12px;color:var(--muted);text-align:center;padding:8px 0;">⚠ Could not load machine list. Check your connection.</div>
   </div>
 
   <!-- CARD 2: LOCATION -->
@@ -591,7 +633,7 @@
 
     <!-- Google Maps link — shown after GPS capture -->
     <div id="mapsLinkBox" style="display:none; margin-top:10px;">
-      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_34.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
+      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_41.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
         🗺️ <span>View on Google Maps</span>
         <span style="margin-left:auto; font-size:11px; opacity:0.7">↗ opens in map</span>
       </a>
@@ -1082,6 +1124,7 @@
       machine_id: document.getElementById('machineId').value.trim(),
       equipment_type: document.getElementById('equipType').value,
       operator_id: document.getElementById('operatorId').value.trim(),
+      trade: document.getElementById('operatorTrade').value.trim(),
       project_site: document.getElementById('projectSite').value.trim(),
       latitude: document.getElementById('latVal').value || 'N/A',
       longitude: document.getElementById('lngVal').value || 'N/A',
@@ -1166,6 +1209,120 @@
     document.getElementById('gpsSub').classList.remove('captured');
     updateSteps();
   }
+
+  // ── LOGIN / LOGOUT ────────────────────────────────────
+  let operatorsList = [];
+
+  async function loadOperators() {
+    const sel = document.getElementById('loginOperatorSelect');
+    const errEl = document.getElementById('operatorLoadError');
+    sel.innerHTML = '<option value="">⏳ Loading operators...</option>';
+    if (errEl) errEl.style.display = 'none';
+    try {
+      const res  = await fetch(SHEETS_API_URL + '?action=getOperators', { method:'GET', redirect:'follow' });
+      const text = await res.text();
+      console.log('Operators raw response:', text.substring(0, 200));
+      const match = text.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error('No JSON in response');
+      const data = JSON.parse(match[0]);
+      operatorsList = data.operators || [];
+      if (operatorsList.length === 0) throw new Error('Operators list is empty');
+      sel.innerHTML = '<option value="">-- Select your name --</option>';
+      operatorsList.forEach(op => {
+        const opt = document.createElement('option');
+        opt.value = op.id;
+        opt.textContent = `${op.name} — ${op.trade}`;
+        sel.appendChild(opt);
+      });
+      console.log('Operators loaded:', operatorsList.length);
+    } catch(err) {
+      console.error('Failed to load operators:', err);
+      sel.innerHTML = '<option value="">⚠️ Failed to load</option>';
+      if (errEl) errEl.style.display = 'block';
+    }
+  }
+
+  function doLogin() {
+    const selVal  = document.getElementById('loginOperatorSelect').value;
+    const passVal = document.getElementById('loginPassword').value;
+    const errEl   = document.getElementById('loginError');
+
+    if (!selVal) {
+      errEl.textContent = '❌ Please select your name.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    const op = operatorsList.find(o => o.id === selVal);
+    if (!op) {
+      errEl.textContent = '❌ Operator not found.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    if (String(op.password) !== String(passVal)) {
+      errEl.textContent = '❌ Incorrect password. Please try again.';
+      errEl.style.display = 'block';
+      document.getElementById('loginPassword').value = '';
+      return;
+    }
+
+    // Save session
+    localStorage.setItem('eqt_operator_id',   op.id);
+    localStorage.setItem('eqt_operator_name', op.name);
+    localStorage.setItem('eqt_operator_trade', op.trade);
+
+    applyLoggedInOperator(op);
+  }
+
+  function applyLoggedInOperator(op) {
+    // Fill operator field
+    document.getElementById('operatorId').value    = `${op.name} (${op.id})`;
+    document.getElementById('operatorTrade').value = op.trade;
+
+    // Hide login, show app
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('logoutBtn').style.display   = 'block';
+
+    // Update header to show operator name
+    const badge = document.getElementById('dateDisplay');
+    badge.innerHTML = `<span style="font-size:11px;color:var(--orange);font-weight:700">${op.name}</span>&nbsp;<span style="font-size:10px;color:var(--muted)">${op.trade}</span>`;
+  }
+
+  function doLogout() {
+    localStorage.removeItem('eqt_operator_id');
+    localStorage.removeItem('eqt_operator_name');
+    localStorage.removeItem('eqt_operator_trade');
+    document.getElementById('operatorId').value    = '';
+    document.getElementById('operatorTrade').value = '';
+    document.getElementById('loginPassword').value = '';
+    document.getElementById('loginError').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('logoutBtn').style.display   = 'none';
+    document.getElementById('dateDisplay').textContent   = '';
+  }
+
+  // ── INIT ─────────────────────────────────────────────
+  window.addEventListener('DOMContentLoaded', async () => {
+    // Show login screen immediately
+    document.getElementById('loginScreen').style.display = 'flex';
+
+    // Load fleet + projects in background
+    loadFleetList();
+    loadProjectList();
+
+    // Load operators for login dropdown
+    await loadOperators();
+
+    // Check if already logged in
+    const savedId    = localStorage.getItem('eqt_operator_id');
+    const savedName  = localStorage.getItem('eqt_operator_name');
+    const savedTrade = localStorage.getItem('eqt_operator_trade');
+
+    if (savedId && savedName) {
+      applyLoggedInOperator({ id: savedId, name: savedName, trade: savedTrade || '' });
+    }
+  });
 </script>
 
 
