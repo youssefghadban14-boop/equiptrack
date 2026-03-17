@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_66.html -->
+<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_67.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -9,16 +9,17 @@
   :root {
     --orange: #F97316;
     --orange-dark: #C2530A;
-    --orange-glow: rgba(249,115,22,0.25);
-    --bg: #0D0F14;
-    --surface: #161921;
-    --surface2: #1E2230;
-    --border: #2A2F3F;
-    --text: #F0F2F7;
+    --orange-glow: rgba(249,115,22,0.15);
+    --bg: #F5F6FA;
+    --surface: #FFFFFF;
+    --surface2: #F0F2F7;
+    --border: #E2E5EF;
+    --text: #1A1D2E;
     --muted: #7A8099;
-    --green: #22C55E;
-    --red: #EF4444;
-    --blue: #3B82F6;
+    --green: #16A34A;
+    --red: #DC2626;
+    --blue: #2563EB;
+    --yellow: #D97706;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,8 +29,8 @@
     color: var(--text);
     font-family: 'Barlow', sans-serif;
     min-height: 100vh;
-    background-image: 
-      radial-gradient(ellipse 80% 40% at 50% -10%, rgba(249,115,22,0.12) 0%, transparent 60%);
+    background-image:
+      radial-gradient(ellipse 80% 40% at 50% -10%, rgba(249,115,22,0.08) 0%, transparent 60%);
   }
 
   /* ── HEADER ── */
@@ -40,8 +41,9 @@
     justify-content: space-between;
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 10;
-    background: rgba(13,15,20,0.95);
+    background: rgba(255,255,255,0.95);
     backdrop-filter: blur(10px);
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
   }
 
   .logo {
@@ -116,8 +118,9 @@
     margin-bottom: 16px;
     transition: border-color 0.2s;
     overflow: visible;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
-  .card.active { border-color: rgba(249,115,22,0.4); }
+  .card.active { border-color: rgba(249,115,22,0.5); box-shadow: 0 4px 20px rgba(249,115,22,0.1); }
 
   .card-title {
     font-family: 'Barlow Condensed', sans-serif;
@@ -164,9 +167,10 @@
   input:focus, select:focus {
     border-color: var(--orange);
     box-shadow: 0 0 0 3px var(--orange-glow);
+    background: #fff;
   }
-  input::placeholder { color: var(--muted); font-weight: 400; }
-  select option { background: var(--surface2); }
+  input::placeholder { color: #AAAABC; font-weight: 400; }
+  select option { background: #fff; color: var(--text); }
 
   .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
@@ -340,7 +344,7 @@
   .success-overlay {
     display: none;
     position: fixed; inset: 0; z-index: 100;
-    background: rgba(13,15,20,0.97);
+    background: rgba(245,246,250,0.98);
     flex-direction: column;
     align-items: center; justify-content: center;
     text-align: center;
@@ -396,12 +400,13 @@
 
   /* ── COUNTER BAR ── */
   .counter-bar {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: linear-gradient(135deg, #fff8f3, #fff3eb);
+    border: 1px solid rgba(249,115,22,0.2);
     border-radius: 12px;
     padding: 12px 16px;
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(249,115,22,0.08);
   }
   .counter-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
   .counter-num {
@@ -431,18 +436,18 @@
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
-  textarea:focus { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-glow); }
-  textarea::placeholder { color: var(--muted); }
-  .setup-banner { background:linear-gradient(135deg,#1a1f35,#1e2230); border:1.5px solid var(--orange); border-radius:14px; padding:16px; margin-bottom:20px; display:flex; gap:12px; align-items:flex-start; }
+  textarea:focus { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-glow); background: #fff; }
+  textarea::placeholder { color: #AAAABC; }
+  .setup-banner { background:linear-gradient(135deg,#fff8f3,#fff3eb); border:1.5px solid var(--orange); border-radius:14px; padding:16px; margin-bottom:20px; display:flex; gap:12px; align-items:flex-start; }
   .setup-banner .sb-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
   .setup-banner .sb-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:0.06em; color:var(--orange); margin-bottom:5px; }
   .setup-banner p { font-size:12px; color:var(--muted); line-height:1.5; }
-  .setup-banner input { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:monospace; font-size:11px; padding:9px 10px; outline:none; margin-top:8px; }
+  .setup-banner input { width:100%; background:#fff; border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:monospace; font-size:11px; padding:9px 10px; outline:none; margin-top:8px; }
   .setup-banner input:focus { border-color:var(--orange); }
   .sb-saved { display:none; margin-top:6px; font-size:11px; color:var(--green); font-weight:600; }
   .sync-pill { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; font-family:'Barlow Condensed',sans-serif; letter-spacing:0.04em; }
-  .sync-pill.online  { background:rgba(34,197,94,0.15); color:var(--green); }
-  .sync-pill.offline { background:rgba(239,68,68,0.15); color:var(--red); }
+  .sync-pill.online  { background:rgba(22,163,74,0.12); color:var(--green); }
+  .sync-pill.offline { background:rgba(220,38,38,0.12); color:var(--red); }
   .sync-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
 
   /* ── MACHINE SEARCH DROPDOWN ── */
@@ -450,7 +455,7 @@
   .machine-dropdown {
     display: none;
     position: absolute; top: 100%; left: 0; right: 0; z-index: 9999;
-    background: #1E2230;
+    background: #fff;
     border: 2px solid var(--orange);
     border-radius: 10px;
     margin-top: 4px;
@@ -485,7 +490,7 @@
     <button onclick="showSettings()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;padding:5px 10px;cursor:pointer;">⚙️</button>
     <div class="sync-pill online" id="syncPill"><div class="sync-dot"></div><span id="syncLabel">Online</span></div>
     <div class="date-badge" id="dateDisplay">Tue, 17 Mar 2026</div>
-    <button id="logoutBtn" onclick="doLogout()" style="display: block; padding: 6px 12px; background: rgba(239, 68, 68, 0.15); border: 1px solid var(--red); border-radius: 8px; color: var(--red); font-family: &quot;Barlow Condensed&quot;, sans-serif; font-size: 11px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 0.04em; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Hassan Mohamad · 👷 Operator  ⎋</button>
+    <button id="logoutBtn" onclick="doLogout()" style="display: block; padding: 6px 12px; background: rgba(239, 68, 68, 0.15); border: 1px solid var(--red); border-radius: 8px; color: var(--red); font-family: &quot;Barlow Condensed&quot;, sans-serif; font-size: 11px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 0.04em; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Bassem Elzouhbi · 👷 Operator  ⎋</button>
   </div>
 </header>
 
@@ -497,12 +502,12 @@
       <div style="font-size:13px; color:var(--muted); margin-top:4px;">Daily Equipment Log</div>
     </div>
 
-    <div style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px;">
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; box-shadow:0 4px 24px rgba(0,0,0,0.08);">
       <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:18px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:20px; color:var(--text);">🔐 Operator Login</div>
 
       <div style="margin-bottom:16px;">
         <label style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); display:block; margin-bottom:6px;">Select Operator</label>
-        <select id="loginOperatorSelect" style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px;"><option value="">-- Select your name --</option><option value="C-1148">ABDUL GAFOOR — LIGHT DUTY DRIVER (C-1148)</option><option value="823909">Ahmed Mohamed Elwali — PRO (823909)</option><option value="C-8648">ALTAF HUSSAIN — HEAVY DUTY DRIVER (C-8648)</option><option value="C-3827">AMRATLAL BHANABHAI — LIGHT DUTY DRIVER (C-3827)</option><option value="C-1456">ANANTHARAJA THANGARAJ — HEAVY DUTY DRIVER (C-1456)</option><option value="C-6490">BACHAN DEV MAHARA — SKID LOADER OPERATOR (C-6490)</option><option value="823907">Balakrishnan Sathiyamoorthy — QA/QC Civil Engineer (823907)</option><option value="C-8823">BAM BAHADUR — HEAVY DUTY DRIVER (C-8823)</option><option value="C-1283">Barif Khan — PMV Timekeeper (C-1283)</option><option value="821074">Bassem Elzouhbi — Sr. Land Surveyor (821074)</option><option value="C-8824">BIRENDRA ADHIKARI DANUWAR — LIGHT DUTY DRIVER (C-8824)</option><option value="C-8110">CHAMINDA RUWAN — HEAVY DUTY DRIVER (C-8110)</option><option value="C-8069">CHAMMAN LAL BAIRWA — MOBILE CRANE OPERATOR (C-8069)</option><option value="C-4269">DIDARUL ALAM — LIGHT DUTY DRIVER (C-4269)</option><option value="821352">FADEL HUSSEIN ALHAMDAN — HEAVY DUTY DRIVER (821352)</option><option value="C-8685">FAZAL RABI — FORKLIFT OPERATOR (C-8685)</option><option value="C-8591">GANGA MOHAN SOM — LIGHT DUTY DRIVER (C-8591)</option><option value="C-8752">GURPREET SINGH — HEAVY DUTY DRIVER / EXCAVATOR OPERATOR (C-8752)</option><option value="C-8829">HARVINDER SINGH AMARJEET — HEAVY DUTY DRIVER (C-8829)</option><option value="822264">Hassan Mohamad — Acting Area Manager (822264)</option><option value="821962">Imad Eloudaimy — Gen. Mechanical Foreman (821962)</option><option value="C-4571">JAHAGIR KHA — HEAVY DUTY DRIVER (C-4571)</option><option value="C-8663">JAMSHID IMTIAZ — LIGHT DUTY DRIVER (C-8663)</option><option value="C-8600">JASWINDER HARMESH SINGH — HEAVY DUTY DRIVER (C-8600)</option><option value="823400">Jesusito Ricohermoso — Sr. Plant Administrator (823400)</option><option value="C-8063">LAXMAN BAHADUR — HEAVY DUTY DRIVER (C-8063)</option><option value="C-8822">MD JABED MIYA — LIGHT DUTY DRIVER (C-8822)</option><option value="C-8627">MD ULLAPHAT — LIGHT DUTY DRIVER (C-8627)</option><option value="821433">Mohamad Khaled — Transport Officer (821433)</option><option value="823804">Mohamad Osman — PRO (823804)</option><option value="823010">Mohamad Shakil — PRO (823010)</option><option value="C-1466">MOHAMAD YAKUF ANSARI — HEAVY DUTY DRIVER (C-1466)</option><option value="C-8557">MOHAMMAD NADEEMUDDIN — LIGHT DUTY DRIVER (C-8557)</option><option value="823945">Mohammed Burhanuddin — Civil Engineer (823945)</option><option value="C-4616">MOHAMMED NAZIM UDDIN — LIGHT DUTY DRIVER (C-4616)</option><option value="C-8664">MUHAMMAD RAFIQUE MUHAMMAD IQBAL — MOBILE CRANE OPERATOR (C-8664)</option><option value="823259">Murthy Sametha — HSE Superintendent (823259)</option><option value="821423">Mustapha Ajine — Civil Foreman (821423)</option><option value="C-8646">NASIR MEHMOOD MUBARAK ALI — HEAVY DUTY DRIVER (C-8646)</option><option value="C-8691">NIKHIL KOPPERA LIMBANNA — HEAVY DUTY DRIVER (C-8691)</option><option value="822261">Saide Mansur — Area HSSE Manager (822261)</option><option value="C-8689">SANCHAR SINGH — HEAVY DUTY DRIVER (C-8689)</option><option value="C-8068">SANJEEV MASIH — MOBILE CRANE OPERATOR (C-8068)</option><option value="C-8072">SANTOSH KUMAR KUSHWAHA — WHEEL LOADER OPERATOR (C-8072)</option><option value="C-8764">SARABJIT SINGH — HEAVY DUTY DRIVER (C-8764)</option><option value="C-8596">SOHAIL ZAHID IQBAL — HEAVY DUTY DRIVER (C-8596)</option><option value="C-1257">SOHEL ARMAN — LIGHT DUTY DRIVER (C-1257)</option><option value="823989">Srijith Krishnan — Safety Officer (823989)</option><option value="C-8650">SUFAID ULLAH — HEAVY DUTY DRIVER (C-8650)</option><option value="C-8647">UMAR FAROOQ — HEAVY DUTY DRIVER (C-8647)</option><option value="C-8593">VILAS PALEM KAILASH — LIGHT DUTY DRIVER (C-8593)</option><option value="C-5341">YASIN SAYED — LIGHT DUTY DRIVER (C-5341)</option><option value="822273">Youssef Ghadban — Area PMV Manager (822273)</option></select>
+        <select id="loginOperatorSelect" style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px;"><option value="">-- Select your name --</option><option value="C-1148">ABDUL GAFOOR — LIGHT DUTY DRIVER (C-1148)</option><option value="823909">Ahmed Mohamed Elwali — PRO (823909)</option><option value="C-8648">ALTAF HUSSAIN — HEAVY DUTY DRIVER (C-8648)</option><option value="C-3827">AMRATLAL BHANABHAI — LIGHT DUTY DRIVER (C-3827)</option><option value="C-1456">ANANTHARAJA THANGARAJ — HEAVY DUTY DRIVER (C-1456)</option><option value="C-6490">BACHAN DEV MAHARA — SKID LOADER OPERATOR (C-6490)</option><option value="823907">Balakrishnan Sathiyamoorthy — QA/QC Civil Engineer (823907)</option><option value="C-8823">BAM BAHADUR — HEAVY DUTY DRIVER (C-8823)</option><option value="C-1283">Barif Khan — PMV Timekeeper (C-1283)</option><option value="821074">Bassem Elzouhbi — Sr. Land Surveyor (821074)</option><option value="C-8824">BIRENDRA ADHIKARI DANUWAR — LIGHT DUTY DRIVER (C-8824)</option><option value="C-8110">CHAMINDA RUWAN — HEAVY DUTY DRIVER (C-8110)</option><option value="C-8069">CHAMMAN LAL BAIRWA — MOBILE CRANE OPERATOR (C-8069)</option><option value="C-4269">DIDARUL ALAM — LIGHT DUTY DRIVER (C-4269)</option><option value="821352">FADEL HUSSEIN ALHAMDAN — HEAVY DUTY DRIVER (821352)</option><option value="C-8685">FAZAL RABI — FORKLIFT OPERATOR (C-8685)</option><option value="C-8591">GANGA MOHAN SOM — LIGHT DUTY DRIVER (C-8591)</option><option value="C-8752">GURPREET SINGH — HEAVY DUTY DRIVER / EXCAVATOR OPERATOR (C-8752)</option><option value="C-8829">HARVINDER SINGH AMARJEET — HEAVY DUTY DRIVER (C-8829)</option><option value="822264">Hassan Mohamad — Aear Managing Director (822264)</option><option value="821962">Imad Eloudaimy — Gen. Mechanical Foreman (821962)</option><option value="C-4571">JAHAGIR KHA — HEAVY DUTY DRIVER (C-4571)</option><option value="C-8663">JAMSHID IMTIAZ — LIGHT DUTY DRIVER (C-8663)</option><option value="C-8600">JASWINDER HARMESH SINGH — HEAVY DUTY DRIVER (C-8600)</option><option value="823400">Jesusito Ricohermoso — Sr. Plant Administrator (823400)</option><option value="C-8063">LAXMAN BAHADUR — HEAVY DUTY DRIVER (C-8063)</option><option value="C-8822">MD JABED MIYA — LIGHT DUTY DRIVER (C-8822)</option><option value="C-8627">MD ULLAPHAT — LIGHT DUTY DRIVER (C-8627)</option><option value="821433">Mohamad Khaled — Transport Officer (821433)</option><option value="823804">Mohamad Osman — PRO (823804)</option><option value="823010">Mohamad Shakil — PRO (823010)</option><option value="C-1466">MOHAMAD YAKUF ANSARI — HEAVY DUTY DRIVER (C-1466)</option><option value="C-8557">MOHAMMAD NADEEMUDDIN — LIGHT DUTY DRIVER (C-8557)</option><option value="823945">Mohammed Burhanuddin — Civil Engineer (823945)</option><option value="C-4616">MOHAMMED NAZIM UDDIN — LIGHT DUTY DRIVER (C-4616)</option><option value="C-8664">MUHAMMAD RAFIQUE MUHAMMAD IQBAL — MOBILE CRANE OPERATOR (C-8664)</option><option value="823259">Murthy Sametha — HSE Superintendent (823259)</option><option value="821423">Mustapha Ajine — Civil Foreman (821423)</option><option value="C-8646">NASIR MEHMOOD MUBARAK ALI — HEAVY DUTY DRIVER (C-8646)</option><option value="C-8691">NIKHIL KOPPERA LIMBANNA — HEAVY DUTY DRIVER (C-8691)</option><option value="822261">Saide Mansur — Area HSSE Manager (822261)</option><option value="C-8689">SANCHAR SINGH — HEAVY DUTY DRIVER (C-8689)</option><option value="C-8068">SANJEEV MASIH — MOBILE CRANE OPERATOR (C-8068)</option><option value="C-8072">SANTOSH KUMAR KUSHWAHA — WHEEL LOADER OPERATOR (C-8072)</option><option value="C-8764">SARABJIT SINGH — HEAVY DUTY DRIVER (C-8764)</option><option value="C-8596">SOHAIL ZAHID IQBAL — HEAVY DUTY DRIVER (C-8596)</option><option value="C-1257">SOHEL ARMAN — LIGHT DUTY DRIVER (C-1257)</option><option value="823989">Srijith Krishnan — Safety Officer (823989)</option><option value="C-8650">SUFAID ULLAH — HEAVY DUTY DRIVER (C-8650)</option><option value="C-8647">UMAR FAROOQ — HEAVY DUTY DRIVER (C-8647)</option><option value="C-8593">VILAS PALEM KAILASH — LIGHT DUTY DRIVER (C-8593)</option><option value="C-5341">YASIN SAYED — LIGHT DUTY DRIVER (C-5341)</option><option value="822273">Youssef Ghadban — Area PMV Manager (822273)</option></select>
         <div id="operatorLoadError" style="display:none; margin-top:8px;">
           <span style="font-size:12px; color:var(--red);">⚠️ Failed to load operators.</span>
           <button onclick="loadOperators()" style="margin-left:8px; padding:4px 10px; background:var(--orange); border:none; border-radius:6px; color:#fff; font-size:12px; font-weight:700; cursor:pointer;">Retry</button>
@@ -542,12 +547,12 @@
   <div class="counter-bar">
     <div>
       <div class="counter-label">Today's Entries</div>
-      <div class="counter-num" id="todayCount">6</div>
+      <div class="counter-num" id="todayCount">10</div>
     </div>
     <div class="counter-divider"></div>
     <div style="text-align:right">
       <div class="counter-label">Last Submit</div>
-      <div style="font-size:13px;color:var(--muted);font-weight:600" id="lastSubmit">13:23:14</div>
+      <div style="font-size:13px;color:var(--muted);font-weight:600" id="lastSubmit">—</div>
     </div>
   </div>
 
@@ -581,9 +586,9 @@
       <input type="text" id="machineSearch" placeholder="Type to filter machines..." autocomplete="off" oninput="filterMachines(this.value)" style="margin-bottom:8px;">
 
       <!-- Native select for reliable selection on all devices -->
-      <select id="machineSelect" onchange="selectMachineFromSelect(this.value)" size="1"><option value="">-- Select machine --</option><option value="155763">155763 | STATION WAGON LWB | Area Office</option></select>
+      <select id="machineSelect" onchange="selectMachineFromSelect(this.value)" size="1"><option value="">-- Select machine --</option><option value="155844">155844 | PICK-UP D/CABIN | </option></select>
 
-      <input type="hidden" id="machineId" value="">
+      <input type="hidden" id="machineId">
       <div class="field-error" id="machineError">Please select a machine from the list</div>
     </div>
 
@@ -595,10 +600,10 @@
       </div>
       <div class="field" id="f-operator">
         <label id="operatorLabel">Operator *</label>
-        <div id="operatorFieldWrap"><input type="text" style="width:100%;background:var(--surface);color:var(--muted);cursor:not-allowed;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:&#39;Barlow&#39;,sans-serif;font-size:14px;" readonly="" value="Hassan Mohamad (822264)"></div>
-        <input type="hidden" id="operatorId" value="822264">
-        <input type="hidden" id="operatorTrade" value="Acting Area Manager">
-        <input type="hidden" id="operatorActualId" value="822264">
+        <div id="operatorFieldWrap"><input type="text" style="width:100%;background:var(--surface);color:var(--muted);cursor:not-allowed;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:&#39;Barlow&#39;,sans-serif;font-size:14px;" readonly="" value="Bassem Elzouhbi (821074)"></div>
+        <input type="hidden" id="operatorId" value="821074">
+        <input type="hidden" id="operatorTrade" value="Sr. Land Surveyor">
+        <input type="hidden" id="operatorActualId" value="821074">
         <div class="field-error">Required</div>
       </div>
     </div>
@@ -631,15 +636,15 @@
 
     <!-- Google Maps link — shown after GPS capture -->
     <div id="mapsLinkBox" style="display:none; margin-top:10px;">
-      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_66.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
+      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_67.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
         🗺️ <span>View on Google Maps</span>
         <span style="margin-left:auto; font-size:11px; opacity:0.7">↗ opens in map</span>
       </a>
     </div>
 
-    <input type="hidden" id="latVal" value="">
-    <input type="hidden" id="lngVal" value="">
-    <input type="hidden" id="mapsLinkVal" value="">
+    <input type="hidden" id="latVal">
+    <input type="hidden" id="lngVal">
+    <input type="hidden" id="mapsLinkVal">
 
     <div class="field" style="margin-top:12px">
       <label>Manual Location Description (Optional)</label>
@@ -651,34 +656,34 @@
   <div class="card" id="card3">
     <div class="card-title"><span class="icon">⏱️</span> Meter Reading</div>
 
-    <div class="type-toggle" id="typeToggle" style="display: grid;">
-      <button class="type-btn" id="btnHour" onclick="setReadingType(&#39;hour&#39;)">⏱ Hourmeter</button>
-      <button class="type-btn active" id="btnKm" onclick="setReadingType(&#39;km&#39;)">🛣 Odometer</button>
+    <div class="type-toggle" id="typeToggle">
+      <button class="type-btn active" id="btnHour" onclick="setReadingType(&#39;hour&#39;)">⏱ Hourmeter</button>
+      <button class="type-btn" id="btnKm" onclick="setReadingType(&#39;km&#39;)">🛣 Odometer</button>
     </div>
 
     <!-- Locked reading type indicator — shown when machine has previous entries -->
-    <div id="readingTypeLocked" style="background: rgba(249, 115, 22, 0.08); border: 1.5px solid var(--orange); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; display: none;">
+    <div id="readingTypeLocked" style="display:none; background:rgba(249,115,22,0.08); border:1.5px solid var(--orange); border-radius:10px; padding:10px 14px; margin-bottom:12px; font-size:12px; display:none;">
       <span style="color:var(--orange); font-weight:700; font-size:13px;">🔒 Reading type locked — </span>
-      <span id="lockedTypeName" style="color:var(--text); font-weight:600;">🛣 Odometer (KM)</span>
+      <span id="lockedTypeName" style="color:var(--text); font-weight:600;"></span>
       <div style="color:var(--muted); font-size:11px; margin-top:3px;">This machine was previously recorded as this type and cannot be changed</div>
     </div>
 
     <div class="field" id="f-reading">
-      <label id="readingLabel">Odometer Reading (KM) *</label>
+      <label id="readingLabel">Hourmeter Reading (HRS) *</label>
 
       <!-- Last reading info box -->
-      <div id="lastReadingBox" style="display: none; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; font-size: 12px;">
+      <div id="lastReadingBox" style="display:none; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:8px; font-size:12px;">
         <div style="color:var(--muted); margin-bottom:2px; text-transform:uppercase; letter-spacing:0.06em; font-size:10px; font-weight:700;">Last Recorded Reading</div>
         <div style="display:flex; align-items:center; justify-content:space-between;">
-          <span id="lastReadingValue" style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:22px; font-weight:800; color:var(--orange);">54,100 KM</span>
-          <span id="lastReadingDate" style="color:var(--muted); font-size:11px;">on 17/03/2026</span>
+          <span id="lastReadingValue" style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:22px; font-weight:800; color:var(--orange);">—</span>
+          <span id="lastReadingDate" style="color:var(--muted); font-size:11px;">—</span>
         </div>
-        <div id="lastReadingNote" style="color:var(--muted); font-size:11px; margin-top:2px;">⚠ New reading must be ≥ 54,100</div>
+        <div id="lastReadingNote" style="color:var(--muted); font-size:11px; margin-top:2px;">New reading must be equal or higher than this</div>
       </div>
 
       <div class="reading-wrap">
         <input type="number" id="meterReading" placeholder="0" min="0" inputmode="decimal" oninput="validateReading()">
-        <div class="reading-unit" id="readingUnit">KM</div>
+        <div class="reading-unit" id="readingUnit">HRS</div>
       </div>
       <div class="field-error" id="readingError">Reading is required</div>
     </div>
@@ -719,7 +724,9 @@
 
   </div>
 
-  <button class="submit-btn" onclick="submitEntry()">✓   Submit Daily Log</button>
+  <button class="submit-btn" onclick="submitEntry()">
+    ✓ &nbsp; Submit Daily Log
+  </button>
 
 </main>
 
@@ -730,9 +737,9 @@
   <div class="success-sub">Your daily equipment log has been<br>recorded successfully.</div>
   <div class="success-ref">
     <span>Reference ID</span>
-    <strong id="refId">EQT-1773742994056</strong>
+    <strong id="refId">—</strong>
   </div>
-  <div id="syncResultMsg" style="margin-bottom:24px;min-height:20px;text-align:center"><span style="color:#22C55E;font-size:13px">✓ Sent to Google Sheets</span></div>
+  <div id="syncResultMsg" style="margin-bottom:24px;min-height:20px;text-align:center"></div>
   <button class="new-entry-btn" onclick="resetForm()">+ New Entry</button>
 </div>
 
