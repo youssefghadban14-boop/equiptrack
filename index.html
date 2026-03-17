@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_56.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>EquipTrack — Daily Log v2</title>
-<link href="./index_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --orange: #F97316;
@@ -485,7 +485,7 @@
     <button onclick="showSettings()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;padding:5px 10px;cursor:pointer;">⚙️</button>
     <div class="sync-pill online" id="syncPill"><div class="sync-dot"></div><span id="syncLabel">Online</span></div>
     <div class="date-badge" id="dateDisplay"></div>
-    <button id="logoutBtn" onclick="doLogout()" style="display:none; padding:6px 12px; background:rgba(239,68,68,0.15); border:1px solid var(--red); border-radius:8px; color:var(--red); font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:11px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:0.04em; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">⎋ Logout</button>
+    <button id="logoutBtn" onclick="doLogout()" style="display:none; padding:6px 12px; background:rgba(239,68,68,0.15); border:1px solid var(--red); border-radius:8px; color:var(--red); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:0.04em; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">⎋ Logout</button>
   </div>
 </header>
 
@@ -493,16 +493,16 @@
 <div id="loginScreen" style="display:flex; position:fixed; inset:0; z-index:500; background:var(--bg); flex-direction:column; align-items:center; justify-content:center; padding:24px;">
   <div style="width:100%; max-width:400px;">
     <div style="text-align:center; margin-bottom:32px;">
-      <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:36px; font-weight:900; color:var(--orange);">EQUIP<span style="color:var(--text)">TRACK</span></div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:36px; font-weight:900; color:var(--orange);">EQUIP<span style="color:var(--text)">TRACK</span></div>
       <div style="font-size:13px; color:var(--muted); margin-top:4px;">Daily Equipment Log</div>
     </div>
 
     <div style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px;">
-      <div style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:18px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:20px; color:var(--text);">🔐 Operator Login</div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:20px; color:var(--text);">🔐 Operator Login</div>
 
       <div style="margin-bottom:16px;">
         <label style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); display:block; margin-bottom:6px;">Select Operator</label>
-        <select id="loginOperatorSelect" style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px;">
+        <select id="loginOperatorSelect" style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px;">
           <option value="">⏳ Loading... please wait</option>
         </select>
         <div id="operatorLoadError" style="display:none; margin-top:8px;">
@@ -513,14 +513,16 @@
 
       <div style="margin-bottom:8px;">
         <label style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); display:block; margin-bottom:6px;">Password</label>
-        <input type="password" id="loginPassword" placeholder="Enter your password" style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px; outline:none;" onkeydown="if(event.key===&#39;Enter&#39;) doLogin()">
+        <input type="password" id="loginPassword" placeholder="Enter your password"
+          style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; outline:none;"
+          onkeydown="if(event.key==='Enter') doLogin()">
       </div>
 
       <div id="loginError" style="display:none; color:var(--red); font-size:12px; font-weight:600; margin-bottom:12px; padding:8px 12px; background:rgba(239,68,68,0.1); border-radius:8px;">
         ❌ Incorrect password. Please try again.
       </div>
 
-      <button onclick="doLogin()" style="width:100%; padding:14px; background:var(--orange); border:none; border-radius:10px; color:#fff; font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:16px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; cursor:pointer; margin-top:8px;">
+      <button onclick="doLogin()" style="width:100%; padding:14px; background:var(--orange); border:none; border-radius:10px; color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; cursor:pointer; margin-top:8px;">
         Login →
       </button>
     </div>
@@ -530,7 +532,7 @@
 <main>
 
   <!-- ⚙️ SETUP BANNER — Admin pastes Google Sheets URL here once -->
-  <div class="setup-banner" id="setupBanner" style="display: none;">
+  <div class="setup-banner" id="setupBanner">
     <div class="sb-icon">⚙️</div>
     <div style="flex:1">
       <div class="sb-title">Admin Setup — Connect to Google Sheets</div>
@@ -580,7 +582,11 @@
       <label>Machine / Vehicle ID *</label>
 
       <!-- Search box -->
-      <input type="text" id="machineSearch" placeholder="Type to filter machines..." autocomplete="off" oninput="filterMachines(this.value)" style="margin-bottom:8px;">
+      <input type="text" id="machineSearch"
+        placeholder="Type to filter machines..."
+        autocomplete="off"
+        oninput="filterMachines(this.value)"
+        style="margin-bottom:8px;">
 
       <!-- Native select for reliable selection on all devices -->
       <select id="machineSelect" onchange="selectMachineFromSelect(this.value)" size="1">
@@ -595,14 +601,14 @@
     <div class="input-row">
       <div class="field">
         <label>Equipment Type</label>
-        <input type="text" id="equipType" placeholder="Auto-filled" readonly="" style="background:var(--surface);color:var(--muted);cursor:not-allowed;">
+        <input type="text" id="equipType" placeholder="Auto-filled" readonly style="background:var(--surface);color:var(--muted);cursor:not-allowed;">
       </div>
       <div class="field" id="f-operator">
         <label>Operator *</label>
         <!-- For operators: readonly text field -->
-        <input type="text" id="operatorId" placeholder="Auto-filled after login" readonly="" style="background:var(--surface);color:var(--muted);cursor:not-allowed;">
+        <input type="text" id="operatorId" placeholder="Auto-filled after login" readonly style="background:var(--surface);color:var(--muted);cursor:not-allowed;">
         <!-- For timekeepers: operator selector (hidden by default) -->
-        <select id="timekeeperOperatorSelect" style="display:none; width:100%; padding:10px 12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px;" onchange="timekeeperSelectOperator(this.value)">
+        <select id="timekeeperOperatorSelect" style="display:none; width:100%; padding:10px 12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px;" onchange="timekeeperSelectOperator(this.value)">
           <option value="">-- Select Operator --</option>
         </select>
         <input type="hidden" id="operatorTrade">
@@ -641,7 +647,8 @@
 
     <!-- Google Maps link — shown after GPS capture -->
     <div id="mapsLinkBox" style="display:none; margin-top:10px;">
-      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_56.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
+      <a id="mapsLink" href="#" target="_blank"
+        style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
         🗺️ <span>View on Google Maps</span>
         <span style="margin-left:auto; font-size:11px; opacity:0.7">↗ opens in map</span>
       </a>
@@ -662,8 +669,8 @@
     <div class="card-title"><span class="icon">⏱️</span> Meter Reading</div>
 
     <div class="type-toggle" id="typeToggle">
-      <button class="type-btn active" id="btnHour" onclick="setReadingType(&#39;hour&#39;)">⏱ Hourmeter</button>
-      <button class="type-btn" id="btnKm" onclick="setReadingType(&#39;km&#39;)">🛣 Odometer</button>
+      <button class="type-btn active" id="btnHour" onclick="setReadingType('hour')">⏱ Hourmeter</button>
+      <button class="type-btn" id="btnKm" onclick="setReadingType('km')">🛣 Odometer</button>
     </div>
 
     <!-- Locked reading type indicator — shown when machine has previous entries -->
@@ -680,7 +687,7 @@
       <div id="lastReadingBox" style="display:none; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:8px; font-size:12px;">
         <div style="color:var(--muted); margin-bottom:2px; text-transform:uppercase; letter-spacing:0.06em; font-size:10px; font-weight:700;">Last Recorded Reading</div>
         <div style="display:flex; align-items:center; justify-content:space-between;">
-          <span id="lastReadingValue" style="font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:22px; font-weight:800; color:var(--orange);">—</span>
+          <span id="lastReadingValue" style="font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:800; color:var(--orange);">—</span>
           <span id="lastReadingDate" style="color:var(--muted); font-size:11px;">—</span>
         </div>
         <div id="lastReadingNote" style="color:var(--muted); font-size:11px; margin-top:2px;">New reading must be equal or higher than this</div>
@@ -709,13 +716,13 @@
     <div class="field" id="f-status">
       <label>Machine Status *</label>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px">
-        <button type="button" class="status-btn active" id="statusWorking" onclick="setStatus(&#39;Working&#39;)">
+        <button type="button" class="status-btn active" id="statusWorking" onclick="setStatus('Working')">
           <span>✅</span><span>Working</span>
         </button>
-        <button type="button" class="status-btn" id="statusBreakdown" onclick="setStatus(&#39;Breakdown&#39;)">
+        <button type="button" class="status-btn" id="statusBreakdown" onclick="setStatus('Breakdown')">
           <span>🔴</span><span>Breakdown</span>
         </button>
-        <button type="button" class="status-btn" id="statusIdle" onclick="setStatus(&#39;Idle&#39;)">
+        <button type="button" class="status-btn" id="statusIdle" onclick="setStatus('Idle')">
           <span>🟡</span><span>Idle</span>
         </button>
       </div>
@@ -759,7 +766,7 @@
     localStorage.setItem('eqt_api_url', SHEETS_API_URL);
     if (SHEETS_API_URL.startsWith('https://script.google.com')) {
       document.getElementById('sbSaved').style.display = 'block';
-      setTimeout(() => { banner.style.display = 'none'; loadFleetList(); }, 1500);
+      setTimeout(() => { banner.style.display = 'none'; loadAppData(); }, 1500);
     }
   }
   function showSettings() {
@@ -997,9 +1004,7 @@
     document.getElementById('statusIdle').classList.toggle('active', status === 'Idle');
   }
 
-  // Load fleet and projects on startup
-  loadFleetList();
-  loadProjects();
+  // Load handled by DOMContentLoaded init below
   function updateOnlineStatus() {
     const online = navigator.onLine;
     const pill = document.getElementById('syncPill');
@@ -1289,8 +1294,9 @@
     if (currentRole === 'timekeeper') {
       // Show timekeeper operator selector, hide readonly field
       opInput.style.display  = 'none';
+      opInput.value          = '';
       tkSel.style.display    = 'block';
-      // Populate timekeeper operator dropdown with operators only (not timekeepers)
+      // Populate timekeeper operator dropdown with operators only
       tkSel.innerHTML = '<option value="">-- Select Operator --</option>';
       operatorsList.filter(o => (o.role || 'operator') === 'operator').forEach(o => {
         const opt = document.createElement('option');
@@ -1298,7 +1304,8 @@
         opt.textContent = `${o.name} — ${o.trade} (${o.id})`;
         tkSel.appendChild(opt);
       });
-      // Show all machines for timekeeper
+      // Show ALL machines for timekeeper
+      document.getElementById('fleetLoadingMsg').style.display = 'none';
       populateSelect(fleetMachines);
     } else {
       // Operator — lock name, filter machines
@@ -1366,10 +1373,10 @@
     // Show login screen immediately
     document.getElementById('loginScreen').style.display = 'flex';
 
-    // Single API call loads fleet + projects + operators
+    // Load all data first
     await loadAppData();
 
-    // Check if already logged in
+    // Check if already logged in — AFTER data is loaded
     const savedId    = localStorage.getItem('eqt_operator_id');
     const savedName  = localStorage.getItem('eqt_operator_name');
     const savedTrade = localStorage.getItem('eqt_operator_trade');
@@ -1378,6 +1385,7 @@
       // Always re-validate role from fresh operator list
       const freshOp = operatorsList.find(o => o.id === savedId);
       const role = freshOp ? (freshOp.role || 'operator') : 'operator';
+      console.log('Login role:', role === 'timekeeper' ? 'Timekeeper' : 'Operator');
       localStorage.setItem('eqt_operator_role', role);
       applyLoggedInOperator({
         id:    savedId,
@@ -1388,6 +1396,5 @@
     }
   });
 </script>
-
-
-</body></html>
+</body>
+</html>
