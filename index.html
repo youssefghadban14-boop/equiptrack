@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_41.html -->
+<!-- saved from url=(0068)file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_56.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -484,8 +484,8 @@
   <div style="display:flex;align-items:center;gap:10px">
     <button onclick="showSettings()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;padding:5px 10px;cursor:pointer;">⚙️</button>
     <div class="sync-pill online" id="syncPill"><div class="sync-dot"></div><span id="syncLabel">Online</span></div>
-    <div class="date-badge" id="dateDisplay">Tue, 17 Mar 2026</div>
-    <button id="logoutBtn" onclick="doLogout()" style="display:none; padding:6px 12px; background:rgba(239,68,68,0.15); border:1px solid var(--red); border-radius:8px; color:var(--red); font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:12px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:0.04em;">⎋ Logout</button>
+    <div class="date-badge" id="dateDisplay"></div>
+    <button id="logoutBtn" onclick="doLogout()" style="display:none; padding:6px 12px; background:rgba(239,68,68,0.15); border:1px solid var(--red); border-radius:8px; color:var(--red); font-family:&#39;Barlow Condensed&#39;,sans-serif; font-size:11px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:0.04em; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">⎋ Logout</button>
   </div>
 </header>
 
@@ -503,7 +503,7 @@
       <div style="margin-bottom:16px;">
         <label style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); display:block; margin-bottom:6px;">Select Operator</label>
         <select id="loginOperatorSelect" style="width:100%; padding:12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px;">
-          <option value="">⏳ Loading operators...</option>
+          <option value="">⏳ Loading... please wait</option>
         </select>
         <div id="operatorLoadError" style="display:none; margin-top:8px;">
           <span style="font-size:12px; color:var(--red);">⚠️ Failed to load operators.</span>
@@ -544,7 +544,7 @@
   <div class="counter-bar">
     <div>
       <div class="counter-label">Today's Entries</div>
-      <div class="counter-num" id="todayCount">14</div>
+      <div class="counter-num" id="todayCount">0</div>
     </div>
     <div class="counter-divider"></div>
     <div style="text-align:right">
@@ -599,8 +599,14 @@
       </div>
       <div class="field" id="f-operator">
         <label>Operator *</label>
+        <!-- For operators: readonly text field -->
         <input type="text" id="operatorId" placeholder="Auto-filled after login" readonly="" style="background:var(--surface);color:var(--muted);cursor:not-allowed;">
+        <!-- For timekeepers: operator selector (hidden by default) -->
+        <select id="timekeeperOperatorSelect" style="display:none; width:100%; padding:10px 12px; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:&#39;Barlow&#39;,sans-serif; font-size:14px;" onchange="timekeeperSelectOperator(this.value)">
+          <option value="">-- Select Operator --</option>
+        </select>
         <input type="hidden" id="operatorTrade">
+        <input type="hidden" id="operatorActualId">
         <div class="field-error">Required</div>
       </div>
     </div>
@@ -610,11 +616,13 @@
       <select id="projectSite">
         <option value="">-- Select Project / Site --</option>
       </select>
-      <div id="projectLoadingMsg" style="font-size:12px;color:var(--muted);padding:4px 0;">⚠ Could not load projects.</div>
+      <div id="projectLoadingMsg" style="font-size:12px;color:var(--muted);padding:4px 0;">⏳ Loading projects...</div>
     </div>
 
     <!-- LOADING STATE -->
-    <div id="fleetLoadingMsg" style="font-size:12px;color:var(--muted);text-align:center;padding:8px 0;">⚠ Could not load machine list. Check your connection.</div>
+    <div id="fleetLoadingMsg" style="font-size:12px;color:var(--muted);text-align:center;padding:8px 0;">
+      ⏳ Loading machine list...
+    </div>
   </div>
 
   <!-- CARD 2: LOCATION -->
@@ -633,7 +641,7 @@
 
     <!-- Google Maps link — shown after GPS capture -->
     <div id="mapsLinkBox" style="display:none; margin-top:10px;">
-      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_41.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
+      <a id="mapsLink" href="file:///C:/Users/Youssef.Ghadban/Downloads/equipment-tracker_56.html#" target="_blank" style="display:flex; align-items:center; gap:8px; background:rgba(59,130,246,0.1); border:1.5px solid #3B82F6; border-radius:10px; padding:11px 14px; text-decoration:none; color:#3B82F6; font-size:13px; font-weight:600;">
         🗺️ <span>View on Google Maps</span>
         <span style="margin-left:auto; font-size:11px; opacity:0.7">↗ opens in map</span>
       </a>
@@ -761,24 +769,19 @@
     window.scrollTo(0, 0);
   }
 
-  // ── FLEET LIST ────────────────────────────────────────
+  // ── LOAD ALL APP DATA (single API call) ──────────────
   let fleetMachines = [];
   let selectedMachine = null;
 
-  async function loadFleetList() {
-    if (!SHEETS_API_URL) {
-      document.getElementById('fleetLoadingMsg').textContent = '⚠ No API URL set — add it in setup box above.';
-      return;
-    }
+  async function loadAppData() {
     try {
-      const res = await fetch(SHEETS_API_URL + '?action=getFleet', {
-        method: 'GET', redirect: 'follow'
-      });
+      const res  = await fetch(SHEETS_API_URL + '?action=getAppData', { method:'GET', redirect:'follow' });
       const text = await res.text();
-      const jsonMatch = text.match(/\{[\s\S]*\}/);
-      if (!jsonMatch) throw new Error('No JSON found');
-      const data = JSON.parse(jsonMatch[0]);
-      // Convert all values to strings
+      const match = text.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error('No JSON found');
+      const data = JSON.parse(match[0]);
+
+      // ── Fleet ──
       fleetMachines = (data.machines || []).map(m => ({
         id:           String(m.id || ''),
         type:         String(m.type || ''),
@@ -789,14 +792,40 @@
       document.getElementById('fleetLoadingMsg').style.display = 'none';
       if (fleetMachines.length === 0) {
         document.getElementById('fleetLoadingMsg').style.display = 'block';
-        document.getElementById('fleetLoadingMsg').textContent = '⚠ Fleet List is empty — add machines in Google Sheets.';
+        document.getElementById('fleetLoadingMsg').textContent = '⚠ Fleet List is empty.';
       } else {
-        console.log('✅ Fleet loaded:', fleetMachines.length, 'machines');
         populateSelect(fleetMachines);
       }
-    } catch (err) {
-      console.error('Fleet load error:', err);
-      document.getElementById('fleetLoadingMsg').textContent = '⚠ Could not load machine list. Check your connection.';
+
+      // ── Projects ──
+      const projects = data.projects || [];
+      const projSel = document.getElementById('projectSite');
+      projSel.innerHTML = '<option value="">-- Select Project / Site --</option>';
+      projects.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p; opt.textContent = p;
+        projSel.appendChild(opt);
+      });
+      document.getElementById('projectLoadingMsg').style.display = 'none';
+
+      // ── Operators ──
+      operatorsList = (data.operators || []).sort((a, b) => a.name.localeCompare(b.name));
+      const loginSel = document.getElementById('loginOperatorSelect');
+      loginSel.innerHTML = '<option value="">-- Select your name --</option>';
+      operatorsList.forEach(op => {
+        const opt = document.createElement('option');
+        opt.value = op.id;
+        opt.textContent = `${op.name} — ${op.trade} (${op.id})`;
+        loginSel.appendChild(opt);
+      });
+      document.getElementById('operatorLoadError').style.display = 'none';
+
+      console.log(`✅ App data loaded: ${fleetMachines.length} machines, ${projects.length} projects, ${operatorsList.length} operators`);
+
+    } catch(err) {
+      console.error('App data load error:', err);
+      document.getElementById('fleetLoadingMsg').textContent = '⚠ Could not load data. Check your connection.';
+      document.getElementById('operatorLoadError').style.display = 'block';
     }
   }
 
@@ -1123,7 +1152,7 @@
       time: submitTime,
       machine_id: document.getElementById('machineId').value.trim(),
       equipment_type: document.getElementById('equipType').value,
-      operator_id: document.getElementById('operatorId').value.trim(),
+      operator_id: document.getElementById('operatorActualId').value.trim() || document.getElementById('operatorId').value.trim(),
       trade: document.getElementById('operatorTrade').value.trim(),
       project_site: document.getElementById('projectSite').value.trim(),
       latitude: document.getElementById('latVal').value || 'N/A',
@@ -1212,34 +1241,12 @@
 
   // ── LOGIN / LOGOUT ────────────────────────────────────
   let operatorsList = [];
+  let currentRole   = '';  // 'operator' or 'timekeeper'
+  let currentUser   = null;
 
   async function loadOperators() {
-    const sel = document.getElementById('loginOperatorSelect');
-    const errEl = document.getElementById('operatorLoadError');
-    sel.innerHTML = '<option value="">⏳ Loading operators...</option>';
-    if (errEl) errEl.style.display = 'none';
-    try {
-      const res  = await fetch(SHEETS_API_URL + '?action=getOperators', { method:'GET', redirect:'follow' });
-      const text = await res.text();
-      console.log('Operators raw response:', text.substring(0, 200));
-      const match = text.match(/\{[\s\S]*\}/);
-      if (!match) throw new Error('No JSON in response');
-      const data = JSON.parse(match[0]);
-      operatorsList = data.operators || [];
-      if (operatorsList.length === 0) throw new Error('Operators list is empty');
-      sel.innerHTML = '<option value="">-- Select your name --</option>';
-      operatorsList.forEach(op => {
-        const opt = document.createElement('option');
-        opt.value = op.id;
-        opt.textContent = `${op.name} — ${op.trade}`;
-        sel.appendChild(opt);
-      });
-      console.log('Operators loaded:', operatorsList.length);
-    } catch(err) {
-      console.error('Failed to load operators:', err);
-      sel.innerHTML = '<option value="">⚠️ Failed to load</option>';
-      if (errEl) errEl.style.display = 'block';
-    }
+    // Just reload all app data — single fast call
+    await loadAppData();
   }
 
   function doLogin() {
@@ -1249,57 +1256,109 @@
 
     if (!selVal) {
       errEl.textContent = '❌ Please select your name.';
-      errEl.style.display = 'block';
-      return;
+      errEl.style.display = 'block'; return;
     }
-
     const op = operatorsList.find(o => o.id === selVal);
     if (!op) {
       errEl.textContent = '❌ Operator not found.';
-      errEl.style.display = 'block';
-      return;
+      errEl.style.display = 'block'; return;
     }
-
     if (String(op.password) !== String(passVal)) {
       errEl.textContent = '❌ Incorrect password. Please try again.';
       errEl.style.display = 'block';
       document.getElementById('loginPassword').value = '';
       return;
     }
-
     // Save session
-    localStorage.setItem('eqt_operator_id',   op.id);
-    localStorage.setItem('eqt_operator_name', op.name);
+    localStorage.setItem('eqt_operator_id',    op.id);
+    localStorage.setItem('eqt_operator_name',  op.name);
     localStorage.setItem('eqt_operator_trade', op.trade);
-
+    localStorage.setItem('eqt_operator_role',  op.role || 'operator');
+    console.log('Login role:', op.role);
     applyLoggedInOperator(op);
   }
 
   function applyLoggedInOperator(op) {
-    // Fill operator field
-    document.getElementById('operatorId').value    = `${op.name} (${op.id})`;
-    document.getElementById('operatorTrade').value = op.trade;
+    currentRole = op.role || 'operator';
+    currentUser = op;
+    console.log('Applying role:', currentRole, 'for:', op.name);
 
-    // Hide login, show app
+    const tkSel   = document.getElementById('timekeeperOperatorSelect');
+    const opInput = document.getElementById('operatorId');
+
+    if (currentRole === 'timekeeper') {
+      // Show timekeeper operator selector, hide readonly field
+      opInput.style.display  = 'none';
+      tkSel.style.display    = 'block';
+      // Populate timekeeper operator dropdown with operators only (not timekeepers)
+      tkSel.innerHTML = '<option value="">-- Select Operator --</option>';
+      operatorsList.filter(o => (o.role || 'operator') === 'operator').forEach(o => {
+        const opt = document.createElement('option');
+        opt.value = o.id;
+        opt.textContent = `${o.name} — ${o.trade} (${o.id})`;
+        tkSel.appendChild(opt);
+      });
+      // Show all machines for timekeeper
+      populateSelect(fleetMachines);
+    } else {
+      // Operator — lock name, filter machines
+      opInput.style.display = 'block';
+      tkSel.style.display   = 'none';
+      opInput.value = `${op.name} (${op.id})`;
+      document.getElementById('operatorTrade').value    = op.trade || '';
+      document.getElementById('operatorActualId').value = op.id;
+      // Filter machines to only assigned ones
+      const assigned = fleetMachines.filter(m => String(m.operator).trim() === String(op.id).trim());
+      if (assigned.length === 0) {
+        document.getElementById('fleetLoadingMsg').textContent = '⚠️ No machines assigned — contact your supervisor';
+        document.getElementById('fleetLoadingMsg').style.color = 'var(--red)';
+        document.getElementById('fleetLoadingMsg').style.display = 'block';
+        populateSelect([]);
+      } else {
+        populateSelect(assigned);
+      }
+    }
+
+    // Update header badge
+    const roleLabel = currentRole === 'timekeeper' ? '🔑 Timekeeper' : '👷 Operator';
+    document.getElementById('logoutBtn').style.display = 'block';
+    document.getElementById('logoutBtn').textContent   = `${op.name} · ${roleLabel}  ⎋`;
+
+    // Hide login screen
     document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('logoutBtn').style.display   = 'block';
+  }
 
-    // Update header to show operator name
-    const badge = document.getElementById('dateDisplay');
-    badge.innerHTML = `<span style="font-size:11px;color:var(--orange);font-weight:700">${op.name}</span>&nbsp;<span style="font-size:10px;color:var(--muted)">${op.trade}</span>`;
+  function timekeeperSelectOperator(opId) {
+    if (!opId) {
+      document.getElementById('operatorId').value = '';
+      document.getElementById('operatorTrade').value = '';
+      document.getElementById('operatorActualId').value = '';
+      return;
+    }
+    const op = operatorsList.find(o => o.id === opId);
+    if (!op) return;
+    document.getElementById('operatorId').value            = `${op.name} (${op.id})`;
+    document.getElementById('operatorTrade').value         = op.trade || '';
+    document.getElementById('operatorActualId').value      = op.id;
   }
 
   function doLogout() {
     localStorage.removeItem('eqt_operator_id');
     localStorage.removeItem('eqt_operator_name');
     localStorage.removeItem('eqt_operator_trade');
+    localStorage.removeItem('eqt_operator_role');
+    currentRole = '';
+    currentUser = null;
     document.getElementById('operatorId').value    = '';
     document.getElementById('operatorTrade').value = '';
+    document.getElementById('operatorActualId').value = '';
     document.getElementById('loginPassword').value = '';
-    document.getElementById('loginError').style.display = 'none';
-    document.getElementById('loginScreen').style.display = 'flex';
-    document.getElementById('logoutBtn').style.display   = 'none';
-    document.getElementById('dateDisplay').textContent   = '';
+    document.getElementById('loginError').style.display   = 'none';
+    document.getElementById('loginScreen').style.display  = 'flex';
+    document.getElementById('logoutBtn').style.display    = 'none';
+    document.getElementById('timekeeperOperatorSelect').value = '';
+    document.getElementById('timekeeperOperatorSelect').style.display = 'none';
+    document.getElementById('operatorId').style.display = 'block';
   }
 
   // ── INIT ─────────────────────────────────────────────
@@ -1307,12 +1366,8 @@
     // Show login screen immediately
     document.getElementById('loginScreen').style.display = 'flex';
 
-    // Load fleet + projects in background
-    loadFleetList();
-    loadProjectList();
-
-    // Load operators for login dropdown
-    await loadOperators();
+    // Single API call loads fleet + projects + operators
+    await loadAppData();
 
     // Check if already logged in
     const savedId    = localStorage.getItem('eqt_operator_id');
@@ -1320,7 +1375,16 @@
     const savedTrade = localStorage.getItem('eqt_operator_trade');
 
     if (savedId && savedName) {
-      applyLoggedInOperator({ id: savedId, name: savedName, trade: savedTrade || '' });
+      // Always re-validate role from fresh operator list
+      const freshOp = operatorsList.find(o => o.id === savedId);
+      const role = freshOp ? (freshOp.role || 'operator') : 'operator';
+      localStorage.setItem('eqt_operator_role', role);
+      applyLoggedInOperator({
+        id:    savedId,
+        name:  savedName,
+        trade: savedTrade || '',
+        role:  role
+      });
     }
   });
 </script>
