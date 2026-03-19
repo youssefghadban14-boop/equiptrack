@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0060)file:///C:/Users/Youssef.Ghadban/Downloads/dashboard_16.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EquipTrack — Manager Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="./dashboard_files/css2" rel="stylesheet">
 <style>
   :root {
     --orange: #c31c2a;
@@ -236,7 +236,7 @@
 <body>
 
 <!-- LOADING -->
-<div class="loading-overlay" id="loadingOverlay">
+<div class="loading-overlay hide" id="loadingOverlay">
   <div class="loading-logo">EQUIP<span style="color:#000000">TRACK</span></div>
   <div class="loading-bar"><div class="loading-progress"></div></div>
   <div class="loading-text">Loading dashboard data...</div>
@@ -248,17 +248,14 @@
     <div class="logo">Equip<span>Track</span> <sub>Manager Dashboard</sub></div>
   </div>
   <div class="header-right">
-    <div class="last-refresh">Last refresh: <span id="lastRefreshTime">—</span></div>
-    <a href="map.html" target="_blank"
-      style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s;"
-      onmouseover="this.style.borderColor='var(--orange)';this.style.color='var(--orange)'"
-      onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+    <div class="last-refresh">Last refresh: <span id="lastRefreshTime">08:55:40</span></div>
+    <a href="file:///C:/Users/Youssef.Ghadban/Downloads/map.html" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor=&#39;var(--orange)&#39;;this.style.color=&#39;var(--orange)&#39;" onmouseout="this.style.borderColor=&#39;var(--border)&#39;;this.style.color=&#39;var(--text)&#39;">
       🗺️ Fleet Map
     </a>
     <button class="refresh-btn" onclick="loadDashboard()">
       <span class="spin-icon">↻</span> Refresh
     </button>
-    <div class="date-badge" id="dateDisplay"></div>
+    <div class="date-badge" id="dateDisplay">Thu, 19 Mar 2026</div>
   </div>
 </header>
 
@@ -266,38 +263,32 @@
 
   <!-- FILTER BAR -->
   <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-    <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted)">🔍 Filter:</span>
+    <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted)">🔍 Filter:</span>
 
     <div style="display:flex;align-items:center;gap:6px">
       <label style="font-size:12px;color:var(--muted);font-weight:600">From</label>
-      <input type="date" id="filterDateFrom" onchange="applyFilters()" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
+      <input type="date" id="filterDateFrom" onchange="applyFilters()" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
     </div>
 
     <div style="display:flex;align-items:center;gap:6px">
       <label style="font-size:12px;color:var(--muted);font-weight:600">To</label>
-      <input type="date" id="filterDateTo" onchange="applyFilters()" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
+      <input type="date" id="filterDateTo" onchange="applyFilters()" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
     </div>
 
-    <select id="filterSite" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
-      <option value="">All Projects / Sites</option>
-    </select>
+    <select id="filterSite" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;"><option value="">All Projects / Sites</option><option value="Area Office">Area Office</option><option value="GTC 899">GTC 899</option><option value="PMV IDLE">PMV IDLE</option><option value="QE EPIC">QE EPIC</option><option value="Workshop">Workshop</option></select>
 
-    <select id="filterType" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
-      <option value="">All Equipment Types</option>
-    </select>
+    <select id="filterType" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;"><option value="">All Equipment Types</option><option value="CRANE ROUGH TERRAIN">CRANE ROUGH TERRAIN</option><option value="FORKLIFT">FORKLIFT</option><option value="GENERATOR - DIESEL ENGINE">GENERATOR - DIESEL ENGINE</option><option value="SALOON CAR">SALOON CAR</option><option value="SKID STEER LOADER">SKID STEER LOADER</option><option value="TELEHANDLER">TELEHANDLER</option><option value="TRACTIVE UNIT">TRACTIVE UNIT</option><option value="TRACTOR BACKHOE/LOADER">TRACTOR BACKHOE/LOADER</option><option value="TRACTOR SHOVEL WHEELED">TRACTOR SHOVEL WHEELED</option><option value="TRUCK - LOAD CARRYING">TRUCK - LOAD CARRYING</option><option value="TRUCK LOAD W/CRANE">TRUCK LOAD W/CRANE</option><option value="TRUCK TANKER - WATER">TRUCK TANKER - WATER</option><option value="TRUCK TIPPER">TRUCK TIPPER</option><option value="WELDING MACHINE - DIESEL">WELDING MACHINE - DIESEL</option></select>
 
-    <select id="filterTrade" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
-      <option value="">All Trades</option>
-    </select>
+    <select id="filterTrade" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;"><option value="">All Trades</option><option value="FORKLIFT OPERATOR">FORKLIFT OPERATOR</option><option value="HEAVY DUTY DRIVER">HEAVY DUTY DRIVER</option><option value="HEAVY DUTY DRIVER / EXCAVATOR OPERATOR">HEAVY DUTY DRIVER / EXCAVATOR OPERATOR</option><option value="LIGHT DUTY DRIVER">LIGHT DUTY DRIVER</option><option value="MOBILE CRANE OPERATOR">MOBILE CRANE OPERATOR</option><option value="PMV Timekeeper">PMV Timekeeper</option><option value="PRO">PRO</option><option value="SKID LOADER OPERATOR">SKID LOADER OPERATOR</option><option value="Transport Officer">Transport Officer</option><option value="WHEEL LOADER OPERATOR">WHEEL LOADER OPERATOR</option></select>
 
-    <select id="filterStatus" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
+    <select id="filterStatus" onchange="applyFilters()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow&#39;,sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer;">
       <option value="">All Statuses</option>
       <option value="Working">✅ Working</option>
       <option value="Breakdown">🔴 Breakdown</option>
       <option value="Idle">🟡 Idle</option>
     </select>
 
-    <button onclick="clearFilters()" style="padding:8px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);cursor:pointer;">✕ Clear</button>
+    <button onclick="clearFilters()" style="padding:8px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);cursor:pointer;">✕ Clear</button>
 
     <span id="filterResultCount" style="font-size:12px;color:var(--muted);font-weight:600;margin-left:auto"></span>
   </div>
@@ -307,19 +298,19 @@
     <div class="kpi-card orange">
       <div class="kpi-icon">📋</div>
       <div class="kpi-label">Total Entries Today</div>
-      <div class="kpi-value" id="kpiTotal">—</div>
+      <div class="kpi-value" id="kpiTotal">29</div>
       <div class="kpi-sub">submissions received</div>
     </div>
     <div class="kpi-card green">
       <div class="kpi-icon">✅</div>
       <div class="kpi-label">Machines Reported</div>
-      <div class="kpi-value" id="kpiReported">—</div>
-      <div class="kpi-sub" id="kpiReportedSub">out of fleet</div>
+      <div class="kpi-value" id="kpiReported">29</div>
+      <div class="kpi-sub" id="kpiReportedSub">out of 102 in fleet</div>
     </div>
     <div class="kpi-card red">
       <div class="kpi-icon">⚠️</div>
       <div class="kpi-label">Missing Entries</div>
-      <div class="kpi-value" id="kpiMissing">—</div>
+      <div class="kpi-value" id="kpiMissing">73</div>
       <div class="kpi-sub">not submitted yet</div>
     </div>
   </div>
@@ -329,25 +320,25 @@
     <div class="kpi-card green">
       <div class="kpi-icon">✅</div>
       <div class="kpi-label">Working</div>
-      <div class="kpi-value" id="kpiWorking">—</div>
+      <div class="kpi-value" id="kpiWorking">10</div>
       <div class="kpi-sub">machines active</div>
     </div>
     <div class="kpi-card red">
       <div class="kpi-icon">🔴</div>
       <div class="kpi-label">Breakdown</div>
-      <div class="kpi-value" id="kpiBreakdown">—</div>
+      <div class="kpi-value" id="kpiBreakdown">0</div>
       <div class="kpi-sub">machines down</div>
     </div>
     <div class="kpi-card yellow">
       <div class="kpi-icon">🟡</div>
       <div class="kpi-label">Idle</div>
-      <div class="kpi-value" id="kpiIdle">—</div>
+      <div class="kpi-value" id="kpiIdle">19</div>
       <div class="kpi-sub">machines idle</div>
     </div>
     <div class="kpi-card yellow">
       <div class="kpi-icon">⛽</div>
       <div class="kpi-label">Low Fuel</div>
-      <div class="kpi-value" id="kpiFuel">—</div>
+      <div class="kpi-value" id="kpiFuel">0</div>
       <div class="kpi-sub">need refueling</div>
     </div>
   </div>
@@ -359,7 +350,7 @@
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">📋 Recent Entries</div>
-        <div class="panel-count" id="recentCount">0</div>
+        <div class="panel-count" id="recentCount">29</div>
       </div>
       <div class="panel-body">
         <table class="data-table">
@@ -376,8 +367,226 @@
             </tr>
           </thead>
           <tbody id="recentTableBody">
-            <tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📋</div>Loading...</div></td></tr>
-          </tbody>
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">157615</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">SALOON CAR</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8627</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">LIGHT DUTY DRIVER</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">75,145</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:54</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">125567</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">SALOON CAR</span></td>
+          <td><span style="font-size:12px;font-weight:600">823010</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">PRO</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">344,800</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:49</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">139555</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">TRACTOR BACKHOE/LOADER</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8072</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">WHEEL LOADER OPERATOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">23,096</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:45</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">141175</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">TRACTOR SHOVEL WHEELED</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8072</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">WHEEL LOADER OPERATOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">21,691</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:44</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">139983</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">TELEHANDLER</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8685</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">FORKLIFT OPERATOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">18,995</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:43</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">155927</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">FORKLIFT</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8685</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">FORKLIFT OPERATOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">1,959</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:42</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">156204</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">SKID STEER LOADER</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-6490</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">SKID LOADER OPERATOR</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">3,689</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:41</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">130036</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">GENERATOR - DIESEL ENGINE</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-1283</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">PMV Timekeeper</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">8,369</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:37</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">120595</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">GENERATOR - DIESEL ENGINE</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-1283</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">PMV Timekeeper</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">7,663</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:36</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">158223</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">GENERATOR - DIESEL ENGINE</span></td>
+          <td><span style="font-size:12px;font-weight:600">821433</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">Transport Officer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">1,535</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:34</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">150436</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">GENERATOR - DIESEL ENGINE</span></td>
+          <td><span style="font-size:12px;font-weight:600">821433</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">Transport Officer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">9,092</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:33</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">123647</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">GENERATOR - DIESEL ENGINE</span></td>
+          <td><span style="font-size:12px;font-weight:600">821433</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">Transport Officer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">8,149</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:33</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">120295</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">GENERATOR - DIESEL ENGINE</span></td>
+          <td><span style="font-size:12px;font-weight:600">821433</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">Transport Officer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">9,133</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:32</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">119664</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">GENERATOR - DIESEL ENGINE</span></td>
+          <td><span style="font-size:12px;font-weight:600">821433</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">Transport Officer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">35,256</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge green">✅ Working</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:32</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">159932</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">WELDING MACHINE - DIESEL</span></td>
+          <td><span style="font-size:12px;font-weight:600">821433</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">Transport Officer</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">296</strong> <span style="font-size:10px;color:var(--muted)">HRS</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:30</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">139156</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">TRUCK TIPPER</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8823</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">120,416</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:29</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">139216</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">TRUCK TIPPER</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8823</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">260,065</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:28</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">139172</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">TRUCK TIPPER</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8823</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">201,960</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:27</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">131103</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">TRACTIVE UNIT</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-1466</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">567,686</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:26</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      
+        <tr>
+          <td><strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px">126543</strong></td>
+          <td><span style="font-size:12px;color:var(--muted)">TRACTIVE UNIT</span></td>
+          <td><span style="font-size:12px;font-weight:600">C-8596</span></td>
+          <td><span style="font-size:12px;color:var(--blue);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">885,838</strong> <span style="font-size:10px;color:var(--muted)">KM</span></td>
+          <td><span class="badge yellow">🟡 Idle</span></td>
+          <td><span style="font-size:12px;color:var(--muted)">08:25</span></td>
+          <td><span style="color:var(--muted);font-size:12px">N/A</span></td>
+        </tr>
+      </tbody>
         </table>
       </div>
     </div>
@@ -386,11 +595,666 @@
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">🚨 Missing Entries</div>
-        <div class="panel-count" id="missingCount">0</div>
+        <div class="panel-count" id="missingCount">73</div>
       </div>
       <div class="panel-body" id="missingList">
-        <div class="empty-state"><div class="empty-icon">⏳</div>Loading...</div>
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155776</div>
+          <div class="missing-detail">AIR COMPRESSOR · GTC 899 · 821433</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
       </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155792</div>
+          <div class="missing-detail">AIR COMPRESSOR · GTC 899 · Barif Khan (C-1283)</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">142195</div>
+          <div class="missing-detail">BUS · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">142203</div>
+          <div class="missing-detail">BUS · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">144183</div>
+          <div class="missing-detail">BUS · 57/001 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">144196</div>
+          <div class="missing-detail">BUS · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">144204</div>
+          <div class="missing-detail">BUS · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">144212</div>
+          <div class="missing-detail">BUS · P065.01 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155912</div>
+          <div class="missing-detail">BUS · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">123107</div>
+          <div class="missing-detail">CRANE ROUGH TERRAIN · Al Karaana Store · 821352</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139495</div>
+          <div class="missing-detail">EXCAVATOR CRAWLER HYDRAULIC · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157276</div>
+          <div class="missing-detail">FLOOD LIGHT · QE EPIC · 821433</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157315</div>
+          <div class="missing-detail">FLOOD LIGHT · QE EPIC · 821433</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">125327</div>
+          <div class="missing-detail">FORKLIFT · P065.01 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">130652</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">131883</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">131904</div>
+          <div class="missing-detail">GENERATOR - DIESEL ENGINE · GTC 899 · 821962</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">119763</div>
+          <div class="missing-detail">PICK-UP D/CABIN · P065.01 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120115</div>
+          <div class="missing-detail">PICK-UP D/CABIN · P065.01 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">121576</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">123947</div>
+          <div class="missing-detail">PICK-UP D/CABIN · P065 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155807</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155815</div>
+          <div class="missing-detail">PICK-UP D/CABIN · Al Karaana Store · C-1283</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155823</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155836</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155844</div>
+          <div class="missing-detail">PICK-UP D/CABIN · QE EPIC · 821074</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155852</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 57/001 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155867</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155875</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155883</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155896</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157636</div>
+          <div class="missing-detail">PICK-UP D/CABIN · P065.01 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157644</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157652</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157667</div>
+          <div class="missing-detail">PICK-UP D/CABIN · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157323</div>
+          <div class="missing-detail">PUMP DEWATERING · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157336</div>
+          <div class="missing-detail">PUMP DEWATERING · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159976</div>
+          <div class="missing-detail">PUMP TEST · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">160696</div>
+          <div class="missing-detail">PUMP TEST · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">148367</div>
+          <div class="missing-detail">ROCK BREAKER - HYDRAULIC · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">148375</div>
+          <div class="missing-detail">ROCK BREAKER - HYDRAULIC · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141744</div>
+          <div class="missing-detail">ROLLER VIBRATING - STEEL · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157143</div>
+          <div class="missing-detail">ROLLER WALK BEHIND D/DRUM · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157156</div>
+          <div class="missing-detail">ROLLER WALK BEHIND D/DRUM · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157164</div>
+          <div class="missing-detail">ROLLER WALK BEHIND D/DRUM · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">123243</div>
+          <div class="missing-detail">SALOON CAR · P065.01 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">125776</div>
+          <div class="missing-detail">SALOON CAR · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">157623</div>
+          <div class="missing-detail">SALOON CAR · P065 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120144</div>
+          <div class="missing-detail">STATION WAGON LWB · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155732</div>
+          <div class="missing-detail">STATION WAGON LWB · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">155763</div>
+          <div class="missing-detail">STATION WAGON LWB · Area Office · 822264</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">156587</div>
+          <div class="missing-detail">STATION WAGON LWB · P065 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">121735</div>
+          <div class="missing-detail">TELEHANDLER · 65.426 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">127892</div>
+          <div class="missing-detail">TRACTIVE UNIT · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141835</div>
+          <div class="missing-detail">TRACTIVE UNIT · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141856</div>
+          <div class="missing-detail">TRACTIVE UNIT · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">141864</div>
+          <div class="missing-detail">TRACTIVE UNIT · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">127863</div>
+          <div class="missing-detail">TRAILER - SEWAGE TANK · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120556</div>
+          <div class="missing-detail">TRAILER FLAT BED · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120564</div>
+          <div class="missing-detail">TRAILER FLAT BED · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120572</div>
+          <div class="missing-detail">TRAILER FLAT BED · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120587</div>
+          <div class="missing-detail">TRAILER FLAT BED · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">127855</div>
+          <div class="missing-detail">TRAILER LOW BED · 65/021 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">121172</div>
+          <div class="missing-detail">TRUCK - LOAD CARRYING · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">120363</div>
+          <div class="missing-detail">TRUCK LOAD W/CRANE · P065.01 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">125012</div>
+          <div class="missing-detail">TRUCK LOAD W/CRANE · 65/021 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">127712</div>
+          <div class="missing-detail">TRUCK TANKER - SEWAGE · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139187</div>
+          <div class="missing-detail">TRUCK TIPPER · 65/021 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">139195</div>
+          <div class="missing-detail">TRUCK TIPPER · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">130967</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159947</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 56 · JES</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159955</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 56 · Ali</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    
+      <div class="missing-item">
+        <div class="missing-dot"></div>
+        <div>
+          <div class="missing-id">159963</div>
+          <div class="missing-detail">WELDING MACHINE - DIESEL · 56 · Hassan</div>
+        </div>
+        <span class="badge red" style="margin-left:auto">Missing</span>
+      </div>
+    </div>
     </div>
 
   </div>
@@ -404,8 +1268,90 @@
         <div class="panel-title">📊 Entries by Equipment Type</div>
       </div>
       <div class="panel-body" id="pivotList">
-        <div class="empty-state"><div class="empty-icon">📊</div>Loading...</div>
+      <div class="pivot-row">
+        <div class="pivot-type">GENERATOR - DIESEL ENGINE</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:100%"></div></div>
+        <div class="pivot-count">7</div>
       </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">TRUCK TANKER - WATER</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:43%"></div></div>
+        <div class="pivot-count">3</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">TRACTIVE UNIT</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:43%"></div></div>
+        <div class="pivot-count">3</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">TRUCK TIPPER</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:43%"></div></div>
+        <div class="pivot-count">3</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">CRANE ROUGH TERRAIN</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:29%"></div></div>
+        <div class="pivot-count">2</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">TRUCK - LOAD CARRYING</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:29%"></div></div>
+        <div class="pivot-count">2</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">SALOON CAR</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:29%"></div></div>
+        <div class="pivot-count">2</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">TRUCK LOAD W/CRANE</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:14%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">WELDING MACHINE - DIESEL</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:14%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">SKID STEER LOADER</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:14%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">FORKLIFT</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:14%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">TELEHANDLER</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:14%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">TRACTOR SHOVEL WHEELED</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:14%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    
+      <div class="pivot-row">
+        <div class="pivot-type">TRACTOR BACKHOE/LOADER</div>
+        <div class="pivot-bar-wrap"><div class="pivot-bar" style="width:14%"></div></div>
+        <div class="pivot-count">1</div>
+      </div>
+    </div>
     </div>
 
     <!-- FUEL ALERTS -->
@@ -414,9 +1360,7 @@
         <div class="panel-title">⛽ Fuel Alerts</div>
         <div class="panel-count" id="fuelCount">0</div>
       </div>
-      <div class="panel-body" id="fuelList">
-        <div class="empty-state"><div class="empty-icon">⛽</div>Loading...</div>
-      </div>
+      <div class="panel-body" id="fuelList"><div class="empty-state"><div class="empty-icon">✅</div>No low fuel alerts today</div></div>
     </div>
 
   </div>
@@ -425,22 +1369,573 @@
   <div class="panel panel-full" style="margin-bottom:24px">
     <div class="panel-header">
       <div class="panel-title">📍 Fleet Status per Project / Site</div>
-      <div class="panel-count" id="projectCount">0</div>
+      <div class="panel-count" id="projectCount">6</div>
     </div>
     <div class="panel-body" style="max-height:400px">
       <table class="data-table">
         <thead>
           <tr>
-            <th>Project / Site</th>
-            <th>✅ Working</th>
-            <th>🔴 Breakdown</th>
-            <th>🟡 Idle</th>
-            <th>Total Reported</th>
+            <th>Project / Site / Equipment Type</th>
+            <th>Machine ID</th>
+            <th>Operator</th>
+            <th>Trade</th>
+            <th>Status</th>
+            <th>Last Reading</th>
+            <th>Time</th>
           </tr>
         </thead>
         <tbody id="projectTableBody">
-          <tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📍</div>Loading...</div></td></tr>
-        </tbody>
+        <tr style="background:var(--navy);">
+          <td colspan="7" style="padding:10px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px;color:#fff;letter-spacing:0.04em;">📍 QE EPIC</strong>
+              <div style="display:flex;gap:12px;font-size:12px;font-weight:700;">
+                <span style="color:#86efac;">✅ 6</span>
+                <span style="color:#fca5a5;">🔴 0</span>
+                <span style="color:#fcd34d;">🟡 16</span>
+                <span style="color:#dfe9ee;">Total: 22</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ CRANE ROUGH TERRAIN</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">140912</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">CRANE ROUGH TERRAIN</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">CHAMMAN LAL BAIRWA</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">MOBILE CRANE OPERATOR</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">23,501</td>
+              <td style="font-size:11px;color:var(--muted);">08:14</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ GENERATOR - DIESEL ENGINE</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">5 machines</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">119664</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">GENERATOR - DIESEL ENGINE</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Mohamad Khaled</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">Transport Officer</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">35,256</td>
+              <td style="font-size:11px;color:var(--muted);">08:32</td>
+            </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">120295</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">GENERATOR - DIESEL ENGINE</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Mohamad Khaled</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">Transport Officer</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">9,133</td>
+              <td style="font-size:11px;color:var(--muted);">08:32</td>
+            </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">123647</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">GENERATOR - DIESEL ENGINE</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Mohamad Khaled</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">Transport Officer</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">8,149</td>
+              <td style="font-size:11px;color:var(--muted);">08:33</td>
+            </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">150436</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">GENERATOR - DIESEL ENGINE</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Mohamad Khaled</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">Transport Officer</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">9,092</td>
+              <td style="font-size:11px;color:var(--muted);">08:33</td>
+            </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">158223</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">GENERATOR - DIESEL ENGINE</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Mohamad Khaled</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">Transport Officer</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">1,535</td>
+              <td style="font-size:11px;color:var(--muted);">08:34</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ SKID STEER LOADER</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">156204</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">SKID STEER LOADER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">BACHAN DEV MAHARA</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">SKID LOADER OPERATOR</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">3,689</td>
+              <td style="font-size:11px;color:var(--muted);">08:41</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ TELEHANDLER</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">139983</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TELEHANDLER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">FAZAL RABI</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">FORKLIFT OPERATOR</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">18,995</td>
+              <td style="font-size:11px;color:var(--muted);">08:43</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ TRACTIVE UNIT</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">3 machines</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">126535</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRACTIVE UNIT</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">FADEL HUSSEIN ALHAMDAN</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">480,473</td>
+              <td style="font-size:11px;color:var(--muted);">08:24</td>
+            </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">126543</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRACTIVE UNIT</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">SOHAIL ZAHID IQBAL</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">885,838</td>
+              <td style="font-size:11px;color:var(--muted);">08:25</td>
+            </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">131103</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRACTIVE UNIT</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">MOHAMAD YAKUF ANSARI</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">567,686</td>
+              <td style="font-size:11px;color:var(--muted);">08:26</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ TRACTOR BACKHOE/LOADER</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">139555</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRACTOR BACKHOE/LOADER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">SANTOSH KUMAR KUSHWAHA</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">WHEEL LOADER OPERATOR</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">23,096</td>
+              <td style="font-size:11px;color:var(--muted);">08:45</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ TRACTOR SHOVEL WHEELED</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">141175</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRACTOR SHOVEL WHEELED</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">SANTOSH KUMAR KUSHWAHA</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">WHEEL LOADER OPERATOR</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">21,691</td>
+              <td style="font-size:11px;color:var(--muted);">08:44</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ TRUCK - LOAD CARRYING</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">2 machines</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">158192</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK - LOAD CARRYING</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">SARABJIT SINGH</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">82,955</td>
+              <td style="font-size:11px;color:var(--muted);">08:16</td>
+            </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">158207</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK - LOAD CARRYING</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">HARVINDER SINGH AMARJEET</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">113,545</td>
+              <td style="font-size:11px;color:var(--muted);">08:17</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ TRUCK TANKER - WATER</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">3 machines</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">139255</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK TANKER - WATER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">JASWINDER HARMESH SINGH</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">195,960</td>
+              <td style="font-size:11px;color:var(--muted);">08:21</td>
+            </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">139263</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK TANKER - WATER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">JASWINDER HARMESH SINGH</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">158,863</td>
+              <td style="font-size:11px;color:var(--muted);">08:22</td>
+            </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">139276</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK TANKER - WATER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">JASWINDER HARMESH SINGH</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">152,991</td>
+              <td style="font-size:11px;color:var(--muted);">08:22</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ TRUCK TIPPER</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">3 machines</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">139172</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK TIPPER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">BAM BAHADUR</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">201,960</td>
+              <td style="font-size:11px;color:var(--muted);">08:27</td>
+            </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">139216</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK TIPPER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">BAM BAHADUR</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">260,065</td>
+              <td style="font-size:11px;color:var(--muted);">08:28</td>
+            </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">139156</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK TIPPER</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">BAM BAHADUR</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">120,416</td>
+              <td style="font-size:11px;color:var(--muted);">08:29</td>
+            </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ WELDING MACHINE - DIESEL</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">159932</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">WELDING MACHINE - DIESEL</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Mohamad Khaled</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">Transport Officer</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">296</td>
+              <td style="font-size:11px;color:var(--muted);">08:30</td>
+            </tr>
+        <tr style="background:var(--navy);">
+          <td colspan="7" style="padding:10px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px;color:#fff;letter-spacing:0.04em;">📍 Workshop</strong>
+              <div style="display:flex;gap:12px;font-size:12px;font-weight:700;">
+                <span style="color:#86efac;">✅ 2</span>
+                <span style="color:#fca5a5;">🔴 0</span>
+                <span style="color:#fcd34d;">🟡 0</span>
+                <span style="color:#dfe9ee;">Total: 2</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ GENERATOR - DIESEL ENGINE</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">2 machines</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">120595</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">GENERATOR - DIESEL ENGINE</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Barif Khan</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">PMV Timekeeper</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">7,663</td>
+              <td style="font-size:11px;color:var(--muted);">08:36</td>
+            </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">130036</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">GENERATOR - DIESEL ENGINE</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Barif Khan</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">PMV Timekeeper</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">8,369</td>
+              <td style="font-size:11px;color:var(--muted);">08:37</td>
+            </tr>
+        <tr style="background:var(--navy);">
+          <td colspan="7" style="padding:10px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px;color:#fff;letter-spacing:0.04em;">📍 Area Office</strong>
+              <div style="display:flex;gap:12px;font-size:12px;font-weight:700;">
+                <span style="color:#86efac;">✅ 2</span>
+                <span style="color:#fca5a5;">🔴 0</span>
+                <span style="color:#fcd34d;">🟡 0</span>
+                <span style="color:#dfe9ee;">Total: 2</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ SALOON CAR</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">2 machines</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">125567</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">SALOON CAR</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">Mohamad Shakil</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">PRO</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">344,800</td>
+              <td style="font-size:11px;color:var(--muted);">08:49</td>
+            </tr>
+            <tr style="border-left:3px solid var(--green);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">157615</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">SALOON CAR</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">MD ULLAPHAT</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">LIGHT DUTY DRIVER</td>
+              <td><span class="badge green">✅ Working</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">75,145</td>
+              <td style="font-size:11px;color:var(--muted);">08:54</td>
+            </tr>
+        <tr style="background:var(--navy);">
+          <td colspan="7" style="padding:10px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px;color:#fff;letter-spacing:0.04em;">📍 Not Specified</strong>
+              <div style="display:flex;gap:12px;font-size:12px;font-weight:700;">
+                <span style="color:#86efac;">✅ 0</span>
+                <span style="color:#fca5a5;">🔴 0</span>
+                <span style="color:#fcd34d;">🟡 1</span>
+                <span style="color:#dfe9ee;">Total: 1</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ CRANE ROUGH TERRAIN</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">140904</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">CRANE ROUGH TERRAIN</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">MUHAMMAD RAFIQUE MUHAMMAD IQBAL</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">MOBILE CRANE OPERATOR</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">19,620</td>
+              <td style="font-size:11px;color:var(--muted);">08:13</td>
+            </tr>
+        <tr style="background:var(--navy);">
+          <td colspan="7" style="padding:10px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px;color:#fff;letter-spacing:0.04em;">📍 PMV IDLE</strong>
+              <div style="display:flex;gap:12px;font-size:12px;font-weight:700;">
+                <span style="color:#86efac;">✅ 0</span>
+                <span style="color:#fca5a5;">🔴 0</span>
+                <span style="color:#fcd34d;">🟡 1</span>
+                <span style="color:#dfe9ee;">Total: 1</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ TRUCK LOAD W/CRANE</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">156767</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">TRUCK LOAD W/CRANE</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">GURPREET SINGH</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">HEAVY DUTY DRIVER / EXCAVATOR OPERATOR</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">67,444</td>
+              <td style="font-size:11px;color:var(--muted);">08:20</td>
+            </tr>
+        <tr style="background:var(--navy);">
+          <td colspan="7" style="padding:10px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:16px;color:#fff;letter-spacing:0.04em;">📍 GTC 899</strong>
+              <div style="display:flex;gap:12px;font-size:12px;font-weight:700;">
+                <span style="color:#86efac;">✅ 0</span>
+                <span style="color:#fca5a5;">🔴 0</span>
+                <span style="color:#fcd34d;">🟡 1</span>
+                <span style="color:#dfe9ee;">Total: 1</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ FORKLIFT</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">1 machine</span>
+            </td>
+          </tr>
+            <tr style="border-left:3px solid var(--yellow);">
+              <td style="padding-left:36px;">
+                <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:14px;">155927</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">FORKLIFT</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">FAZAL RABI</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">FORKLIFT OPERATOR</td>
+              <td><span class="badge yellow">🟡 Idle</span></td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">1,959</td>
+              <td style="font-size:11px;color:var(--muted);">08:42</td>
+            </tr></tbody>
       </table>
     </div>
   </div>
@@ -450,9 +1945,9 @@
     <div class="panel-header">
       <div class="panel-title">⏱️ Working Hours per Fleet</div>
       <div style="display:flex;align-items:center;gap:8px">
-        <button class="period-btn active" id="btnDaily" onclick="switchPeriod('daily')">Daily</button>
-        <button class="period-btn" id="btnWeekly" onclick="switchPeriod('weekly')">Weekly</button>
-        <button class="period-btn" id="btnMonthly" onclick="switchPeriod('monthly')">Monthly</button>
+        <button class="period-btn active" id="btnDaily" onclick="switchPeriod(&#39;daily&#39;)">Daily</button>
+        <button class="period-btn" id="btnWeekly" onclick="switchPeriod(&#39;weekly&#39;)">Weekly</button>
+        <button class="period-btn" id="btnMonthly" onclick="switchPeriod(&#39;monthly&#39;)">Monthly</button>
       </div>
     </div>
     <div class="panel-body" style="max-height:420px">
@@ -460,14 +1955,690 @@
         <thead>
           <tr>
             <th>Machine ID</th>
-            <th>Type</th>
-            <th>Working Hours / KM</th>
+            <th>Equipment Type</th>
+            <th>Operator</th>
+            <th>Trade</th>
+            <th>Project / Site</th>
+            <th>Reading</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody id="hoursTableBody">
-          <tr><td colspan="4"><div class="empty-state"><div class="empty-icon">⏳</div>Loading...</div></td></tr>
-        </tbody>
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">158207</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK - LOAD CARRYING</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">HARVINDER SINGH AMARJEET</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">225 KM</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">158192</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK - LOAD CARRYING</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">SARABJIT SINGH</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">154 KM</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139276</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK TANKER - WATER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">JASWINDER HARMESH SINGH</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">71 KM</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139255</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK TANKER - WATER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">JASWINDER HARMESH SINGH</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">29 KM</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">120295</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">GENERATOR - DIESEL ENGINE</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Mohamad Khaled</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">Transport Officer</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">13 HRS</strong></td>
+          <td><span class="badge orange">High Usage</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">119664</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">GENERATOR - DIESEL ENGINE</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Mohamad Khaled</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">Transport Officer</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">12 HRS</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">130036</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">GENERATOR - DIESEL ENGINE</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Barif Khan</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">PMV Timekeeper</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">Workshop</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">12 HRS</strong></td>
+          <td><span class="badge green">Active</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">120595</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">GENERATOR - DIESEL ENGINE</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Barif Khan</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">PMV Timekeeper</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">Workshop</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 HRS</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">123647</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">GENERATOR - DIESEL ENGINE</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Mohamad Khaled</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">Transport Officer</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">126535</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRACTIVE UNIT</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">FADEL HUSSEIN ALHAMDAN</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">126543</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRACTIVE UNIT</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">SOHAIL ZAHID IQBAL</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">131103</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRACTIVE UNIT</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">MOHAMAD YAKUF ANSARI</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139156</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK TIPPER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">BAM BAHADUR</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139172</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK TIPPER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">BAM BAHADUR</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139216</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK TIPPER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">BAM BAHADUR</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139263</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK TANKER - WATER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">JASWINDER HARMESH SINGH</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">140904</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">CRANE ROUGH TERRAIN</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">MUHAMMAD RAFIQUE MUHAMMAD IQBAL</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">MOBILE CRANE OPERATOR</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 HRS</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">140912</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">CRANE ROUGH TERRAIN</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">CHAMMAN LAL BAIRWA</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">MOBILE CRANE OPERATOR</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 HRS</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">150436</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">GENERATOR - DIESEL ENGINE</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Mohamad Khaled</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">Transport Officer</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 HRS</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">156767</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRUCK LOAD W/CRANE</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">GURPREET SINGH</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">HEAVY DUTY DRIVER / EXCAVATOR OPERATOR</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">PMV IDLE</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 KM</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">158223</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">GENERATOR - DIESEL ENGINE</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Mohamad Khaled</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">Transport Officer</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 HRS</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">159932</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">WELDING MACHINE - DIESEL</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Mohamad Khaled</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">Transport Officer</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">0 HRS</strong></td>
+          <td><span class="badge red">Idle</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">123107</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">123243</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">125567</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">SALOON CAR</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">Mohamad Shakil</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">PRO</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">Area Office</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">131904</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139495</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139555</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRACTOR BACKHOE/LOADER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">SANTOSH KUMAR KUSHWAHA</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">WHEEL LOADER OPERATOR</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">139983</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TELEHANDLER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">FAZAL RABI</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">FORKLIFT OPERATOR</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">141175</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">TRACTOR SHOVEL WHEELED</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">SANTOSH KUMAR KUSHWAHA</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">WHEEL LOADER OPERATOR</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">142195</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">142203</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">144196</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">144204</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155763</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155776</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155792</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155807</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155815</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155844</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">155927</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">FORKLIFT</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">FAZAL RABI</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">FORKLIFT OPERATOR</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">GTC 899</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">156204</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">SKID STEER LOADER</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">BACHAN DEV MAHARA</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">SKID LOADER OPERATOR</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">QE EPIC</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">157276</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">157315</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">⏱ Hourmeter</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">—</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">—</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">—</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">—</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      
+        <tr>
+          <td>
+            <strong style="font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:15px">157615</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">🛣 Odometer</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">SALOON CAR</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">MD ULLAPHAT</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">LIGHT DUTY DRIVER</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">Area Office</span></td>
+          <td><strong style="color:var(--orange);font-family:&#39;Barlow Condensed&#39;,sans-serif;font-size:18px">—</strong></td>
+          <td><span class="badge" style="background:var(--surface3);color:var(--muted)">No Data</span></td>
+        </tr>
+      </tbody>
       </table>
     </div>
   </div>
@@ -835,68 +3006,87 @@
   function renderProjectFleet(entries) {
     const tbody = document.getElementById('projectTableBody');
     if (entries.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📍</div>No entries yet today</div></td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">📍</div>No entries yet today</div></td></tr>`;
       document.getElementById('projectCount').textContent = 0;
       return;
     }
 
-    // Group by site then by equipment type
+    // Group by site → equipment type → individual machines
     const projects = {};
     entries.forEach(e => {
       const site   = e.project__site || e.project_site || 'Not Specified';
       const type   = e.equipment_type || 'Unknown';
-      const status = e.machine_status || 'Working';
-      if (!projects[site]) projects[site] = { working: 0, breakdown: 0, idle: 0, total: 0, types: {} };
+      if (!projects[site]) projects[site] = { total: 0, working: 0, breakdown: 0, idle: 0, types: {} };
+      if (!projects[site].types[type]) projects[site].types[type] = [];
+      projects[site].types[type].push(e);
       projects[site].total++;
+      const status = e.machine_status || 'Working';
       if (status === 'Working')        projects[site].working++;
       else if (status === 'Breakdown') projects[site].breakdown++;
       else if (status === 'Idle')      projects[site].idle++;
-      // Group by type
-      if (!projects[site].types[type]) projects[site].types[type] = { working: 0, breakdown: 0, idle: 0, total: 0 };
-      projects[site].types[type].total++;
-      if (status === 'Working')        projects[site].types[type].working++;
-      else if (status === 'Breakdown') projects[site].types[type].breakdown++;
-      else if (status === 'Idle')      projects[site].types[type].idle++;
     });
+
+    const statusColor  = s => s === 'Breakdown' ? 'var(--red)' : s === 'Idle' ? 'var(--yellow)' : 'var(--green)';
+    const statusBadge  = s => {
+      if (s === 'Breakdown') return `<span class="badge red">🔴 Breakdown</span>`;
+      if (s === 'Idle')      return `<span class="badge yellow">🟡 Idle</span>`;
+      return `<span class="badge green">✅ Working</span>`;
+    };
 
     const sorted = Object.entries(projects).sort((a, b) => b[1].total - a[1].total);
     document.getElementById('projectCount').textContent = sorted.length;
 
-    tbody.innerHTML = sorted.map(([site, c]) => {
-      // Build type rows
-      const typeRows = Object.entries(c.types)
-        .sort((a, b) => b[1].total - a[1].total)
-        .map(([type, t]) => `
-          <tr style="background:rgba(0,0,0,0.02)">
-            <td style="padding-left:32px;font-size:12px;color:var(--muted)">
-              <span style="font-weight:600">↳ ${type}</span>
-            </td>
-            <td><span style="font-size:13px;font-weight:700;color:var(--green)">${t.working}</span></td>
-            <td><span style="font-size:13px;font-weight:700;color:var(--red)">${t.breakdown}</span>
-              ${t.breakdown > 0 ? `<span class="badge red" style="margin-left:4px;font-size:9px">!</span>` : ''}
-            </td>
-            <td><span style="font-size:13px;font-weight:700;color:var(--yellow)">${t.idle}</span></td>
-            <td><span style="font-size:13px;font-weight:700;color:var(--muted)">${t.total}</span></td>
-          </tr>
-        `).join('');
+    let html = '';
+    sorted.forEach(([site, c]) => {
+      // Site header row
+      html += `
+        <tr style="background:var(--navy);">
+          <td colspan="7" style="padding:10px 16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <strong style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;letter-spacing:0.04em;">📍 ${site}</strong>
+              <div style="display:flex;gap:12px;font-size:12px;font-weight:700;">
+                <span style="color:#86efac;">✅ ${c.working}</span>
+                <span style="color:#fca5a5;">🔴 ${c.breakdown}</span>
+                <span style="color:#fcd34d;">🟡 ${c.idle}</span>
+                <span style="color:#dfe9ee;">Total: ${c.total}</span>
+              </div>
+            </div>
+          </td>
+        </tr>`;
 
-      return `
-        <tr style="background:var(--surface2)">
-          <td><strong style="font-family:'Barlow Condensed',sans-serif;font-size:16px">📍 ${site}</strong></td>
-          <td><span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--green)">${c.working}</span></td>
-          <td>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--red)">${c.breakdown}</span>
-            ${c.breakdown > 0 ? `<span class="badge red" style="margin-left:6px">Alert</span>` : ''}
-          </td>
-          <td><span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--yellow)">${c.idle}</span></td>
-          <td>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--orange)">${c.total}</span>
-            <span style="font-size:11px;color:var(--muted)"> machines</span>
-          </td>
-        </tr>
-        ${typeRows}
-      `;
-    }).join('');
+      // Equipment type sub-headers + machine rows
+      Object.entries(c.types).sort().forEach(([type, machines]) => {
+        // Type sub-header
+        html += `
+          <tr style="background:var(--pale-blue);">
+            <td colspan="7" style="padding:6px 16px 6px 28px;">
+              <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--navy);">↳ ${type}</span>
+              <span style="font-size:11px;color:var(--muted);margin-left:8px;">${machines.length} machine${machines.length > 1 ? 's' : ''}</span>
+            </td>
+          </tr>`;
+
+        // Individual machine rows
+        machines.forEach(e => {
+          const status = e.machine_status || 'Working';
+          html += `
+            <tr style="border-left:3px solid ${statusColor(status)};">
+              <td style="padding-left:36px;">
+                <strong style="font-family:'Barlow Condensed',sans-serif;font-size:14px;">${e.machine_id || '—'}</strong>
+              </td>
+              <td style="font-size:12px;color:var(--muted);">${e.equipment_type || '—'}</td>
+              <td>
+                <div style="font-size:12px;font-weight:600;">${e.operator_name || e.operator_id || '—'}</div>
+              </td>
+              <td style="font-size:11px;color:var(--steel);font-weight:600;">${e.trade || '—'}</td>
+              <td>${statusBadge(status)}</td>
+              <td style="font-size:12px;font-weight:700;color:var(--orange);">${e.meter_reading ? Number(e.meter_reading).toLocaleString() : '—'}</td>
+              <td style="font-size:11px;color:var(--muted);">${formatTime(e.time) || '—'}</td>
+            </tr>`;
+        });
+      });
+    });
+
+    tbody.innerHTML = html;
   }
 
   function switchPeriod(period) {
@@ -910,9 +3100,35 @@
   function renderWorkingHours(fleet) {
     const tbody = document.getElementById('hoursTableBody');
     if (!hoursData.length) {
-      tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state"><div class="empty-icon">⏱️</div>No working hours data available yet</div></td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">⏱️</div>No working hours data available yet</div></td></tr>`;
       return;
     }
+
+    // Build a lookup from today entries for operator/type/project per machine
+    const machineInfo = {};
+    allEntries.forEach(e => {
+      const id = String(e.machine_id || '');
+      if (!machineInfo[id]) {
+        machineInfo[id] = {
+          equipment_type: e.equipment_type || '',
+          operator_name:  e.operator_name  || e.operator_id || '',
+          trade:          e.trade          || '',
+          project_site:   e.project_site   || e.project__site || ''
+        };
+      }
+    });
+    // Fallback: enrich from fleet data
+    (fleet || allFleet || []).forEach(f => {
+      const id = String(f.machine_id || f['Machine ID'] || '');
+      if (!machineInfo[id]) {
+        machineInfo[id] = {
+          equipment_type: f.equipment_type || f['Equipment Type'] || '',
+          operator_name:  f.operator_name  || f['Operator Name'] || f.operator_id || f['Operator ID'] || '',
+          trade:          f.trade          || f['Trade'] || '',
+          project_site:   f.project_site   || f['Project/Site'] || ''
+        };
+      }
+    });
 
     // Sort by hours descending
     const sorted = [...hoursData].sort((a, b) => {
@@ -922,12 +3138,12 @@
     });
 
     const unit = (type) => type === 'Hourmeter' ? 'HRS' : 'KM';
-    const periodLabel = { daily: 'Today', weekly: 'This Week', monthly: 'This Month' };
 
     tbody.innerHTML = sorted.map(m => {
-      const val = m[currentPeriod];
+      const val     = m[currentPeriod];
       const hasData = val !== null && val !== undefined;
       const display = hasData ? `${Number(val).toLocaleString()} ${unit(m.reading_type)}` : '—';
+      const info    = machineInfo[String(m.machine_id)] || {};
 
       // Status badge
       let badge = '';
@@ -943,10 +3159,20 @@
         badge = `<span class="badge green">Active</span>`;
       }
 
+      const readingLabel = m.reading_type === 'Hourmeter' ? '⏱ Hourmeter' : '🛣 Odometer';
+
       return `
         <tr>
-          <td><strong style="font-family:'Barlow Condensed',sans-serif;font-size:15px">${m.machine_id}</strong></td>
-          <td><span style="font-size:12px;color:var(--muted)">${m.reading_type === 'Hourmeter' ? '⏱ Hourmeter' : '🛣 Odometer'}</span></td>
+          <td>
+            <strong style="font-family:'Barlow Condensed',sans-serif;font-size:15px">${m.machine_id}</strong>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">${readingLabel}</div>
+          </td>
+          <td><span style="font-size:12px;font-weight:600;color:var(--navy)">${info.equipment_type || '—'}</span></td>
+          <td>
+            <span style="font-size:12px;font-weight:600">${info.operator_name || '—'}</span>
+          </td>
+          <td><span style="font-size:11px;color:var(--steel);font-weight:600">${info.trade || '—'}</span></td>
+          <td><span style="font-size:11px;color:var(--muted)">${info.project_site || '—'}</span></td>
           <td><strong style="color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-size:18px">${display}</strong></td>
           <td>${badge}</td>
         </tr>
@@ -957,5 +3183,6 @@
   loadDashboard();
   setInterval(loadDashboard, AUTO_REFRESH_MINUTES * 60 * 1000);
 </script>
-</body>
-</html>
+
+
+</body></html>
