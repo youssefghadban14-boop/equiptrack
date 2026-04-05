@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Youssef.Ghadban/Downloads/map_5.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>EquipTrack — Fleet Map</title>
 
 <!-- Leaflet CSS -->
-<link rel="stylesheet" href="./map_files/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <!-- Leaflet JS -->
-<script src="./map_files/leaflet.min.js.download"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -318,19 +318,19 @@
 <body>
 
 <!-- Loading overlay -->
-<div id="loadingOverlay" style="display: none;">
+<div id="loadingOverlay">
   <div class="spinner"></div>
   <div class="loading-text">Loading Fleet Map...</div>
 </div>
 
 <!-- Error banner -->
-<div id="errorBanner" style="display: none;"></div>
+<div id="errorBanner"></div>
 
 <!-- Header -->
 <header>
   <div class="header-title"><span>EQUIP</span>TRACK — Fleet Map</div>
   <div class="header-right">
-    <span class="last-update" id="lastUpdate">Updated 21:49</span>
+    <span class="last-update" id="lastUpdate">—</span>
     <button class="refresh-btn" onclick="loadData()">⟳ Refresh</button>
   </div>
 </header>
@@ -347,19 +347,19 @@
     <!-- Stats -->
     <div class="stats-row">
       <div class="stat-chip chip-total">
-        <span class="num" id="statTotal">7</span>
+        <span class="num" id="statTotal">—</span>
         Total
       </div>
       <div class="stat-chip chip-work">
-        <span class="num" id="statWork">6</span>
+        <span class="num" id="statWork">—</span>
         Working
       </div>
       <div class="stat-chip chip-break">
-        <span class="num" id="statBreak">0</span>
+        <span class="num" id="statBreak">—</span>
         Breakdown
       </div>
       <div class="stat-chip chip-idle">
-        <span class="num" id="statIdle">1</span>
+        <span class="num" id="statIdle">—</span>
         Idle
       </div>
     </div>
@@ -370,456 +370,11 @@
     </div>
 
     <!-- Machine list -->
-    <div class="machine-list" id="machineList"><div class="cat-header" id="ch-cat-AIR-COMPRESSOR">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-AIR-COMPRESSOR">▼</span>
-          <span class="cat-name">AIR COMPRESSOR</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍2</span>
-          <span class="cat-count-total" title="Total">2 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-AIR-COMPRESSOR"><div class="machine-item" id="item-155776">
-          <div class="mi-top">
-            <span class="mi-id">155776</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Mohamad Khaled · —</div>
-          <div class="mi-date">📅 Last report: 18/03/2026</div>
-        </div><div class="machine-item" id="item-155792">
-          <div class="mi-top">
-            <span class="mi-id">155792</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Barif Khan (C-1283) · —</div>
-          <div class="mi-date">📅 Last report: 17/03/2026</div>
-        </div></div><div class="cat-header" id="ch-cat-BUS">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-BUS">▼</span>
-          <span class="cat-name">BUS</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍2</span>
-          <span class="cat-count-total" title="Total">4 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-BUS"><div class="machine-item active" id="item-144196">
-          <div class="mi-top">
-            <span class="mi-id">144196</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Naji · —</div>
-          <div class="mi-date">📅 Last report: 16/03/2026</div>
-        </div><div class="machine-item" id="item-144204">
-          <div class="mi-top">
-            <span class="mi-id">144204</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 Isam · —</div>
-          <div class="mi-date">📅 Last report: 16/03/2026</div>
-        </div><div class="machine-item" id="item-142195">
-          <div class="mi-top">
-            <span class="mi-id">142195</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Abdalla · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-142203">
-          <div class="mi-top">
-            <span class="mi-id">142203</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Naji · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-CRANE-ROUGH-TERRAIN">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-CRANE-ROUGH-TERRAIN">▼</span>
-          <span class="cat-name">CRANE ROUGH TERRAIN</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">3 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-CRANE-ROUGH-TERRAIN"><div class="machine-item" id="item-123107">
-          <div class="mi-top">
-            <span class="mi-id">123107</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 821352 · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-140904">
-          <div class="mi-top">
-            <span class="mi-id">140904</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 C-8664 · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-140912">
-          <div class="mi-top">
-            <span class="mi-id">140912</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 C-8069 · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-EXCAVATOR-CRAWLER-HYDRAULIC">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-EXCAVATOR-CRAWLER-HYDRAULIC">▼</span>
-          <span class="cat-name">EXCAVATOR CRAWLER HYDRAULIC</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍1</span>
-          <span class="cat-count-total" title="Total">1 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-EXCAVATOR-CRAWLER-HYDRAULIC"><div class="machine-item" id="item-139495">
-          <div class="mi-top">
-            <span class="mi-id">139495</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Kassem · —</div>
-          <div class="mi-date">📅 Last report: 16/03/2026</div>
-        </div></div><div class="cat-header" id="ch-cat-FLOOD-LIGHT">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-FLOOD-LIGHT">▼</span>
-          <span class="cat-name">FLOOD LIGHT</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">2 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-FLOOD-LIGHT"><div class="machine-item" id="item-157276">
-          <div class="mi-top">
-            <span class="mi-id">157276</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 821433 · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-157315">
-          <div class="mi-top">
-            <span class="mi-id">157315</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 821433 · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-FORKLIFT">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-FORKLIFT">▼</span>
-          <span class="cat-name">FORKLIFT</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">1 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-FORKLIFT"><div class="machine-item" id="item-155927">
-          <div class="mi-top">
-            <span class="mi-id">155927</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Hasan · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-GENERATOR---DIESEL-ENGINE">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-GENERATOR---DIESEL-ENGINE">▼</span>
-          <span class="cat-name">GENERATOR - DIESEL ENGINE</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍1</span>
-          <span class="cat-count-total" title="Total">8 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-GENERATOR---DIESEL-ENGINE"><div class="machine-item" id="item-123647">
-          <div class="mi-top">
-            <span class="mi-id">123647</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 BArif · —</div>
-          <div class="mi-date">📅 Last report: 2026-10-02T21:00:00.000Z</div>
-        </div><div class="machine-item" id="item-119664">
-          <div class="mi-top">
-            <span class="mi-id">119664</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Mohamad Khaled · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-120295">
-          <div class="mi-top">
-            <span class="mi-id">120295</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Mohamad Khaled · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-120595">
-          <div class="mi-top">
-            <span class="mi-id">120595</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Barif Khan · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-130036">
-          <div class="mi-top">
-            <span class="mi-id">130036</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Barif Khan · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-131904">
-          <div class="mi-top">
-            <span class="mi-id">131904</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Imad Eloudaimy · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-150436">
-          <div class="mi-top">
-            <span class="mi-id">150436</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Mohamad Khaled · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-158223">
-          <div class="mi-top">
-            <span class="mi-id">158223</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 Mohamad Khaled · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-PICK-UP-DCABIN">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-PICK-UP-DCABIN">▼</span>
-          <span class="cat-name">PICK-UP D/CABIN</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍1</span>
-          <span class="cat-count-total" title="Total">3 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-PICK-UP-DCABIN"><div class="machine-item" id="item-155807">
-          <div class="mi-top">
-            <span class="mi-id">155807</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Naji · —</div>
-          <div class="mi-date">📅 Last report: 16/03/2026</div>
-        </div><div class="machine-item" id="item-155815">
-          <div class="mi-top">
-            <span class="mi-id">155815</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 C-1283 · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-155844">
-          <div class="mi-top">
-            <span class="mi-id">155844</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Bassem Elzouhbi · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-SALOON-CAR">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-SALOON-CAR">▼</span>
-          <span class="cat-name">SALOON CAR</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">1 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-SALOON-CAR"><div class="machine-item" id="item-123243">
-          <div class="mi-top">
-            <span class="mi-id">123243</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Jes · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-STATION-WAGON-LWB">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-STATION-WAGON-LWB">▼</span>
-          <span class="cat-name">STATION WAGON LWB</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">1 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-STATION-WAGON-LWB"><div class="machine-item" id="item-155763">
-          <div class="mi-top">
-            <span class="mi-id">155763</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 822264 · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-TRACTIVE-UNIT">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-TRACTIVE-UNIT">▼</span>
-          <span class="cat-name">TRACTIVE UNIT</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">3 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-TRACTIVE-UNIT"><div class="machine-item" id="item-126535">
-          <div class="mi-top">
-            <span class="mi-id">126535</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 FADEL HUSSEIN ALHAMDAN · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-126543">
-          <div class="mi-top">
-            <span class="mi-id">126543</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 SOHAIL ZAHID IQBAL · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-131103">
-          <div class="mi-top">
-            <span class="mi-id">131103</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 MOHAMAD YAKUF ANSARI · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-TRUCK---LOAD-CARRYING">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-TRUCK---LOAD-CARRYING">▼</span>
-          <span class="cat-name">TRUCK - LOAD CARRYING</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">2 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-TRUCK---LOAD-CARRYING"><div class="machine-item" id="item-158192">
-          <div class="mi-top">
-            <span class="mi-id">158192</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 SARABJIT SINGH · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-158207">
-          <div class="mi-top">
-            <span class="mi-id">158207</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 HARVINDER SINGH AMARJEET · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-TRUCK-LOAD-WCRANE">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-TRUCK-LOAD-WCRANE">▼</span>
-          <span class="cat-name">TRUCK LOAD W/CRANE</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">1 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-TRUCK-LOAD-WCRANE"><div class="machine-item" id="item-156767">
-          <div class="mi-top">
-            <span class="mi-id">156767</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 GURPREET SINGH · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-TRUCK-TANKER---WATER">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-TRUCK-TANKER---WATER">▼</span>
-          <span class="cat-name">TRUCK TANKER - WATER</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">3 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-TRUCK-TANKER---WATER"><div class="machine-item" id="item-139255">
-          <div class="mi-top">
-            <span class="mi-id">139255</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 JASWINDER HARMESH SINGH · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-139263">
-          <div class="mi-top">
-            <span class="mi-id">139263</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 JASWINDER HARMESH SINGH · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-139276">
-          <div class="mi-top">
-            <span class="mi-id">139276</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 JASWINDER HARMESH SINGH · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-TRUCK-TIPPER">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-TRUCK-TIPPER">▼</span>
-          <span class="cat-name">TRUCK TIPPER</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">3 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-TRUCK-TIPPER"><div class="machine-item" id="item-139156">
-          <div class="mi-top">
-            <span class="mi-id">139156</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 BAM BAHADUR · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-139172">
-          <div class="mi-top">
-            <span class="mi-id">139172</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 BAM BAHADUR · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div><div class="machine-item" id="item-139216">
-          <div class="mi-top">
-            <span class="mi-id">139216</span>
-            <span class="mi-status status-idle">Idle</span>
-          </div>
-          <div class="mi-meta">👷 BAM BAHADUR · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div><div class="cat-header" id="ch-cat-WELDING-MACHINE---DIESEL">
-        <div class="cat-header-left">
-          <span class="cat-arrow" id="arrow-cat-WELDING-MACHINE---DIESEL">▼</span>
-          <span class="cat-name">WELDING MACHINE - DIESEL</span>
-        </div>
-        <div class="cat-counts">
-          <span class="cat-count-gps" title="With GPS">📍0</span>
-          <span class="cat-count-total" title="Total">1 total</span>
-        </div>
-      </div><div class="cat-body" id="cb-cat-WELDING-MACHINE---DIESEL"><div class="machine-item" id="item-159932">
-          <div class="mi-top">
-            <span class="mi-id">159932</span>
-            <span class="mi-status status-working">Working</span>
-          </div>
-          <div class="mi-meta">👷 Mohamad Khaled · —</div>
-          <div class="mi-no-gps">📵 No GPS reported</div>
-        </div></div></div>
+    <div class="machine-list" id="machineList"></div>
   </div>
 
   <!-- Map -->
-  <div id="map" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative; outline-style: none;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(219px, 136px, 0px) scale(0.5);"></div><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 19; transform: translate3d(219px, 136px, 0px) scale(1);"><img alt="" src="./map_files/7002.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(304px, 19px, 0px); opacity: 1;"><img alt="" src="./map_files/7003.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(304px, 275px, 0px); opacity: 1;"><img alt="" src="./map_files/7002(1).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(48px, 19px, 0px); opacity: 1;"><img alt="" src="./map_files/7002(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(560px, 19px, 0px); opacity: 1;"><img alt="" src="./map_files/7003(1).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(48px, 275px, 0px); opacity: 1;"><img alt="" src="./map_files/7003(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(560px, 275px, 0px); opacity: 1;"><img alt="" src="./map_files/7001.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(48px, -237px, 0px); opacity: 1;"><img alt="" src="./map_files/7001(1).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(304px, -237px, 0px); opacity: 1;"><img alt="" src="./map_files/7002(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-208px, 19px, 0px); opacity: 1;"><img alt="" src="./map_files/7001(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-208px, -237px, 0px); opacity: 1;"><img alt="" src="./map_files/7001(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(560px, -237px, 0px); opacity: 1;"><img alt="" src="./map_files/7003(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-208px, 275px, 0px); opacity: 1;"><img alt="" src="./map_files/7002(4).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-464px, 19px, 0px); opacity: 1;"><img alt="" src="./map_files/7002(5).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(816px, 19px, 0px); opacity: 1;"><img alt="" src="./map_files/7001(4).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-464px, -237px, 0px); opacity: 1;"><img alt="" src="./map_files/7001(5).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(816px, -237px, 0px); opacity: 1;"><img alt="" src="./map_files/7003(4).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-464px, 275px, 0px); opacity: 1;"><img alt="" src="./map_files/7003(5).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(816px, 275px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -14px; margin-top: -38px; width: 28px; height: 38px; transform: translate3d(-962px, 1372px, 0px); z-index: 1372;"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="38" viewBox="0 0 28 38">
-      <path d="M14 0C6.27 0 0 6.27 0 14c0 9.33 14 24 14 24S28 23.33 28 14C28 6.27 21.73 0 14 0z" fill="#16a34a" stroke="#fff" stroke-width="2"></path>
-      <circle cx="14" cy="14" r="7" fill="#fff" opacity="0.9"></circle>
-    </svg></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -14px; margin-top: -38px; width: 28px; height: 38px; transform: translate3d(454px, 277px, 0px); z-index: 277;"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="38" viewBox="0 0 28 38">
-      <path d="M14 0C6.27 0 0 6.27 0 14c0 9.33 14 24 14 24S28 23.33 28 14C28 6.27 21.73 0 14 0z" fill="#16a34a" stroke="#fff" stroke-width="2"></path>
-      <circle cx="14" cy="14" r="7" fill="#fff" opacity="0.9"></circle>
-    </svg></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -14px; margin-top: -38px; width: 28px; height: 38px; transform: translate3d(457px, 273px, 0px); z-index: 273;"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="38" viewBox="0 0 28 38">
-      <path d="M14 0C6.27 0 0 6.27 0 14c0 9.33 14 24 14 24S28 23.33 28 14C28 6.27 21.73 0 14 0z" fill="#16a34a" stroke="#fff" stroke-width="2"></path>
-      <circle cx="14" cy="14" r="7" fill="#fff" opacity="0.9"></circle>
-    </svg></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -14px; margin-top: -38px; width: 28px; height: 38px; transform: translate3d(454px, 276px, 0px); z-index: 276;"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="38" viewBox="0 0 28 38">
-      <path d="M14 0C6.27 0 0 6.27 0 14c0 9.33 14 24 14 24S28 23.33 28 14C28 6.27 21.73 0 14 0z" fill="#d97706" stroke="#fff" stroke-width="2"></path>
-      <circle cx="14" cy="14" r="7" fill="#fff" opacity="0.9"></circle>
-    </svg></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -14px; margin-top: -38px; width: 28px; height: 38px; transform: translate3d(254px, -356px, 0px); z-index: -356;"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="38" viewBox="0 0 28 38">
-      <path d="M14 0C6.27 0 0 6.27 0 14c0 9.33 14 24 14 24S28 23.33 28 14C28 6.27 21.73 0 14 0z" fill="#16a34a" stroke="#fff" stroke-width="2"></path>
-      <circle cx="14" cy="14" r="7" fill="#fff" opacity="0.9"></circle>
-    </svg></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -14px; margin-top: -38px; width: 28px; height: 38px; transform: translate3d(-672993px, -432845px, 0px); z-index: -432845;"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="38" viewBox="0 0 28 38">
-      <path d="M14 0C6.27 0 0 6.27 0 14c0 9.33 14 24 14 24S28 23.33 28 14C28 6.27 21.73 0 14 0z" fill="#16a34a" stroke="#fff" stroke-width="2"></path>
-      <circle cx="14" cy="14" r="7" fill="#fff" opacity="0.9"></circle>
-    </svg></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -14px; margin-top: -38px; width: 28px; height: 38px; transform: translate3d(455px, 276px, 0px); z-index: 276;"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="38" viewBox="0 0 28 38">
-      <path d="M14 0C6.27 0 0 6.27 0 14c0 9.33 14 24 14 24S28 23.33 28 14C28 6.27 21.73 0 14 0z" fill="#16a34a" stroke="#fff" stroke-width="2"></path>
-      <circle cx="14" cy="14" r="7" fill="#fff" opacity="0.9"></circle>
-    </svg></div></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"><div class="leaflet-popup  leaflet-zoom-animated" style="opacity: 1; transform: translate3d(457px, 235px, 0px); bottom: -7px; left: -73px;"><div class="leaflet-popup-content-wrapper"><div class="leaflet-popup-content" style="width: 115px;">
-        <div class="popup-id">144196</div>
-        <div class="popup-row">🚜 <strong>BUS</strong></div>
-        <div class="popup-row">👷 <strong>Naji</strong></div>
-        <div class="popup-row">📍 <strong>—</strong></div>
-        <div class="popup-row">⚡ <strong style="color:#16a34a">Working</strong></div>
-        <div class="popup-date">Last report: 16/03/2026</div>
-      </div></div><div class="leaflet-popup-tip-container"><div class="leaflet-popup-tip"></div></div><a class="leaflet-popup-close-button" role="button" aria-label="Close popup" href="file:///C:/Users/Youssef.Ghadban/Downloads/map_5.html#close"><span aria-hidden="true">×</span></a></div></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(2.69782e+06px, 1.79268e+06px, 0px) scale(8192);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="file:///C:/Users/Youssef.Ghadban/Downloads/map_5.html#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="file:///C:/Users/Youssef.Ghadban/Downloads/map_5.html#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com/" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></div></div></div></div>
+  <div id="map"></div>
 </div>
 
 <script>
@@ -830,8 +385,10 @@
   // ── INIT MAP ────────────────────────────────────────
   function initMap() {
     map = L.map('map', { zoomControl: true }).setView([25.2854, 51.5310], 11); // Qatar default
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    // Primary: CartoDB (no subdomain issues, works on GitHub Pages)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd',
       maxZoom: 19
     }).addTo(map);
   }
@@ -891,7 +448,7 @@
 
     try {
       // Fetch last 3 months of sheets to get most recent location per machine
-      const sheets = getRecentSheets(3);
+      const sheets = getRecentSheets(6);
       const results = await Promise.all(
         sheets.map(s =>
           fetch(`${API_URL}?action=getEntriesBySheet&sheet=${encodeURIComponent(s)}`, { redirect: 'follow' })
@@ -919,9 +476,9 @@
         equipment_type: e.equipment_type || e['Equipment Type'] || e['equipment type'] || '',
         operator_id:    e.operator_id    || e['Operator ID']    || e['operator id']    || '',
         operator_name:  e.operator_name  || e['Operator Name']  || e['operator name']  || '',
-        project_site:   e.project_site   || e['Project/Site']   || e['project_site']   || e['Project / Site'] || '',
-        machine_status: e.machine_status || e['Machine Status'] || e['machine status'] || 'Working',
-        maps_link:      e.maps_link      || e['Maps Link']      || e['maps link']      || e.mapsLink || '',
+        project_site:   e.project_site   || e.project__site     || e['Project/Site']   || e['project_site']   || e['Project / Site'] || e['project__site'] || '',
+        machine_status: e.machine_status || e.machine__status   || e['Machine Status'] || e['machine status'] || 'Working',
+        maps_link:      e.maps_link      || e.maps__link        || e['Maps Link']      || e['maps link']      || e['maps_link']      || e.mapsLink || '',
         date:           e.date           || e['Date']           || '',
         time:           e.time           || e['Time']           || '',
         trade:          e.trade          || e['Trade']          || '',
@@ -1180,6 +737,5 @@
     loadData();
   });
 </script>
-
-
-</body></html>
+</body>
+</html>
