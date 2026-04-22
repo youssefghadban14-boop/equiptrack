@@ -908,31 +908,25 @@
       return;
     }
 
-    // Build a lookup from today entries for operator/type/project per machine
+    // Build machine info from all available sources
     const machineInfo = {};
-    allEntries.forEach(e => {
-      const id = String(e.machine_id || '');
-      if (!machineInfo[id]) {
-        machineInfo[id] = {
-          equipment_type: e.equipment_type || '',
-          operator_name:  e.operator_name  || e.operator_id || '',
-          trade:          e.trade          || '',
-          project_site:   e.project_site   || e.project__site || ''
-        };
-      }
-    });
-    // Fallback: enrich from fleet data
-    (fleet || allFleet || []).forEach(f => {
-      const id = String(f.machine_id || f['Machine ID'] || '');
-      if (!machineInfo[id]) {
-        machineInfo[id] = {
-          equipment_type: f.equipment_type || f['Equipment Type'] || '',
-          operator_name:  f.operator_name  || f['Operator Name'] || f.operator_id || f['Operator ID'] || '',
-          trade:          f.trade          || f['Trade'] || '',
-          project_site:   f.project_site   || f['Project/Site'] || ''
-        };
-      }
-    });
+
+    const fillInfo = (id, src) => {
+      if (!id) return;
+      if (!machineInfo[id]) machineInfo[id] = { equipment_type:'', operator_name:'', trade:'', project_site:'' };
+      const m = machineInfo[id];
+      if (!m.equipment_type) m.equipment_type = src.equipment_type || src.type || src['Equipment Type'] || '';
+      if (!m.operator_name)  m.operator_name  = src.operator_name  || src['Operator Name'] || src.operator_id || src.operator || '';
+      if (!m.trade)          m.trade          = src.trade || src['Trade'] || '';
+      if (!m.project_site)   m.project_site   = src.project_site || src.project__site || src.site || src['Project/Site'] || '';
+    };
+
+    // Priority 1: today entries (most current operator/project)
+    allEntries.forEach(e => fillInfo(String(e.machine_id || ''), e));
+    // Priority 2: historic entries (covers machines not active today)
+    (allHistoricEntries || []).forEach(e => fillInfo(String(e.machine_id || ''), e));
+    // Priority 3: fleet list fallback
+    (fleet || allFleet || []).forEach(f => fillInfo(String(f.id || f.machine_id || ''), f));
 
     // Sort by hours descending
     const sorted = [...hoursData].sort((a, b) => {
@@ -1148,8 +1142,9 @@
         sheets.map(s => fetchData('getEntriesBySheet', `&sheet=${encodeURIComponent(s)}`).catch(() => ({ entries: [] })))
       );
       allHistoricEntries = results.flatMap(r => r.entries || []);
-      // Re-render PM panel now that we have historic readings
+      // Re-render panels now that we have historic data
       renderPMStatus(allEntries);
+      renderWorkingHours(allFleet);
     } catch(e) {
       console.warn('Historic readings load failed:', e);
     }
