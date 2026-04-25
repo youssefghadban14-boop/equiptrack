@@ -306,10 +306,18 @@ async function apiGet(action,extra=''){
   return m?JSON.parse(m[0]):{};
 }
 async function apiPost(payload){
-  const res=await fetch(API_URL,{method:'POST',redirect:'follow',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-  const text=await res.text();
-  const m=text.match(/\{[\s\S]*\}/);
-  return m?JSON.parse(m[0]):{status:'error'};
+  // Send as GET with encoded params — avoids CORS preflight issues with Apps Script
+  const params = new URLSearchParams();
+  Object.entries(payload).forEach(([k,v]) => params.append(k, v));
+  const url = API_URL + '?adminAction=1&' + params.toString();
+  try {
+    const res = await fetch(url, {method:'GET', redirect:'follow'});
+    const text = await res.text();
+    const m = text.match(/\{[\s\S]*\}/);
+    return m ? JSON.parse(m[0]) : {status:'error', message:'No response'};
+  } catch(err) {
+    return {status:'error', message: err.message};
+  }
 }
 
 // ── LOGIN ──
