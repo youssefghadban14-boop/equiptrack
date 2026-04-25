@@ -214,7 +214,10 @@ tr.inactive-row td{opacity:.45}
       <input type="hidden" id="fleetEditId">
       <div class="field-row">
         <div class="fg"><label>Machine ID *</label><input type="text" id="fMachineId" placeholder="e.g. 155776"></div>
-        <div class="fg"><label>Equipment Type *</label><input type="text" id="fEquipType" placeholder="e.g. Excavator"></div>
+        <div class="fg"><label>Equipment Type *</label>
+          <input type="text" id="fEquipType" placeholder="Select or type..." list="equipTypeList" autocomplete="off">
+          <datalist id="equipTypeList"></datalist>
+        </div>
       </div>
       <div class="fg"><label>Reading Type *</label>
         <select id="fReadingType"><option value="Hourmeter">Hourmeter (HRS)</option><option value="Odometer">Odometer (KM)</option></select>
@@ -238,7 +241,10 @@ tr.inactive-row td{opacity:.45}
         <div class="fg"><label>Full Name *</label><input type="text" id="opName" placeholder="e.g. Ahmed Ali"></div>
       </div>
       <div class="field-row">
-        <div class="fg"><label>Trade *</label><input type="text" id="opTrade" placeholder="e.g. Heavy Equipment Operator"></div>
+        <div class="fg"><label>Trade *</label>
+          <input type="text" id="opTrade" placeholder="Select or type..." list="tradeList" autocomplete="off">
+          <datalist id="tradeList"></datalist>
+        </div>
         <div class="fg"><label>Role *</label>
           <select id="opRole"><option value="operator">Operator</option><option value="timekeeper">Timekeeper</option><option value="admin">Admin</option></select>
         </div>
@@ -271,7 +277,10 @@ tr.inactive-row td{opacity:.45}
         <div class="fg"><label>Service Interval *</label><input type="number" id="pmInterval" placeholder="e.g. 250"></div>
         <div class="fg"><label>Last Service Reading *</label><input type="number" id="pmLastReading" placeholder="e.g. 1750"></div>
       </div>
-      <div class="fg"><label>Last Service Date</label><input type="text" id="pmLastDate" placeholder="dd/MM/yyyy e.g. 15/03/2026"></div>
+      <div class="fg"><label>Last Service Date</label>
+        <input type="date" id="pmLastDate">
+        <div class="hint">Select date from the calendar</div>
+      </div>
       <div class="fg"><label>Notes</label><input type="text" id="pmNotes" placeholder="e.g. Oil & filter change"></div>
     </div>
     <div class="modal-footer">
@@ -387,6 +396,7 @@ async function loadAdminData(){
     renderFleet(allFleet);
     renderOperators(allOperators);
     renderPM(allPM);
+    populateDataLists();
   }catch(e){showToast('Failed to load: '+e.message,'error');}
 }
 
@@ -530,7 +540,7 @@ function openPMModal(pm){
   document.getElementById('pmReadingType').value=pm?pm.reading_type:'Hourmeter';
   document.getElementById('pmInterval').value=pm?pm.service_interval:'';
   document.getElementById('pmLastReading').value=pm?pm.last_service_reading:'';
-  document.getElementById('pmLastDate').value=pm?pm.last_service_date:'';
+  document.getElementById('pmLastDate').value=pm?toInputDate(pm.last_service_date):'';
   document.getElementById('pmNotes').value=pm?pm.notes:'';
   document.getElementById('pmMachineId').readOnly=!!pm;
   document.getElementById('pmModalTitle').textContent=pm?'Edit PM Record':'Add PM Record';
@@ -541,7 +551,7 @@ async function savePM(){
   const rt=document.getElementById('pmReadingType').value;
   const interval=document.getElementById('pmInterval').value;
   const lr=document.getElementById('pmLastReading').value;
-  const date=document.getElementById('pmLastDate').value.trim();
+  const date=fromInputDate(document.getElementById('pmLastDate').value.trim());
   const notes=document.getElementById('pmNotes').value.trim();
   if(!id||!interval||!lr){showToast('Machine ID, Interval and Last Reading are required','error');return;}
   const res=await apiPost({action:'adminSavePM',machine_id:id,reading_type:rt,service_interval:parseFloat(interval),last_service_reading:parseFloat(lr),last_service_date:date,notes});
@@ -594,6 +604,40 @@ function showToast(msg,type=''){
   const t=document.getElementById('toast');
   t.textContent=msg;t.className=type;t.style.display='block';
   clearTimeout(_tt);_tt=setTimeout(()=>t.style.display='none',3500);
+}
+
+// ── POPULATE DATALISTS ───────────────────────────────────
+function populateDataLists() {
+  // Equipment types from fleet
+  const types = [...new Set(allFleet.map(m => m.equipment_type).filter(Boolean))].sort();
+  const typeList = document.getElementById('equipTypeList');
+  if (typeList) {
+    typeList.innerHTML = types.map(t => `<option value="${t}">`).join('');
+  }
+
+  // Trades from operators
+  const trades = [...new Set(allOperators.map(o => o.trade).filter(Boolean))].sort();
+  const tradeList = document.getElementById('tradeList');
+  if (tradeList) {
+    tradeList.innerHTML = trades.map(t => `<option value="${t}">`).join('');
+  }
+}
+
+// ── DATE FORMAT HELPERS ───────────────────────────────────
+// Convert dd/MM/yyyy → yyyy-MM-dd (for date input)
+function toInputDate(ddmmyyyy) {
+  if (!ddmmyyyy) return '';
+  const parts = ddmmyyyy.split('/');
+  if (parts.length === 3) return `${parts[2]}-${parts[1]}-${parts[0]}`;
+  return '';
+}
+
+// Convert yyyy-MM-dd → dd/MM/yyyy (for Apps Script)
+function fromInputDate(yyyymmdd) {
+  if (!yyyymmdd) return '';
+  const parts = yyyymmdd.split('-');
+  if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  return '';
 }
 
 initLogin();
