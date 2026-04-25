@@ -573,9 +573,11 @@ function confirmDelete(type,id,label){
 function switchTab(tab){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
-  const cap=tab.charAt(0).toUpperCase()+tab.slice(1);
-  document.getElementById('tab'+cap).classList.add('active');
-  document.getElementById('section'+cap).classList.add('active');
+  // Map tab name to exact element IDs
+  const tabIds = { fleet:'tabFleet', operators:'tabOperators', pm:'tabPM' };
+  const secIds = { fleet:'sectionFleet', operators:'sectionOperators', pm:'sectionPM' };
+  document.getElementById(tabIds[tab]).classList.add('active');
+  document.getElementById(secIds[tab]).classList.add('active');
 }
 function filterTable(tbId,q,cols){
   q=q.toLowerCase().trim();
