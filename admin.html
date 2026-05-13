@@ -196,10 +196,10 @@ tr.inactive-row td{opacity:.45}
           <div class="panel-title">🔧 PM Schedule</div>
           <button class="add-btn" onclick="openPMModal()">+ Add PM Record</button>
         </div>
-        <div class="search-bar"><input type="text" placeholder="🔍 Search Machine ID..." oninput="filterTable('pmTbody',this.value,[0])"></div>
+        <div class="search-bar"><input type="text" placeholder="🔍 Search Machine ID or Equipment Type..." oninput="filterTable('pmTbody',this.value,[0,1])"></div>
         <div class="table-wrap">
-          <table><thead><tr><th>Machine ID</th><th>Reading Type</th><th>Service Interval</th><th>Last Service Reading</th><th>Last Service Date</th><th>Notes</th><th>Actions</th></tr></thead>
-          <tbody id="pmTbody"><tr><td colspan="7" style="text-align:center;padding:30px;color:var(--muted)"><span class="spinner-sm"></span>Loading...</td></tr></tbody></table>
+          <table><thead><tr><th>Machine ID</th><th>Equipment Type</th><th>Reading Type</th><th>Service Interval</th><th>Last Service Reading</th><th>Last Service Date</th><th>Notes</th><th>Actions</th></tr></thead>
+          <tbody id="pmTbody"><tr><td colspan="8" style="text-align:center;padding:30px;color:var(--muted)"><span class="spinner-sm"></span>Loading...</td></tr></tbody></table>
         </div>
       </div>
     </div>
@@ -508,11 +508,15 @@ async function restoreOperator(id){
 // ── PM ──
 function renderPM(data){
   const tb=document.getElementById('pmTbody');
-  if(!data.length){tb.innerHTML='<tr><td colspan="7"><div class="empty-state">No PM records found</div></td></tr>';return;}
+  if(!data.length){tb.innerHTML='<tr><td colspan="8"><div class="empty-state">No PM records found</div></td></tr>';return;}
   tb.innerHTML=data.map(p=>{
     const u=p.reading_type==='Odometer'?'KM':'HRS';
+    // Look up equipment type from Fleet List (PM Schedule doesn't store it)
+    const fleetMatch=allFleet.find(m=>String(m.machine_id)===String(p.machine_id));
+    const equipType=fleetMatch?(fleetMatch.equipment_type||'—'):'—';
     return `<tr>
       <td><strong style="font-family:'Barlow Condensed',sans-serif;font-size:15px">${p.machine_id}</strong></td>
+      <td style="font-size:12px;color:var(--text)">${equipType}</td>
       <td style="font-size:11px;color:var(--muted)">${p.reading_type||'—'}</td>
       <td><strong>${Number(p.service_interval||0).toLocaleString()} ${u}</strong></td>
       <td>${Number(p.last_service_reading||0).toLocaleString()} ${u}</td>
