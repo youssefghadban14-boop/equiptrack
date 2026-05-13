@@ -214,10 +214,7 @@ tr.inactive-row td{opacity:.45}
       <input type="hidden" id="fleetEditId">
       <div class="field-row">
         <div class="fg"><label>Machine ID *</label><input type="text" id="fMachineId" placeholder="e.g. 155776"></div>
-        <div class="fg"><label>Equipment Type *</label>
-          <input type="text" id="fEquipType" placeholder="Select or type..." list="equipTypeList" autocomplete="off">
-          <datalist id="equipTypeList"></datalist>
-        </div>
+        <div class="fg"><label>Equipment Type *</label><input type="text" id="fEquipType" placeholder="e.g. Excavator"></div>
       </div>
       <div class="fg"><label>Reading Type *</label>
         <select id="fReadingType"><option value="Hourmeter">Hourmeter (HRS)</option><option value="Odometer">Odometer (KM)</option></select>
@@ -241,10 +238,7 @@ tr.inactive-row td{opacity:.45}
         <div class="fg"><label>Full Name *</label><input type="text" id="opName" placeholder="e.g. Ahmed Ali"></div>
       </div>
       <div class="field-row">
-        <div class="fg"><label>Trade *</label>
-          <input type="text" id="opTrade" placeholder="Select or type..." list="tradeList" autocomplete="off">
-          <datalist id="tradeList"></datalist>
-        </div>
+        <div class="fg"><label>Trade *</label><input type="text" id="opTrade" placeholder="e.g. Heavy Equipment Operator"></div>
         <div class="fg"><label>Role *</label>
           <select id="opRole"><option value="operator">Operator</option><option value="timekeeper">Timekeeper</option><option value="admin">Admin</option></select>
         </div>
@@ -268,7 +262,7 @@ tr.inactive-row td{opacity:.45}
     <div class="modal-header"><div class="modal-title" id="pmModalTitle">Add PM Record</div><button class="modal-close" onclick="closeModal('pmModal')">✕</button></div>
     <div class="modal-body">
       <div class="field-row">
-        <div class="fg"><label>Machine ID *</label><input type="text" id="pmMachineId" placeholder="e.g. 155776"></div>
+        <div class="fg"><label>Machine ID *</label><select id="pmMachineId" onchange="onPMMachineChange()"><option value="">— Select Machine —</option></select></div>
         <div class="fg"><label>Reading Type *</label>
           <select id="pmReadingType"><option value="Hourmeter">Hourmeter (HRS)</option><option value="Odometer">Odometer (KM)</option></select>
         </div>
@@ -277,10 +271,7 @@ tr.inactive-row td{opacity:.45}
         <div class="fg"><label>Service Interval *</label><input type="number" id="pmInterval" placeholder="e.g. 250"></div>
         <div class="fg"><label>Last Service Reading *</label><input type="number" id="pmLastReading" placeholder="e.g. 1750"></div>
       </div>
-      <div class="fg"><label>Last Service Date</label>
-        <input type="date" id="pmLastDate">
-        <div class="hint">Select date from the calendar</div>
-      </div>
+      <div class="fg"><label>Last Service Date</label><input type="date" id="pmLastDate"></div>
       <div class="fg"><label>Notes</label><input type="text" id="pmNotes" placeholder="e.g. Oil & filter change"></div>
     </div>
     <div class="modal-footer">
@@ -396,7 +387,6 @@ async function loadAdminData(){
     renderFleet(allFleet);
     renderOperators(allOperators);
     renderPM(allPM);
-    populateDataLists();
   }catch(e){showToast('Failed to load: '+e.message,'error');}
 }
 
@@ -535,23 +525,62 @@ function renderPM(data){
     </tr>`;
   }).join('');
 }
+// ── Date format helpers (sheet uses dd/MM/yyyy, HTML date input uses yyyy-MM-dd) ──
+function ddmmyyyyToISO(s){
+  if(!s) return '';
+  s=String(s).trim();
+  // Already in yyyy-MM-dd format
+  if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  // dd/MM/yyyy or dd-MM-yyyy
+  const m=s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+  if(!m) return '';
+  const dd=m[1].padStart(2,'0'), mm=m[2].padStart(2,'0'), yyyy=m[3];
+  return `${yyyy}-${mm}-${dd}`;
+}
+function isoToDDMMYYYY(s){
+  if(!s) return '';
+  s=String(s).trim();
+  const m=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m) return s; // pass through anything unexpected
+  return `${m[3]}/${m[2]}/${m[1]}`;
+}
 function openPMModal(pm){
-  document.getElementById('pmMachineId').value=pm?pm.machine_id:'';
+  // ── Populate Machine ID dropdown with all ACTIVE machines, sorted by Machine ID ──
+  const sel=document.getElementById('pmMachineId');
+  const activeMachines=allFleet.filter(m=>m.status!=='Inactive').slice().sort((a,b)=>String(a.machine_id).localeCompare(String(b.machine_id),undefined,{numeric:true}));
+  sel.innerHTML='<option value="">— Select Machine —</option>'+activeMachines.map(m=>`<option value="${m.machine_id}" data-reading="${m.reading_type||'Hourmeter'}">${m.machine_id}${m.equipment_type?' — '+m.equipment_type:''}</option>`).join('');
+  // When editing, the existing machine might be Inactive — make sure it still appears as an option
+  if(pm&&!activeMachines.some(m=>String(m.machine_id)===String(pm.machine_id))){
+    const opt=document.createElement('option');
+    opt.value=pm.machine_id;
+    opt.textContent=pm.machine_id+' (not in fleet)';
+    opt.dataset.reading=pm.reading_type||'Hourmeter';
+    sel.appendChild(opt);
+  }
+  sel.value=pm?pm.machine_id:'';
+  sel.disabled=!!pm; // lock machine when editing existing record
   document.getElementById('pmReadingType').value=pm?pm.reading_type:'Hourmeter';
   document.getElementById('pmInterval').value=pm?pm.service_interval:'';
   document.getElementById('pmLastReading').value=pm?pm.last_service_reading:'';
-  document.getElementById('pmLastDate').value=pm?toInputDate(pm.last_service_date):'';
+  document.getElementById('pmLastDate').value=pm?ddmmyyyyToISO(pm.last_service_date):'';
   document.getElementById('pmNotes').value=pm?pm.notes:'';
-  document.getElementById('pmMachineId').readOnly=!!pm;
   document.getElementById('pmModalTitle').textContent=pm?'Edit PM Record':'Add PM Record';
   openModal('pmModal');
+}
+// Auto-fill Reading Type from Fleet List when a machine is selected (still editable afterwards)
+function onPMMachineChange(){
+  const sel=document.getElementById('pmMachineId');
+  const opt=sel.options[sel.selectedIndex];
+  if(opt&&opt.dataset.reading){
+    document.getElementById('pmReadingType').value=opt.dataset.reading;
+  }
 }
 async function savePM(){
   const id=document.getElementById('pmMachineId').value.trim();
   const rt=document.getElementById('pmReadingType').value;
   const interval=document.getElementById('pmInterval').value;
   const lr=document.getElementById('pmLastReading').value;
-  const date=fromInputDate(document.getElementById('pmLastDate').value.trim());
+  const date=isoToDDMMYYYY(document.getElementById('pmLastDate').value);
   const notes=document.getElementById('pmNotes').value.trim();
   if(!id||!interval||!lr){showToast('Machine ID, Interval and Last Reading are required','error');return;}
   const res=await apiPost({action:'adminSavePM',machine_id:id,reading_type:rt,service_interval:parseFloat(interval),last_service_reading:parseFloat(lr),last_service_date:date,notes});
@@ -604,40 +633,6 @@ function showToast(msg,type=''){
   const t=document.getElementById('toast');
   t.textContent=msg;t.className=type;t.style.display='block';
   clearTimeout(_tt);_tt=setTimeout(()=>t.style.display='none',3500);
-}
-
-// ── POPULATE DATALISTS ───────────────────────────────────
-function populateDataLists() {
-  // Equipment types from fleet
-  const types = [...new Set(allFleet.map(m => m.equipment_type).filter(Boolean))].sort();
-  const typeList = document.getElementById('equipTypeList');
-  if (typeList) {
-    typeList.innerHTML = types.map(t => `<option value="${t}">`).join('');
-  }
-
-  // Trades from operators
-  const trades = [...new Set(allOperators.map(o => o.trade).filter(Boolean))].sort();
-  const tradeList = document.getElementById('tradeList');
-  if (tradeList) {
-    tradeList.innerHTML = trades.map(t => `<option value="${t}">`).join('');
-  }
-}
-
-// ── DATE FORMAT HELPERS ───────────────────────────────────
-// Convert dd/MM/yyyy → yyyy-MM-dd (for date input)
-function toInputDate(ddmmyyyy) {
-  if (!ddmmyyyy) return '';
-  const parts = ddmmyyyy.split('/');
-  if (parts.length === 3) return `${parts[2]}-${parts[1]}-${parts[0]}`;
-  return '';
-}
-
-// Convert yyyy-MM-dd → dd/MM/yyyy (for Apps Script)
-function fromInputDate(yyyymmdd) {
-  if (!yyyymmdd) return '';
-  const parts = yyyymmdd.split('-');
-  if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
-  return '';
 }
 
 initLogin();
